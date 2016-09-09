@@ -1,5 +1,4 @@
 import cffi
-from collections import namedtuple
 
 ffi = cffi.FFI()
 ffi.cdef('''
@@ -456,7 +455,12 @@ class VixError(Exception):
         return "VixError #{0}".format(self._error)
 
 
-VixHandleType = namedtuple('VixHandleType', 'name value')
+def _blocking_job(f):
+    def decorator(*args, **kwargs):
+        job = f(*args, **kwargs)
+        VixJob(job).wait()
+
+    return decorator
 
 class VixHandle(object):
     VIX_INVALID_HANDLE = 0
@@ -706,6 +710,12 @@ class VixVM(VixHandle):
     VIX_INSTALLTOOLS_AUTO_UPGRADE = 0x01
     VIX_INSTALLTOOLS_RETURN_IMMEDIATELY = 0x02
 
+    VIX_VMPOWEROP_NORMAL = 0
+    VIX_VMPOWEROP_FROM_GUEST = 0x0004
+    VIX_VMPOWEROP_SUPPRESS_SNAPSHOT_POWERON = 0x0080
+    VIX_VMPOWEROP_LAUNCH_GUI = 0x0200
+    VIX_VMPOWEROP_START_VM_PAUSED = 0x1000
+
     def __init__(self, handle):
         super(VixVM, self).__init__(handle)
 
@@ -792,14 +802,51 @@ class VixVM(VixHandle):
     def logout(self):
         pass
 
+    @_blocking_job
     def pause(self):
-        pass
+        """Pauses the Virtual machine.
 
-    def power_off(self):
-        pass
+        This method is not supported by all VMware products.
+        """
 
-    def power_on(self):
-        pass
+        return vix.VixVM_Pause(
+            self._handle,
+            ffi.cast('int', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def power_off(self, options=VIX_VMPOWEROP_NORMAL):
+        """Powers off a VM.
+
+        Arguments:
+        options     should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        """
+
+        return vix.VixVM_PowerOff(
+            self._handle,
+            ffi.cast('VixVMPowerOpOptions', options),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def power_on(self, options=VIX_VMPOWEROP_NORMAL):
+        """Powers on a VM.
+
+        Arguments:
+        options     should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_LAUNCH_GUI.
+        """
+
+        return vix.VixVM_PowerOn(
+            self._handle,
+            ffi.cast('VixVMPowerOpOptions', options),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def var_read(self):
         pass
@@ -813,8 +860,20 @@ class VixVM(VixHandle):
     def file_rename(self):
         pass
 
-    def reset(self):
-        pass
+    @_blocking_job
+    def reset(self, options=VIX_VMPOWEROP_NORMAL):
+        """Resets a virtual machine.
+
+        Arguments:
+        options         Should be set to VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        """
+
+        return vix.VixVM_Reset(
+            self._handle,
+            ffi.cast('VixVMPowerOpOptions', options),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def snapshot_revert(self):
         pass
@@ -828,11 +887,31 @@ class VixVM(VixHandle):
     def share_set_state(self):
         pass
 
+    @_blocking_job
     def suspend(self):
-        pass
+        """Suspends a virtual machine."""
 
+        return vix.VixVM_Suspend(
+            self._handle,
+            ffi.cast('VixVMPowerOpOptions', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
     def unpause(self):
-        pass
+        """Resumes execution of a paused virtual machine.
+
+        This method is not supported by all Vmware products.
+        """
+
+        return vix.VixVM_Unpause(
+            self._handle,
+            ffi.cast('int', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def upgrade_virtual_hardware(self):
         pass
@@ -868,6 +947,14 @@ class VixHost(object):
         self._handle = None
 
     def connect(self, service_provider=VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
+        """Connects to a VMware host.
+
+        Arguments:
+        service_provider    Specifies the service to connect to, may be any of VIX_SERVICEPROVIDER_*.
+        host                A tuple (hostname, port).
+        credentials         A tuple (username, password).
+        """
+
         assert self._handle == None, 'Instance is already connected.'
 
         if not host:
@@ -894,12 +981,22 @@ class VixHost(object):
         self._handle = job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE)
 
     def disconnect(self):
+        """Disconnects from the host."""
+
         if self._handle:
             vix.VixHost_Disconnect(self._handle)
             VixHandle(self._handle).release()
             self._handle = None
 
     def register_vm(self, vmx_path):
+        """Registers a VM to host.
+
+        Arguments:
+        vmx_path        Path of VM configuration to register.
+        
+        This method is not supported by all VMware products.
+        """
+
         job = VixJob(vix.VixHost_RegisterVM(
             self._handle,
             ffi.cast('const char*', bytes(vmx_path, API_ENCODING)),
@@ -911,6 +1008,14 @@ class VixHost(object):
             raise VixError(error_code)
 
     def unregister_vm(self, vmx_path):
+        """Unregisters a VM from host.
+
+        Arguments:
+        vmx_path        Path of VM configuration to unregister.
+        
+        This method is not supported by all VMware products.
+        """
+
         job = VixJob(vix.VixHost_UnregisterVM(
             self._handle,
             ffi.cast('const char*', bytes(vmx_path, API_ENCODING)),
@@ -922,6 +1027,12 @@ class VixHost(object):
             raise VixError(error_code)
 
     def open_vm(self, vmx_path):
+        """Opens a VM in host.
+
+        Arguments:
+        vmx_path        Path to requested VM's configuration.
+        """
+
         assert self._handle is not None, 'Must be connected.'
 
         job = VixJob(vix.VixHost_OpenVM(
@@ -936,6 +1047,11 @@ class VixHost(object):
         return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
     def find_items(self, search_type=VIX_FIND_RUNNING_VMS):
+        """Finds VMs on host with requested citeria.
+
+        Arguments:
+        search_type         Any of VIX_FIND_*.
+        """
         job = VixJob(vix.VixHost_FindItems(
             self._handle,
             ffi.cast('VixFindItemType', search_type),
