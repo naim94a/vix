@@ -133,10 +133,6 @@ VixError VixSnapshot_GetChild(VixHandle parentSnapshotHandle, int index, VixHand
 VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapshotHandle);
 ''')
 
-@ffi.callback('void(*)(VixHandle, VixEventType, VixHandle, void *)')
-def vix_callback(handle, event_type, more_info, client_data):
-    pass
-
 # should be ascii for windows, utf8 for linux
 API_ENCODING = 'utf-8'
 vix = ffi.dlopen('/usr/lib/libvixAllProducts.so')
@@ -850,6 +846,9 @@ class VixVM(VixHandle):
     def __del__(self):
         self.release()
 
+@ffi.callback('void(*)(VixHandle, VixEventType, VixHandle, void*)')
+def _find_items_callback(job_handle, event_type, event_info, client_data):
+    pass
 
 class VixHost(object):
     VIX_API_VERSION = -1
@@ -864,7 +863,6 @@ class VixHost(object):
 
     VIX_FIND_RUNNING_VMS = 1
     VIX_FIND_REGISTERED_VMS = 4
-
 
     def __init__(self):
         self._handle = None
@@ -901,11 +899,27 @@ class VixHost(object):
             VixHandle(self._handle).release()
             self._handle = None
 
-    def register_vm(self):
-        pass
+    def register_vm(self, vmx_path):
+        job = VixJob(vix.VixHost_RegisterVM(
+            self._handle,
+            ffi.cast('const char*', bytes(vmx_path, API_ENCODING)),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+        error_code = job.wait()
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
 
-    def unregister_vm(self):
-        pass
+    def unregister_vm(self, vmx_path):
+        job = VixJob(vix.VixHost_UnregisterVM(
+            self._handle,
+            ffi.cast('const char*', bytes(vmx_path, API_ENCODING)),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+        error_code = job.wait()
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
 
     def open_vm(self, vmx_path):
         assert self._handle is not None, 'Must be connected.'
@@ -921,13 +935,19 @@ class VixHost(object):
 
         return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
-    def find_items(self):
+    def find_items(self, search_type=VIX_FIND_RUNNING_VMS):
+        job = VixJob(vix.VixHost_FindItems(
+            self._handle,
+            ffi.cast('VixFindItemType', search_type),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('int32', -1),
+            ffi.cast('VixEventProc*', _find_items_callback),
+            ffi.cast('void*', 0),
+        ))
 
-        @ffi.callback('void(VixHandle, VixEventType, VixHandle, void*)')
-        def _find_items_callback(job_handle, event_type, event_info, client_data):
-            pass
-
-        pass
+        error_code = job.wait()
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
 
     def __del__(self):
         self.disconnect()
