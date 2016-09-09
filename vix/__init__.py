@@ -36,7 +36,6 @@ typedef int VixMsgSharedFolderOptions;
 typedef int VixCloneType;
 typedef void VixEventProc(VixHandle handle, VixEventType eventType, VixHandle moreEventInfo, void *clientData);
 
-
 // VIX functions
 const char *Vix_GetErrorText(VixError err, const char *locale);
 
@@ -133,6 +132,10 @@ VixError VixSnapshot_GetNumChildren(VixHandle parentSnapshotHandle, int *numChil
 VixError VixSnapshot_GetChild(VixHandle parentSnapshotHandle, int index, VixHandle *childSnapshotHandle);
 VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapshotHandle);
 ''')
+
+@ffi.callback('void(*)(VixHandle, VixEventType, VixHandle, void *)')
+def vix_callback(handle, event_type, more_info, client_data):
+    pass
 
 # should be ascii for windows, utf8 for linux
 API_ENCODING = 'utf-8'
@@ -460,20 +463,22 @@ class VixError(Exception):
 VixHandleType = namedtuple('VixHandleType', 'name value')
 
 class VixHandle(object):
-    INVALID_HANDLE = 0
-    TYPES = (
-        VixHandleType(name='None', value=0),
-        VixHandleType(name='Host', value=2),
-        VixHandleType(name='VM', value=3),
-        VixHandleType(name='Network', value=5),
-        VixHandleType(name='Job', value=6),
-        VixHandleType(name='Snapshot', value=7),
-        VixHandleType(name='Property List', value=9),
-        VixHandleType(name='Metadata container', value=11),
-    )
+    VIX_INVALID_HANDLE = 0
+
+    VIX_HANDLETYPE_NONE = 0
+    VIX_HANDLETYPE_HOST = 2
+    VIX_HANDLETYPE_VM = 3
+    VIX_HANDLETYPE_NETWORK = 5
+    VIX_HANDLETYPE_JOB = 6
+    VIX_HANDLETYPE_SNAPSHOT = 7
+    VIX_HANDLETYPE_PROPERTY_LIST = 9
+    VIX_HANDLETYPE_METADATA_CONTAINER = 1
 
     def __init__(self, handle):
         self._handle = handle
+
+    def is_valid(self):
+        return self._handle is not None and self._handle != self.VIX_INVALID_HANDLE
 
     def get_type(self):
         return vix.Vix_GetHandleType(self._handle)
@@ -489,14 +494,91 @@ class VixPropertyList(object):
     pass
 
 
-class VixJob(object):
+class VixJob(VixHandle):
+    VIX_PROPERTYTYPE_ANY = 0
+    VIX_PROPERTYTYPE_INTEGER = 1
+    VIX_PROPERTYTYPE_STRING = 2
+    VIX_PROPERTYTYPE_BOOL = 3
+    VIX_PROPERTYTYPE_HANDLE = 4
+    VIX_PROPERTYTYPE_INT64 = 5
+    VIX_PROPERTYTYPE_BLOB = 6
+
+    VIX_PROPERTY_NONE = 0
+    VIX_PROPERTY_META_DATA_CONTAINER = 2
+    VIX_PROPERTY_HOST_HOSTTYPE = 50
+    VIX_PROPERTY_HOST_API_VERSION = 51
+    VIX_PROPERTY_HOST_SOFTWARE_VERSION = 52
+    VIX_PROPERTY_VM_NUM_VCPUS = 101
+    VIX_PROPERTY_VM_VMX_PATHNAME = 103
+    VIX_PROPERTY_VM_VMTEAM_PATHNAME = 105
+    VIX_PROPERTY_VM_MEMORY_SIZE = 106
+    VIX_PROPERTY_VM_READ_ONLY = 107
+    VIX_PROPERTY_VM_NAME = 108
+    VIX_PROPERTY_VM_GUESTOS = 109
+    VIX_PROPERTY_VM_IN_VMTEAM = 128
+    VIX_PROPERTY_VM_POWER_STATE = 129
+    VIX_PROPERTY_VM_TOOLS_STATE = 152
+    VIX_PROPERTY_VM_IS_RUNNING = 196
+    VIX_PROPERTY_VM_SUPPORTED_FEATURES = 197
+    VIX_PROPERTY_VM_SSL_ERROR = 293
+    VIX_PROPERTY_JOB_RESULT_ERROR_CODE = 3000
+    VIX_PROPERTY_JOB_RESULT_VM_IN_GROUP = 3001
+    VIX_PROPERTY_JOB_RESULT_USER_MESSAGE = 3002
+    VIX_PROPERTY_JOB_RESULT_EXIT_CODE = 3004
+    VIX_PROPERTY_JOB_RESULT_COMMAND_OUTPUT = 3005
+    VIX_PROPERTY_JOB_RESULT_HANDLE = 3010
+    VIX_PROPERTY_JOB_RESULT_GUEST_OBJECT_EXISTS = 3011
+    VIX_PROPERTY_JOB_RESULT_GUEST_PROGRAM_ELAPSED_TIME = 3017
+    VIX_PROPERTY_JOB_RESULT_GUEST_PROGRAM_EXIT_CODE = 3018
+    VIX_PROPERTY_JOB_RESULT_ITEM_NAME = 3035
+    VIX_PROPERTY_JOB_RESULT_FOUND_ITEM_DESCRIPTION = 3036
+    VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_COUNT = 3046
+    VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_HOST = 3048
+    VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_FLAGS = 3049
+    VIX_PROPERTY_JOB_RESULT_PROCESS_ID = 3051
+    VIX_PROPERTY_JOB_RESULT_PROCESS_OWNER = 3052
+    VIX_PROPERTY_JOB_RESULT_PROCESS_COMMAND = 3053
+    VIX_PROPERTY_JOB_RESULT_FILE_FLAGS = 3054
+    VIX_PROPERTY_JOB_RESULT_PROCESS_START_TIME = 3055
+    VIX_PROPERTY_JOB_RESULT_VM_VARIABLE_STRING = 3056
+    VIX_PROPERTY_JOB_RESULT_PROCESS_BEING_DEBUGGED = 3057
+    VIX_PROPERTY_JOB_RESULT_SCREEN_IMAGE_SIZE = 3058
+    VIX_PROPERTY_JOB_RESULT_SCREEN_IMAGE_DATA = 3059
+    VIX_PROPERTY_JOB_RESULT_FILE_SIZE = 3061
+    VIX_PROPERTY_JOB_RESULT_FILE_MOD_TIME = 3062
+    VIX_PROPERTY_JOB_RESULT_EXTRA_ERROR_INFO = 3084
+    VIX_PROPERTY_FOUND_ITEM_LOCATION = 4010
+    VIX_PROPERTY_SNAPSHOT_DISPLAYNAME = 4200
+    VIX_PROPERTY_SNAPSHOT_DESCRIPTION = 4201
+    VIX_PROPERTY_SNAPSHOT_POWERSTATE = 4205
+    VIX_PROPERTY_GUEST_SHAREDFOLDERS_SHARES_PATH = 4525
+    VIX_PROPERTY_VM_ENCRYPTION_PASSWORD = 7001
+
     def __init__(self, handle):
-        self._handle = handle
+        super(VixJob, self).__init__(handle)
+        assert self.get_type() == VixHandle.VIX_HANDLETYPE_JOB, 'Expected VixJob handle.'
 
     def wait(self, *args):
-        error_code = vix.VixJob_Wait(self._handle, *args)
+        c_args = list()
+        ret_data = list()
+
+        for arg in args:
+            c_args.append(ffi.cast('VixPropertyType', arg))
+
+            # TODO: Check the arg type and allocate accordingly...
+            alloc = ffi.new('int*')
+            ret_data.append(alloc)
+            c_args.append(alloc)
+
+        c_args.append(ffi.cast('VixPropertyType', self.VIX_PROPERTY_NONE))
+
+        error_code = vix.VixJob_Wait(self._handle, *c_args)
         if error_code != VixError.VIX_OK:
             raise VixError(error_code)
+
+        # deref data...
+        result = [res[0] for res in ret_data]
+        return result[0] if len(result) == 1 else result
 
     def is_done(self):
         result = ffi.new('Bool*')
@@ -533,12 +615,13 @@ class VixJob(object):
             raise VixError(error_code)
 
     def __del__(self):
-        vix.Vix_ReleaseHandle(self._handle)
+        self.release()
 
 
-class VixSnapshot(object):
+class VixSnapshot(VixHandle):
     def __init__(self, handle):
-        self._handle = handle
+        super(VixSnapshot, self).__init__(handle)
+        assert self.get_type() == VixHandle.VIX_HANDLETYPE_SNAPSHOT, 'Expected VixSnapshot handle.'
 
     def get_num_children(self):
         child_count = ffi.new('int*')
@@ -578,7 +661,7 @@ class VixSnapshot(object):
         return VixSnapshot(parent_handle[0])
 
 
-class VixVM(object):
+class VixVM(VixHandle):
     VIX_VMDELETE_DISK_FILES = 0x0002
 
     VIX_POWERSTATE_POWERING_OFF = 0x0001
@@ -627,6 +710,146 @@ class VixVM(object):
     VIX_INSTALLTOOLS_AUTO_UPGRADE = 0x01
     VIX_INSTALLTOOLS_RETURN_IMMEDIATELY = 0x02
 
+    def __init__(self, handle):
+        super(VixVM, self).__init__(handle)
+
+        assert self.get_type() == VixHandle.VIX_HANDLETYPE_VM, 'Expected VixVM handle.'
+
+    def add_shared_folder(self):
+        pass
+
+    def capture_screen_image(self):
+        pass
+
+    def clone(self):
+        pass
+
+    def copy_guest_to_host(self):
+        pass
+
+    def copy_host_to_guest(self):
+        pass
+
+    def create_directory(self):
+        pass
+
+    def create_snapshot(self):
+        pass
+
+    def create_temp(self):
+        pass
+
+    def vm_delete(self):
+        pass
+
+    def dir_delete(self):
+        pass
+
+    def file_delete(self):
+        pass
+
+    def dir_exists(self):
+        pass
+
+    def share_enable(self):
+        pass
+
+    def file_exists(self):
+        pass
+
+    def snapshot_get_current(self):
+        pass
+
+    def get_file_info(self):
+        pass
+
+    def snapshot_get_named(self):
+        pass
+
+    def get_num_root_snapshots(self):
+        pass
+
+    def get_num_shared_folders(self):
+        pass
+
+    def get_root_snapshot(self):
+        pass
+
+    def get_shared_folder_state(self):
+        pass
+
+    def install_tools(self):
+        pass
+
+    def proc_kill(self):
+        pass
+
+    def dir_list(self):
+        pass
+
+    def proc_list(self):
+        pass
+
+    def login(self):
+        pass
+
+    def logout(self):
+        pass
+
+    def pause(self):
+        pass
+
+    def power_off(self):
+        pass
+
+    def power_on(self):
+        pass
+
+    def var_read(self):
+        pass
+
+    def share_remove(self):
+        pass
+
+    def snapshot_remove(self):
+        pass
+
+    def file_rename(self):
+        pass
+
+    def reset(self):
+        pass
+
+    def snapshot_revert(self):
+        pass
+
+    def proc_run(self):
+        pass
+
+    def run_script(self):
+        pass
+
+    def share_set_state(self):
+        pass
+
+    def suspend(self):
+        pass
+
+    def unpause(self):
+        pass
+
+    def upgrade_virtual_hardware(self):
+        pass
+
+    def wait_for_tools(self):
+        pass
+
+    def var_write(self):
+        pass
+
+    def __del__(self):
+        self.release()
+
 
 class VixHost(object):
     VIX_API_VERSION = -1
@@ -646,7 +869,9 @@ class VixHost(object):
     def __init__(self):
         self._handle = None
 
-    def connect(self, service_provider=VixHost.VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
+    def connect(self, service_provider=VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
+        assert self._handle == None, 'Instance is already connected.'
+
         if not host:
             host = (None, 0, )
         if not credentials:
@@ -655,8 +880,8 @@ class VixHost(object):
         assert len(host) == 2 and type(host) == tuple, 'Host must be a tuple of size 2'
         assert len(credentials) == 2 and type(credentials) == tuple, 'Credentials must be a tuple of size 2'
 
-        job = vix.VixHost_Connect(
-            VixHost.VIX_API_VERSION,
+        job = VixJob(vix.VixHost_Connect(
+            self.VIX_API_VERSION,
             service_provider,
             ffi.cast('const char*', bytes(host[0], API_ENCODING) if host[0] else 0),
             host[1],
@@ -664,15 +889,16 @@ class VixHost(object):
             ffi.cast('const char*', bytes(credentials[1], API_ENCODING) if credentials[1] else 0),
             0,
             0,
-            0,
-            0,
-        )
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
 
-
+        self._handle = job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE)
 
     def disconnect(self):
         if self._handle:
             vix.VixHost_Disconnect(self._handle)
+            VixHandle(self._handle).release()
             self._handle = None
 
     def register_vm(self):
@@ -684,18 +910,23 @@ class VixHost(object):
     def open_vm(self, vmx_path):
         assert self._handle is not None, 'Must be connected.'
 
-        handle = vix.VixHost_OpenVM(
+        job = VixJob(vix.VixHost_OpenVM(
             self._handle,
             ffi.new('char[]', bytes(vmx_path, API_ENCODING)),
-            0, # Options = Normal
-            0, # propertyList = NULL
-            0, # EventProc = NULL
-            0, # clientData = None
-        )
+            0,
+            0,
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
 
-        return VixJob(handle)
+        return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
     def find_items(self):
+
+        @ffi.callback('void(VixHandle, VixEventType, VixHandle, void*)')
+        def _find_items_callback(job_handle, event_type, event_info, client_data):
+            pass
+
         pass
 
     def __del__(self):
