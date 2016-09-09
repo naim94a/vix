@@ -454,13 +454,13 @@ class VixError(Exception):
     def __repr__(self):
         return "VixError #{0}".format(self._error)
 
-
 def _blocking_job(f):
     def decorator(*args, **kwargs):
         job = f(*args, **kwargs)
         VixJob(job).wait()
 
     return decorator
+
 
 class VixHandle(object):
     VIX_INVALID_HANDLE = 0
@@ -721,87 +721,7 @@ class VixVM(VixHandle):
 
         assert self.get_type() == VixHandle.VIX_HANDLETYPE_VM, 'Expected VixVM handle.'
 
-    def add_shared_folder(self):
-        pass
-
-    def capture_screen_image(self):
-        pass
-
-    def clone(self):
-        pass
-
-    def copy_guest_to_host(self):
-        pass
-
-    def copy_host_to_guest(self):
-        pass
-
-    def create_directory(self):
-        pass
-
-    def create_snapshot(self):
-        pass
-
-    def create_temp(self):
-        pass
-
-    def vm_delete(self):
-        pass
-
-    def dir_delete(self):
-        pass
-
-    def file_delete(self):
-        pass
-
-    def dir_exists(self):
-        pass
-
-    def share_enable(self):
-        pass
-
-    def file_exists(self):
-        pass
-
-    def snapshot_get_current(self):
-        pass
-
-    def get_file_info(self):
-        pass
-
-    def snapshot_get_named(self):
-        pass
-
-    def get_num_root_snapshots(self):
-        pass
-
-    def get_num_shared_folders(self):
-        pass
-
-    def get_root_snapshot(self):
-        pass
-
-    def get_shared_folder_state(self):
-        pass
-
-    def install_tools(self):
-        pass
-
-    def proc_kill(self):
-        pass
-
-    def dir_list(self):
-        pass
-
-    def proc_list(self):
-        pass
-
-    def login(self):
-        pass
-
-    def logout(self):
-        pass
-
+    # Power
     @_blocking_job
     def pause(self):
         """Pauses the Virtual machine.
@@ -848,18 +768,6 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def var_read(self):
-        pass
-
-    def share_remove(self):
-        pass
-
-    def snapshot_remove(self):
-        pass
-
-    def file_rename(self):
-        pass
-
     @_blocking_job
     def reset(self, options=VIX_VMPOWEROP_NORMAL):
         """Resets a virtual machine.
@@ -874,18 +782,6 @@ class VixVM(VixHandle):
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
-
-    def snapshot_revert(self):
-        pass
-
-    def proc_run(self):
-        pass
-
-    def run_script(self):
-        pass
-
-    def share_set_state(self):
-        pass
 
     @_blocking_job
     def suspend(self):
@@ -913,13 +809,148 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def upgrade_virtual_hardware(self):
+    # Snapshots
+    def clone(self):
         pass
 
-    def wait_for_tools(self):
+    def create_snapshot(self):
+        pass
+
+    def snapshot_get_current(self):
+        pass
+
+    def snapshot_get_named(self):
+        pass
+
+    def get_num_root_snapshots(self):
+        pass
+
+    def get_root_snapshot(self):
+        pass
+
+    def snapshot_revert(self):
+        pass
+
+    def snapshot_remove(self):
+        pass
+
+    # Guest & Host file mgmt.
+    def copy_guest_to_host(self):
+        pass
+
+    def copy_host_to_guest(self):
+        pass
+
+    def create_directory(self):
+        pass
+
+    def create_temp(self):
+        pass
+
+    def file_rename(self):
+        pass
+
+    def dir_delete(self):
+        pass
+
+    def file_delete(self):
+        pass
+
+    def dir_exists(self):
+        pass
+
+    def file_exists(self):
+        pass
+
+    def get_file_info(self):
+        pass
+
+    def dir_list(self):
+        pass
+
+    # Guest execution
+    def proc_kill(self):
+        pass
+
+    def proc_list(self):
+        pass
+
+    def login(self):
+        pass
+
+    def logout(self):
+        pass
+
+    def proc_run(self):
+        pass
+
+    def run_script(self):
+        pass
+
+
+    # Share mgmt.
+    def add_shared_folder(self):
+        pass
+
+    def share_enable(self):
+        pass
+
+    def get_num_shared_folders(self):
+        pass
+
+    def get_shared_folder_state(self):
+        pass
+
+    def share_remove(self):
+        pass
+
+    def share_set_state(self):
+        pass
+
+    # VM environment.
+    def var_read(self):
         pass
 
     def var_write(self):
+        pass
+
+    # Misc. methods
+    @_blocking_job
+    def upgrade_virtual_hardware(self):
+        """Upgrades virtual hardware of a virtual machine.
+
+        This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_UpgradeVirtualHardware(
+            self._handle,
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    def vm_delete(self):
+        pass
+
+    def capture_screen_image(self):
+        pass
+
+    # VMware tools
+    @_blocking_job
+    def wait_for_tools(self, timeout=0):
+        """Waits for VMware tools to start in guest.
+
+        Arguments:
+        timeout         Zero or negative will block forever, Raises an exception if timeout expired.
+        """
+        return vix.VixVM_WaitForToolsInGuest(
+            self._handle,
+            ffi.cast('int', timeout),
+            ffi.cast('VixEventProc', 0),
+            ffi.cast('void*', 0),
+        )
+
+    def install_tools(self):
         pass
 
     def __del__(self):
