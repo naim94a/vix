@@ -1063,8 +1063,20 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def vm_delete(self):
-        pass
+    @_blocking_job
+    def vm_delete(self, options=0):
+        """Deletes VM from host.
+
+        Arguments:
+        options         settings to VIX_VMDELETE_DISK_FILES will delete associated files.
+        """
+
+        return vix.VixVM_Delete(
+            self._handle,
+            ffi.cast('VixVMDeleteOptions', options),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def capture_screen_image(self):
         pass
