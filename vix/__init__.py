@@ -810,29 +810,164 @@ class VixVM(VixHandle):
         )
 
     # Snapshots
-    def clone(self):
-        pass
+    def clone(self, dest_vmx, snapshot=None, clone_type=VIX_CLONETYPE_LINKED):
+        """Clones the VM to a specified location.
 
-    def create_snapshot(self):
-        pass
+        Arguments:
+        dest_vms        The clone will be stored here.
+        snapshot        Optional snapshot as the state of the clone.
+        clone_type      Must be VIX_CLONETYPE_FULL or VIX_CLONETYPE_LINKED.
+
+        This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_Clone(
+            self._handle,
+            ffi.cast('VixHandle', snapshot._handle if snapshot else 0),
+            ffi.cast('VixCloneType', clone_type),
+            ffi.cast('const char*', bytes(dest_vms, API_ENCODING)),
+            ffi.cast('VixCloneOptions', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
+
+    def create_snapshot(self, name=None, description=None, options=VIX_SNAPSHOT_INCLUDE_MEMORY):
+        """Create a VM snapshot.
+
+        Arguments:
+        name            Name of snapshot
+        description     Snapshot description
+        options         Zero or VIX_SNAPSHOT_INCLUDE_MEMORY to include RAM.
+
+        This method is not supported by all VMware products.
+        """
+        job = VixJob(vix.VixVM_CreateSnapshot(
+            self._handle,
+            ffi.cast('const char*', bytes(name, API_ENCODING) if name else 0),
+            ffi.cast('const char*', bytes(description, API_ENCODING) if description else 0),
+            ffi.cast('int', options),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+        return VixSnapshot(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
     def snapshot_get_current(self):
-        pass
+        """Gets the VMs current active snapshot.
 
-    def snapshot_get_named(self):
-        pass
+        This method is not supported by all VMware products.
+        """
 
-    def get_num_root_snapshots(self):
-        pass
+        snapshot_handle = ffi.new('VixHandle*')
+        error_code = vix.VixVM_GetCurrentSnapshot(
+            self._handle,
+            snapshot_handle,
+        )
 
-    def get_root_snapshot(self):
-        pass
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
 
-    def snapshot_revert(self):
-        pass
+        return VixSnapshot(snapshot_handle[0])
 
-    def snapshot_remove(self):
-        pass
+    def snapshot_get_named(self, name):
+        """Gets a snapshot matching the given name.
+
+        Arguments:
+        name            Name of the snapshot to get.
+
+        This method is not supported by all VMware products.
+        """
+
+        snapshot_handle = ffi.new('VixHandle*')
+        error_code = vix.VixVM_GetNamedSnapshot(
+            self._handle,
+            ffi.cast('const char[]', bytes(name, API_ENCODING)),
+            snapshot_handle,
+        )
+
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
+
+        return VixSnapshot(snapshot_handle[0])
+
+    def snapshots_get_root_count(self):
+        """Gets the count of root snapshots the VM owns.
+
+        This method is not supported by all VMware products.
+        """
+
+        result = ffi.new('int*')
+        error_code = vix.VixVM_GetNumRootSnapshots(
+            self._handle,
+            result,
+        )
+
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
+
+        return result[0]
+
+    def snapshot_get_root(self, index=0):
+        """Gets the specified VM Snapshot.
+
+        Arguments:
+        index           zero based snapshot index.
+
+        This methoid is not supported in all VMware products.
+        """
+        snapshot_handle = ffi.new('VixHandle*')
+        error_code = vix.VixVM_GetRootSnapshot(
+            self._handle,
+            ffi.cast('int', index),
+            snapshot_handle,
+        )
+
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
+
+        return VixSnapshot(snapshot_handle[0])
+
+    @_blocking_job
+    def snapshot_revert(self, snapshot, options=0):
+        """Revet VM state to specified snapshot.
+
+        Arguments:
+        snapshots       The snapshot to revert to.
+        options         Any of VIX_VMPOWEROP_*, VIX_VMPOWEROP_SUPPRESS_SNAPSHOT_POWERON is mutually exclusive.
+
+        This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_RevertToSnapshot(
+            self._handle,
+            snapshot._handle,
+            ffi.cast('int', options),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def snapshot_remove(self, snapshot, options=0):
+        """Removed specified snapshot from VM.
+
+        Arguments:
+        snapshot        The snapshot to remove.
+        options         0 or VIX_SNAPSHOT_REMOVE_CHILDREN to remove child snapshots too.
+
+        This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_RemoveSnapshot(
+            self._handle,
+            snapshot._handle,
+            ffi.cast('int', options),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     # Guest & Host file mgmt.
     def copy_guest_to_host(self):
@@ -886,7 +1021,6 @@ class VixVM(VixHandle):
 
     def run_script(self):
         pass
-
 
     # Share mgmt.
     def add_shared_folder(self):
