@@ -490,10 +490,6 @@ class VixHandle(object):
         vix.Vix_ReleaseHandle(self._handle)
 
 
-class VixPropertyList(object):
-    pass
-
-
 class VixJob(VixHandle):
     VIX_PROPERTYTYPE_ANY = 0
     VIX_PROPERTYTYPE_INTEGER = 1
@@ -971,82 +967,82 @@ class VixVM(VixHandle):
 
     # Guest & Host file mgmt.
     def copy_guest_to_host(self):
-        pass
+        raise NotImplemented()
 
     def copy_host_to_guest(self):
-        pass
+        raise NotImplemented()
 
     def create_directory(self):
-        pass
+        raise NotImplemented()
 
     def create_temp(self):
-        pass
+        raise NotImplemented()
 
     def file_rename(self):
-        pass
+        raise NotImplemented()
 
     def dir_delete(self):
-        pass
+        raise NotImplemented()
 
     def file_delete(self):
-        pass
+        raise NotImplemented()
 
     def dir_exists(self):
-        pass
+        raise NotImplemented()
 
     def file_exists(self):
-        pass
+        raise NotImplemented()
 
     def get_file_info(self):
-        pass
+        raise NotImplemented()
 
     def dir_list(self):
-        pass
+        raise NotImplemented()
 
     # Guest execution
     def proc_kill(self):
-        pass
+        raise NotImplemented()
 
     def proc_list(self):
-        pass
+        raise NotImplemented()
 
     def login(self):
-        pass
+        raise NotImplemented()
 
     def logout(self):
-        pass
+        raise NotImplemented()
 
     def proc_run(self):
-        pass
+        raise NotImplemented()
 
     def run_script(self):
-        pass
+        raise NotImplemented()
 
     # Share mgmt.
     def add_shared_folder(self):
-        pass
+        raise NotImplemented()
 
     def share_enable(self):
-        pass
+        raise NotImplemented()
 
     def get_num_shared_folders(self):
-        pass
+        raise NotImplemented()
 
     def get_shared_folder_state(self):
-        pass
+        raise NotImplemented()
 
     def share_remove(self):
-        pass
+        raise NotImplemented()
 
     def share_set_state(self):
-        pass
+        raise NotImplemented()
 
     # VM environment.
     def var_read(self):
-        pass
+        raise NotImplemented()
 
     def var_write(self):
-        pass
+        raise NotImplemented()
 
     # Misc. methods
     @_blocking_job
@@ -1079,7 +1075,7 @@ class VixVM(VixHandle):
         )
 
     def capture_screen_image(self):
-        pass
+        raise NotImplemented()
 
     # VMware tools
     @_blocking_job
@@ -1097,7 +1093,7 @@ class VixVM(VixHandle):
         )
 
     def install_tools(self):
-        pass
+        raise NotImplemented()
 
     def __del__(self):
         self.release()
