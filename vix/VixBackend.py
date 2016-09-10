@@ -1,6 +1,12 @@
 import cffi
+import platform
+
 
 class VixBackend(object):
+	"""This class creates the ffi and vix objects that will be used by other classes of this module.
+
+	.. note:: Internal use.
+	"""
 	def __init__(self):
 		self._ffi = cffi.FFI()
 
@@ -134,4 +140,21 @@ VixError VixSnapshot_GetNumChildren(VixHandle parentSnapshotHandle, int *numChil
 VixError VixSnapshot_GetChild(VixHandle parentSnapshotHandle, int index, VixHandle *childSnapshotHandle);
 VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapshotHandle);
 		''')
-		self._vix = self._ffi.dlopen(r'C:\Program Files (x86)\VMware\VMware VIX\Vix64AllProductsDyn.dll')
+		self._vix = self._ffi.dlopen(VixBackend._get_vix_path())
+
+	@staticmethod
+	def _get_vix_path():
+		os_name = platform.system()
+
+		if os_name == 'Linux':
+			return '/usr/lib/libvixAllProducts.so'
+		elif os_name == 'Windows':
+			arch = platform.architecture()[0].lower()
+			if arch == '64bit':
+				return r'C:\Program Files (x86)\VMware\VMware VIX\Vix64AllProductsDyn.dll'
+			elif arch == '32bit':
+				return r'C:\Program Files\VMware\VMware VIX\VixAllProductsDyn.dll'
+			else:
+				raise NotImplemented('VixAllProductsDyn.dll could not be found.')
+		else:
+			raise NotImplemented("This VIX wrapper doesn't cover this OS")
