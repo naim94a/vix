@@ -6,9 +6,38 @@ from vix import _backend, API_ENCODING
 vix = _backend._vix
 ffi = _backend._ffi
 
+_find_results = dict()
+
 @ffi.callback('void(*)(VixHandle, VixEventType, VixHandle, void*)')
 def _find_items_callback(job_handle, event_type, event_info, client_data):
-    pass
+    """Callback that collects found VMs.
+
+    .. note:: Internal use.
+    """
+
+    VIX_EVENTTYPE_JOB_COMPLETED = 2
+    VIX_EVENTTYPE_JOB_PROGRESS = 3
+    VIX_EVENTTYPE_FIND_ITEM = 8
+
+    if event_type != VIX_EVENTTYPE_FIND_ITEM:
+        return
+
+    idx = int(ffi.cast('int', client_data))
+    str_ptr = ffi.new('char**')
+
+    error_code = vix.Vix_GetProperties(
+        ffi.cast('VixHandle', event_info),
+        ffi.cast('VixPropertyID', VixJob.VIX_PROPERTY_FOUND_ITEM_LOCATION),
+        ffi.cast('char**', str_ptr),
+        ffi.cast('VixPropertyID', VixJob.VIX_PROPERTY_NONE),
+    )
+
+    if error_code != VixError.VIX_OK:
+        return
+
+    _find_results[idx].append(ffi.string(str_ptr[0]))
+    vix.Vix_FreeBuffer(str_ptr[0])
+
 
 class VixHost(object):
     """Represents a VMware virtualization host."""
@@ -141,19 +170,28 @@ class VixHost(object):
         """Finds VMs on host with requested citeria.
 
         :param int search_type: Any of VIX_FIND_*.
+
+        :returns: List of found VMs.
+        :rtype: list
+
+        :raises vix.VixError: On failure to find items.
         """
+
+        key = len(_find_results)
+        _find_results[key] = list()
+
         job = VixJob(vix.VixHost_FindItems(
             self._handle,
             ffi.cast('VixFindItemType', search_type),
             ffi.cast('VixHandle', 0),
             ffi.cast('int32', -1),
             ffi.cast('VixEventProc*', _find_items_callback),
-            ffi.cast('void*', 0),
+            ffi.cast('void*', key),
         ))
 
-        error_code = job.wait()
-        if error_code != VixError.VIX_OK:
-            raise VixError(error_code)
+        job.wait()
+
+        return _find_results.pop(key)
 
     def __del__(self):
         self.disconnect()
