@@ -8,8 +8,8 @@
 	:license: GPLv3, see LICENSE for more details.
 """
 
-from .VixBackend import VixBackend
-_backend = VixBackend()
+from .VixBackend import VixBackend as _VixBackend
+_backend = _VixBackend()
 vix = _backend._vix
 ffi = _backend._ffi
 
@@ -18,5 +18,5 @@ API_ENCODING = 'utf-8'
 
 from .VixError import VixError
 from .VixHost import VixHost
-
-__all__ = ('VixHost', 'VixSnapshot', 'VixError')
+from .VixSnapshot import VixSnapshot
+from .VixVM import VixVM
