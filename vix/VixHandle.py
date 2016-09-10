@@ -4,6 +4,11 @@ ffi = _backend._ffi
 
 
 class VixHandle(object):
+    """Represents a handle of the VIX library.
+
+    .. note:: Internal use.
+    """
+
     VIX_INVALID_HANDLE = 0
 
     VIX_HANDLETYPE_NONE = 0
@@ -19,13 +24,29 @@ class VixHandle(object):
         self._handle = handle
 
     def is_valid(self):
+        """Checks that the handle is valid.
+
+        :returns: True if handle is valid, otherwise False.
+        :rtype: bool
+        """
+
         return self._handle is not None and self._handle != self.VIX_INVALID_HANDLE
 
     def get_type(self):
+        """Gets the handle's type.
+
+        :returns: Type of handle from VIX_HANDLETYPE_*.
+        :rtype: int
+        """
+
         return vix.Vix_GetHandleType(self._handle)
 
     def add_ref(self):
+        """Increases the handle's refcount."""
+
         vix.Vix_AddRefHandle(self._handle)
 
     def release(self):
+        """Decreases refcount or Releases the handle."""
+
         vix.Vix_ReleaseHandle(self._handle)
