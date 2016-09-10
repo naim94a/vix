@@ -140,6 +140,7 @@ html_theme_options = {
     'github_user': 'naim94a',
     'github_repo': 'vix',
     'description': 'The unofficial python binding for VIX',
+    'analytics_id': 'UA-11289087-19',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
