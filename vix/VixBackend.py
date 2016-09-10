@@ -144,6 +144,14 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 
 	@staticmethod
 	def _get_vix_path():
+		"""Finds the expected install path for the so/dll.
+
+		:returns: Expected path.
+		:rtype: str
+
+		:raises NotImplented: If the OS/architecture are not recognized.
+		"""
+
 		os_name = platform.system()
 
 		if os_name == 'Linux':
