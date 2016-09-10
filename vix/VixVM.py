@@ -195,7 +195,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.cast('VixHandle', snapshot._handle if snapshot else 0),
             ffi.cast('VixCloneType', clone_type),
-            ffi.cast('const char*', bytes(dest_vms, API_ENCODING)),
+            ffi.new('char[]', bytes(dest_vms, API_ENCODING)),
             ffi.cast('VixCloneOptions', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -222,7 +222,7 @@ class VixVM(VixHandle):
         job = VixJob(vix.VixVM_CreateSnapshot(
             self._handle,
             ffi.new('char[]', bytes(name, API_ENCODING)) if name else ffi.cast('char*', 0),
-            ffi.cast('char[]', bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
+            ffi.new('char[]', bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
             ffi.cast('int', options),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -269,7 +269,7 @@ class VixVM(VixHandle):
         snapshot_handle = ffi.new('VixHandle*')
         error_code = vix.VixVM_GetNamedSnapshot(
             self._handle,
-            ffi.cast('const char[]', bytes(name, API_ENCODING)),
+            ffi.new('char[]', bytes(name, API_ENCODING)),
             snapshot_handle,
         )
 
