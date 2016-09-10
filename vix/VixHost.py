@@ -11,7 +11,10 @@ def _find_items_callback(job_handle, event_type, event_info, client_data):
     pass
 
 class VixHost(object):
+    """Represents a VMware virtualization host."""
+
     VIX_API_VERSION = -1
+
     VIX_HOSTOPTION_VERIFY_SSL_CERT = 0x4000
 
     VIX_SERVICEPROVIDER_DEFAULT = 1
@@ -30,10 +33,12 @@ class VixHost(object):
     def connect(self, service_provider=VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
         """Connects to a VMware host.
 
-        Arguments:
-        service_provider    Specifies the service to connect to, may be any of VIX_SERVICEPROVIDER_*.
-        host                A tuple (hostname, port).
-        credentials         A tuple (username, password).
+        :param int service_provider: Specifies the service to connect to, may be any of VIX_SERVICEPROVIDER_* constants.
+        :param tuple host: (hostname, port).
+        :param tuple credentials: (username, password).
+
+        :raises AssertionError: If passed arguments are not the right types/sizes.
+        :raises vix.VixError: On connection failure.
         """
 
         assert self._handle == None, 'Instance is already connected.'
@@ -72,10 +77,11 @@ class VixHost(object):
     def register_vm(self, vmx_path):
         """Registers a VM to host.
 
-        Arguments:
-        vmx_path        Path of VM configuration to register.
+        :param str vmx_path: Path of VM configuration to register.
+
+        :raises vix.VixError: If failed to register VM.
         
-        This method is not supported by all VMware products.
+        .. note:: This method is not supported by all VMware products.
         """
 
         job = VixJob(vix.VixHost_RegisterVM(
@@ -91,10 +97,11 @@ class VixHost(object):
     def unregister_vm(self, vmx_path):
         """Unregisters a VM from host.
 
-        Arguments:
-        vmx_path        Path of VM configuration to unregister.
+        :param str vmx_path: Path of VM configuration to unregister.
         
-        This method is not supported by all VMware products.
+        :raises vix.VixError: If failed to unregister VM.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         job = VixJob(vix.VixHost_UnregisterVM(
@@ -110,8 +117,11 @@ class VixHost(object):
     def open_vm(self, vmx_path):
         """Opens a VM in host.
 
-        Arguments:
-        vmx_path        Path to requested VM's configuration.
+        :param str vmx_path: Path to requested VM's configuration.
+
+        :rtype: vix.VixVM
+
+        :raises vix.VixError: If failed to open requested VM.
         """
 
         assert self._handle is not None, 'Must be connected.'
@@ -130,8 +140,7 @@ class VixHost(object):
     def find_items(self, search_type=VIX_FIND_RUNNING_VMS):
         """Finds VMs on host with requested citeria.
 
-        Arguments:
-        search_type         Any of VIX_FIND_*.
+        :param int search_type: Any of VIX_FIND_*.
         """
         job = VixJob(vix.VixHost_FindItems(
             self._handle,
