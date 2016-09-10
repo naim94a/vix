@@ -221,8 +221,8 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_CreateSnapshot(
             self._handle,
-            ffi.cast('const char*', bytes(name, API_ENCODING) if name else 0),
-            ffi.cast('const char*', bytes(description, API_ENCODING) if description else 0),
+            ffi.new('char[]', bytes(name, API_ENCODING)) if name else ffi.cast('char*', 0),
+            ffi.cast('char[]', bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
             ffi.cast('int', options),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
