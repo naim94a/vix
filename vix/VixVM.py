@@ -12,10 +12,15 @@ def _blocking_job(f):
         job = f(*args, **kwargs)
         VixJob(job).wait()
 
+    # allows sphinx to generate docs normally...
+    decorator.__doc__ = f.__doc__
+
     return decorator
 
 
 class VixVM(VixHandle):
+    """Represents a guest VM."""
+    
     VIX_VMDELETE_DISK_FILES = 0x0002
 
     VIX_POWERSTATE_POWERING_OFF = 0x0001
@@ -80,7 +85,7 @@ class VixVM(VixHandle):
     def pause(self):
         """Pauses the Virtual machine.
 
-        This method is not supported by all VMware products.
+        .. note:: This method is not supported by all VMware products.
         """
 
         return vix.VixVM_Pause(
@@ -95,8 +100,9 @@ class VixVM(VixHandle):
     def power_off(self, options=VIX_VMPOWEROP_NORMAL):
         """Powers off a VM.
 
-        Arguments:
-        options     should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        :param int options: should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+
+        :raises vix.VixError: On failure to power off VM.
         """
 
         return vix.VixVM_PowerOff(
@@ -110,8 +116,9 @@ class VixVM(VixHandle):
     def power_on(self, options=VIX_VMPOWEROP_NORMAL):
         """Powers on a VM.
 
-        Arguments:
-        options     should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_LAUNCH_GUI.
+        :param int options: Should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_LAUNCH_GUI.
+
+        :raises vix.VixError: On failure to power on VM.
         """
 
         return vix.VixVM_PowerOn(
@@ -126,8 +133,8 @@ class VixVM(VixHandle):
     def reset(self, options=VIX_VMPOWEROP_NORMAL):
         """Resets a virtual machine.
 
-        Arguments:
-        options         Should be set to VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        :param int options: Should be set to VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        :raises vix.VixError: On failure to reset VM.
         """
 
         return vix.VixVM_Reset(
@@ -139,7 +146,10 @@ class VixVM(VixHandle):
 
     @_blocking_job
     def suspend(self):
-        """Suspends a virtual machine."""
+        """Suspends a virtual machine.
+
+        :raises vix.VixError: On failure to suspend VM.
+        """
 
         return vix.VixVM_Suspend(
             self._handle,
@@ -152,7 +162,9 @@ class VixVM(VixHandle):
     def unpause(self):
         """Resumes execution of a paused virtual machine.
 
-        This method is not supported by all Vmware products.
+        :raises vix.VixError: On failure to unpause VM.
+
+        .. note:: This method is not supported by all Vmware products.
         """
 
         return vix.VixVM_Unpause(
@@ -167,12 +179,16 @@ class VixVM(VixHandle):
     def clone(self, dest_vmx, snapshot=None, clone_type=VIX_CLONETYPE_LINKED):
         """Clones the VM to a specified location.
 
-        Arguments:
-        dest_vms        The clone will be stored here.
-        snapshot        Optional snapshot as the state of the clone.
-        clone_type      Must be VIX_CLONETYPE_FULL or VIX_CLONETYPE_LINKED.
+        :param str dest_vms: The clone will be stored here.
+        :param .VixSnapshot snapshot: Optional snapshot as the state of the clone.
+        :param int clone_type: Must be VIX_CLONETYPE_FULL or VIX_CLONETYPE_LINKED.
 
-        This method is not supported by all VMware products.
+        :returns: Instance of the cloned VM.
+        :rtype: .VixVM
+
+        :raises vix.VixError: On failure to clone.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         job = VixJob(vix.VixVM_Clone(
@@ -191,13 +207,18 @@ class VixVM(VixHandle):
     def create_snapshot(self, name=None, description=None, options=VIX_SNAPSHOT_INCLUDE_MEMORY):
         """Create a VM snapshot.
 
-        Arguments:
-        name            Name of snapshot
-        description     Snapshot description
-        options         Zero or VIX_SNAPSHOT_INCLUDE_MEMORY to include RAM.
+        :param str name: Name of snapshot.
+        :param str description: Snapshot description.
+        :param int options: 0 or VIX_SNAPSHOT_INCLUDE_MEMORY to include RAM.
 
-        This method is not supported by all VMware products.
+        :returns: Instance of the created snapshot
+        :rtype: .VixSnapshot
+
+        :raises vix.VixError: On failure to create snapshot.
+
+        .. note:: This method is not supported by all VMware products.
         """
+
         job = VixJob(vix.VixVM_CreateSnapshot(
             self._handle,
             ffi.cast('const char*', bytes(name, API_ENCODING) if name else 0),
@@ -207,12 +228,18 @@ class VixVM(VixHandle):
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))
+
         return VixSnapshot(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
     def snapshot_get_current(self):
         """Gets the VMs current active snapshot.
 
-        This method is not supported by all VMware products.
+        :returns: The currently active snapshot
+        :rtype: .VixSnapshot
+
+        :raises vix.VixError: On failure to get the current snapshot.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         snapshot_handle = ffi.new('VixHandle*')
@@ -229,10 +256,14 @@ class VixVM(VixHandle):
     def snapshot_get_named(self, name):
         """Gets a snapshot matching the given name.
 
-        Arguments:
-        name            Name of the snapshot to get.
+        :param str name: Name of the snapshot to get.
+        
+        :returns: Instance of requests snapshot.
+        :rtype: .VixSnapshot
 
-        This method is not supported by all VMware products.
+        :raises vix.VixError: If failed to retreive desired snapshot.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         snapshot_handle = ffi.new('VixHandle*')
@@ -250,7 +281,12 @@ class VixVM(VixHandle):
     def snapshots_get_root_count(self):
         """Gets the count of root snapshots the VM owns.
 
-        This method is not supported by all VMware products.
+        :returns: Count of VM's root snapshots.
+        :rtype: int
+
+        :raises vix.VixError: If failed to retrive root snapshot count.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         result = ffi.new('int*')
@@ -267,11 +303,16 @@ class VixVM(VixHandle):
     def snapshot_get_root(self, index=0):
         """Gets the specified VM Snapshot.
 
-        Arguments:
-        index           zero based snapshot index.
+        :param int index: zero based snapshot index.
 
-        This methoid is not supported in all VMware products.
+        :returns: Root snapshot at specified index.
+        :rtype: .VixSnapshot
+
+        :raises vix.VixError: If failed to get specified too snapshot.
+
+        .. note:: This methoid is not supported in all VMware products.
         """
+
         snapshot_handle = ffi.new('VixHandle*')
         error_code = vix.VixVM_GetRootSnapshot(
             self._handle,
@@ -288,11 +329,12 @@ class VixVM(VixHandle):
     def snapshot_revert(self, snapshot, options=0):
         """Revet VM state to specified snapshot.
 
-        Arguments:
-        snapshots       The snapshot to revert to.
-        options         Any of VIX_VMPOWEROP_*, VIX_VMPOWEROP_SUPPRESS_SNAPSHOT_POWERON is mutually exclusive.
+        :param .VixSnapshot snapshot: The snapshot to revert to.
+        :param int options: Any of VIX_VMPOWEROP_*, VIX_VMPOWEROP_SUPPRESS_SNAPSHOT_POWERON is mutually exclusive.
 
-        This method is not supported by all VMware products.
+        :raises vix.VixError: If failed to revert VM to snapshot.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         return vix.VixVM_RevertToSnapshot(
@@ -308,11 +350,12 @@ class VixVM(VixHandle):
     def snapshot_remove(self, snapshot, options=0):
         """Removed specified snapshot from VM.
 
-        Arguments:
-        snapshot        The snapshot to remove.
-        options         0 or VIX_SNAPSHOT_REMOVE_CHILDREN to remove child snapshots too.
+        :param .VixSnapshot snapshot: The snapshot to remove.
+        :param int options: 0 or VIX_SNAPSHOT_REMOVE_CHILDREN to remove child snapshots too.
 
-        This method is not supported by all VMware products.
+        :raises vix.VixError: If failed to remove specified snapshot.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         return vix.VixVM_RemoveSnapshot(
@@ -407,7 +450,9 @@ class VixVM(VixHandle):
     def upgrade_virtual_hardware(self):
         """Upgrades virtual hardware of a virtual machine.
 
-        This method is not supported by all VMware products.
+        :raises vix.VixError: If failed to upgrade virtual hardware.
+
+        .. note:: This method is not supported by all VMware products.
         """
 
         return vix.VixVM_UpgradeVirtualHardware(
@@ -421,8 +466,9 @@ class VixVM(VixHandle):
     def vm_delete(self, options=0):
         """Deletes VM from host.
 
-        Arguments:
-        options         settings to VIX_VMDELETE_DISK_FILES will delete associated files.
+        :param int options: settings to VIX_VMDELETE_DISK_FILES will delete associated files.
+
+        :raises vix.VixError: If failed to delete VM.
         """
 
         return vix.VixVM_Delete(
@@ -440,9 +486,11 @@ class VixVM(VixHandle):
     def wait_for_tools(self, timeout=0):
         """Waits for VMware tools to start in guest.
 
-        Arguments:
-        timeout         Zero or negative will block forever, Raises an exception if timeout expired.
+        :param int timeout: Timeout in seconds. Zero or negative will block forever, Raises an exception if timeout expired.
+
+        :raises vix.VixError: If timeout passed, Or of VIX fails.
         """
+
         return vix.VixVM_WaitForToolsInGuest(
             self._handle,
             ffi.cast('int', timeout),
