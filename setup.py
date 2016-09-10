@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
 	name='vix',
-	version='1.0',
+	version='1.0.0',
 	description='VIX binding for Python',
 	author='Naim A.',
 	author_email='naim94a@gmail.com',

@@ -10,6 +10,7 @@ Tested with VMware Workstation, this wrapper should support ESXs, VMware servers
   * Power (turn on, turn off, suspend, etc...)
   * Snapshot control
   * Cloning (both full and linked)
+  * Finding powered on VMs (or registered, if your VMware product supports it)
 * Deletion of VMs from host
 * Registration and unregistration of VMs from hosts.
 
