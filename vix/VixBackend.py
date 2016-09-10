@@ -9,13 +9,6 @@ class VixBackend(object):
 	.. note:: Internal use.
 	"""
 	def __init__(self):
-
-		# Allow automatic services to build docs without having VIX installed.
-		if 'sphinx' in sys.modules:
-			self._ffi = None
-			self._vix = None
-			return
-
 		self._ffi = cffi.FFI()
 
 		self._ffi.cdef('''
