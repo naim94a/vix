@@ -5,6 +5,11 @@ vix = _backend._vix
 ffi = _backend._ffi
 
 class VixJob(VixHandle):
+    """Represnts a VIX Job handle.
+
+    .. note:: Internal use.
+    """
+
     VIX_PROPERTYTYPE_ANY = 0
     VIX_PROPERTYTYPE_INTEGER = 1
     VIX_PROPERTYTYPE_STRING = 2
@@ -69,6 +74,15 @@ class VixJob(VixHandle):
         assert self.get_type() == VixHandle.VIX_HANDLETYPE_JOB, 'Expected VixJob handle.'
 
     def wait(self, *args):
+        """Waits for the job to complete and gets requested results.
+
+        :param \*args: A list of properties to retreive (VIX_PROPERTY_JOB_RESULT_*).
+
+        :returns: A tuple of results if more than one object was requested.
+
+        :raises vix.VixError: If job failed.
+        """
+
         c_args = list()
         ret_data = list()
 
@@ -91,6 +105,14 @@ class VixJob(VixHandle):
         return result[0] if len(result) == 1 else result
 
     def is_done(self):
+        """Checks if the job completed.
+
+        :returns: True if job completed, otherwise False.
+        :rtype: bool
+
+        :raises vix.VixError: If failed to get job state.
+        """
+
         result = ffi.new('Bool*')
         error_code = vix.VixJob_CheckCompletion(self._handle, result)
         if error_code != VixError.VIX_OK:
@@ -99,6 +121,12 @@ class VixJob(VixHandle):
         return result[0]
 
     def get_error(self):
+        """Gets an exception object.
+
+        :returns: Exception object of job. The error may be VixError(VIX_OK).
+        :rtype: .VixError
+        """
+
         error_code = vix.VixJob_GetError(self._handle)
         return VixError(error_code)
 
