@@ -645,20 +645,79 @@ class VixVM(VixHandle):
         )
 
     # Share mgmt.
-    def add_shared_folder(self):
-        raise NotImplemented()
+    @_blocking_job
+    def add_shared_folder(self, share_name, host_path, write_access=True):
+        """Shares a folder with the guest VM.
 
-    def share_enable(self):
-        raise NotImplemented()
+        :param str share_name: Name of share in guest VM.
+        :param str host_path: Path to share in host.
+        :param bool write_access: True to allow guest to write to share.
 
-    def get_num_shared_folders(self):
-        raise NotImplemented()
+        :raises vix.VixError: On failure to add share.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        # TODO: return the path of shared folder in guest.
+        return vix.VixVM_AddSharedFolder(
+            self._handle,
+            ffi.new('char[]', bytes(share_name, API_ENCODING)),
+            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.cast('VixMsgSharedFolderOptions', self.VIX_SHAREDFOLDER_WRITE_ACCESS if write_access else 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def share_enable(self, value=True):
+        """Enables/Disables shares between Host and guest VM.
+
+        :param bool value: True to enable, False to disable.
+
+        :raises vix.VixError: If failed to enable/disable shares.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_EnableSharedFolders(
+            self._handle,
+            ffi.cast('Bool', int(value)),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    def get_shared_folder_count(self):
+        """Gets the count of shared folder of VM with host.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return VixJob(vix.VixVM_GetNumSharedFolders(
+            self._handle,
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )).wait(VixJob.VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_COUNT)
 
     def get_shared_folder_state(self):
         raise NotImplemented()
 
-    def share_remove(self):
-        raise NotImplemented()
+    @_blocking_job
+    def share_remove(self, share_name):
+        """Removes a share between host and guest VM.
+
+        :param str share_name: Name of share to remove.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_RemoveSharedFolder(
+            self._handle,
+            ffi.new('char[]', bytes(share_name, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def share_set_state(self):
         raise NotImplemented()
