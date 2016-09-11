@@ -17,6 +17,7 @@ Tested with VMware Workstation, this wrapper should support ESXs, VMware servers
   * Deleting files & directories
   * Control VMs environment
   * Control shares
+  * Get PNG screenshots of VMs
 * Deletion of VMs from host
 * Registration and unregistration of VMs from hosts.
 
