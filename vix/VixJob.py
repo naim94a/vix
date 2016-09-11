@@ -71,6 +71,9 @@ class VixJob(VixHandle):
     VIX_PROPERTY_GUEST_SHAREDFOLDERS_SHARES_PATH = 4525
     VIX_PROPERTY_VM_ENCRYPTION_PASSWORD = 7001
 
+    VIX_FILE_ATTRIBUTES_DIRECTORY = 0x0001
+    VIX_FILE_ATTRIBUTES_SYMLINK = 0x0002
+
     STR_RESULT_TYPES = (
         VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
         VIX_PROPERTY_JOB_RESULT_VM_VARIABLE_STRING,
@@ -168,7 +171,7 @@ class VixJob(VixHandle):
             alloc = None
             if arg in self.STR_RESULT_TYPES:
                 alloc = ffi.new('char**')
-            elif arg == self.VIX_PROPERTY_JOB_RESULT_PROCESS_ID:
+            elif arg in (self.VIX_PROPERTY_JOB_RESULT_PROCESS_ID, self.VIX_PROPERTY_JOB_RESULT_FILE_SIZE, self.VIX_PROPERTY_JOB_RESULT_FILE_MOD_TIME):
                 alloc = ffi.new('uint64*')
             else:
                 alloc = ffi.new('int*')
@@ -198,7 +201,7 @@ class VixJob(VixHandle):
                 vix.Vix_FreeBuffer(prop_val[0])
             elif prop_id == self.VIX_PROPERTY_JOB_RESULT_PROCESS_BEING_DEBUGGED:
                 value = bool(ffi.cast('Bool', prop_val[0]))
-            elif prop_id == self.VIX_PROPERTY_JOB_RESULT_PROCESS_START_TIME:
+            elif prop_id in (self.VIX_PROPERTY_JOB_RESULT_PROCESS_START_TIME, self.VIX_PROPERTY_JOB_RESULT_FILE_MOD_TIME):
                 value = datetime.datetime.fromtimestamp(int(ffi.cast('int', prop_val[0])))
             else:
                 value = int(ffi.cast('int', prop_val[0]))

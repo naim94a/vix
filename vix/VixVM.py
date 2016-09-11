@@ -2,6 +2,7 @@ from .VixError import VixError
 from .VixHandle import VixHandle
 from .VixSnapshot import VixSnapshot
 from .VixJob import VixJob
+from collections import namedtuple
 from vix import _backend, API_ENCODING
 vix = _backend._vix
 ffi = _backend._ffi
@@ -16,6 +17,9 @@ def _blocking_job(f):
     decorator.__doc__ = f.__doc__
 
     return decorator
+
+DirectoryListEntry = namedtuple('DirectoryListEntry', 'name size is_dir is_sym last_mod')
+ProcessListEntry = namedtuple('ProcessListEntry', 'name pid owner cmd is_debug start_time')
 
 
 class VixVM(VixHandle):
@@ -553,8 +557,46 @@ class VixVM(VixHandle):
     def get_file_info(self):
         raise NotImplemented()
 
-    def dir_list(self):
-        raise NotImplemented()
+    def dir_list(self, path):
+        """Gets directory listing of specified path in guest VM.
+
+        :param str path: Path to get directory list of.
+
+        :returns: List of tuples, each containing: File Name, File Size, is dir, is symlink, mod time.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_ListDirectoryInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+        job.wait()
+        
+        job_result = job.get_properties(
+            VixJob.VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
+            VixJob.VIX_PROPERTY_JOB_RESULT_FILE_SIZE,
+            VixJob.VIX_PROPERTY_JOB_RESULT_FILE_FLAGS,
+            VixJob.VIX_PROPERTY_JOB_RESULT_FILE_MOD_TIME,
+        )
+
+        result = list()
+
+        for res in job_result:
+            result.append(DirectoryListEntry(
+                name=res[0],
+                size=res[1],
+                is_dir=bool(res[2] & VixJob.VIX_FILE_ATTRIBUTES_DIRECTORY),
+                is_sym=bool(res[2] & VixJob.VIX_FILE_ATTRIBUTES_SYMLINK),
+                last_mod=res[3],
+            ))
+
+        return result
+
+
 
     # Guest execution
     @_blocking_job
@@ -594,14 +636,21 @@ class VixVM(VixHandle):
 
         job.wait()
 
-        return job.get_properties(
+        return [ProcessListEntry(
+            name=entry[0],
+            pid=entry[1],
+            owner=entry[2],
+            cmd=entry[3],
+            is_debug=entry[4],
+            start_time=entry[5],
+        ) for entry in job.get_properties(
             VixJob.VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
             VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_ID,
             VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_OWNER,
             VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_COMMAND,
             VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_BEING_DEBUGGED,
             VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_START_TIME,
-        )
+        )]
 
     @_blocking_job
     def login(self, username, password, options=0):
