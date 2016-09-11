@@ -872,8 +872,27 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def share_set_state(self):
-        raise NotImplemented()
+    @_blocking_job
+    def share_set_state(self, share_name, host_path, allow_write=True):
+        """Sets the state for an existing share.
+
+        :param str share_name: Name of share to modify.
+        :param str host_path: Path on host to set to share.
+        :param bool allow_write: Sets if the guest will be able to write to share.
+
+        :raises vix.VixError: If failed to set share state.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_SetSharedFolderState(
+            self._handle,
+            ffi.new('char[]', bytes(share_name, API_ENCODING)),
+            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.cast('VixMsgSharedFolderOptions', VixVM.VIX_SHAREDFOLDER_WRITE_ACCESS if allow_write else 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     # VM environment.
     def var_read(self, name, variable_type=VIX_VM_GUEST_VARIABLE):
@@ -923,7 +942,6 @@ class VixVM(VixHandle):
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
-
 
     # Misc. methods
     @_blocking_job
