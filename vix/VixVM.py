@@ -469,17 +469,86 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def dir_delete(self):
-        raise NotImplemented()
+    @_blocking_job
+    def dir_delete(self, path):
+        """Deletes a directory in guest VM.
 
-    def file_delete(self):
-        raise NotImplemented()
+        :param str path: Path of directory to delete.
 
-    def dir_exists(self):
-        raise NotImplemented()
+        :raises vix.VixError: If failed to delete directory.
 
-    def file_exists(self):
-        raise NotImplemented()
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_DeleteDirectoryInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def file_delete(self, path):
+        """Deletes a file in guest VM.
+
+        :param str path: Path of file to delete.
+
+        :raises vix.VixError: If failed to delete directory.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_DeleteFileInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    def dir_exists(self, path):
+        """Checks if a directory exists in guest VM.
+
+        :param str path: Path to check if exists.
+
+        :returns: True if directory exists, othwerwise False.
+        :rtype: bool
+
+        :raises vix.VixError: If failed to check.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_DirectoryExistsInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        return bool(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_GUEST_OBJECT_EXISTS))
+
+    def file_exists(self, path):
+        """Checks if a file exists in guest VM.
+
+        :param str path: File to check.
+
+        :returns: True if file exists, otherwise False.
+        :rtype: bool
+
+        :raises vix.VixError: If failed to check file existance.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_FileExistsInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        return bool(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_GUEST_OBJECT_EXISTS))
 
     def get_file_info(self):
         raise NotImplemented()
