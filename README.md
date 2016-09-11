@@ -16,6 +16,7 @@ Tested with VMware Workstation, this wrapper should support ESXs, VMware servers
   * Killing processes
   * Deleting files & directories
   * Control VMs environment
+  * Control shares
 * Deletion of VMs from host
 * Registration and unregistration of VMs from hosts.
 
