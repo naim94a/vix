@@ -577,7 +577,31 @@ class VixVM(VixHandle):
         )
 
     def proc_list(self):
-        raise NotImplemented()
+        """Gets the guest's process list.
+
+        :returns: A list of tuples, each tuple contains: Process Name, PID, owner, cmd line, is debugged, start time.
+        :rtype: list
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_ListProcessesInGuest(
+            self._handle,
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        job.wait()
+
+        return job.get_properties(
+            VixJob.VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
+            VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_ID,
+            VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_OWNER,
+            VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_COMMAND,
+            VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_BEING_DEBUGGED,
+            VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_START_TIME,
+        )
 
     @_blocking_job
     def login(self, username, password, options=0):

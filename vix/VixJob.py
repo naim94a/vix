@@ -1,6 +1,8 @@
 from .VixHandle import VixHandle
 from .VixError import VixError
 from vix import _backend, API_ENCODING
+import datetime
+
 vix = _backend._vix
 ffi = _backend._ffi
 
@@ -73,6 +75,8 @@ class VixJob(VixHandle):
         VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
         VIX_PROPERTY_JOB_RESULT_VM_VARIABLE_STRING,
         VIX_PROPERTY_JOB_RESULT_COMMAND_OUTPUT,
+        VIX_PROPERTY_JOB_RESULT_PROCESS_OWNER,
+        VIX_PROPERTY_JOB_RESULT_PROCESS_COMMAND,
     )
 
     def __init__(self, handle):
@@ -157,20 +161,60 @@ class VixJob(VixHandle):
         )
         return int(count)
 
-    def _get_nth_properties(self, index, property_id, *args):
-        # TODO: append VIX_PROPERTY_NONE to *args.
+    def _get_nth_properties(self, index, *args):
+
+        c_args = list()
+        for arg in args:
+            alloc = None
+            if arg in self.STR_RESULT_TYPES:
+                alloc = ffi.new('char**')
+            elif arg == self.VIX_PROPERTY_JOB_RESULT_PROCESS_ID:
+                alloc = ffi.new('uint64*')
+            else:
+                alloc = ffi.new('int*')
+            c_args.append(ffi.cast('VixPropertyType', arg))
+            c_args.append(alloc)
+
+        c_args.append(ffi.cast('VixPropertyType', self.VIX_PROPERTY_NONE))
 
         error_code = vix.VixJob_GetNthProperties(
             self._handle,
             index,
-            property_id,
-            *args,
+            *c_args,
         )
 
-        # TODO: return results as a list, with wrapped objects.
-
-        if error_code != vix.VIX_OK:
+        if error_code != VixError.VIX_OK:
             raise VixError(error_code)
+
+        result = list()
+
+        for i in range(len(args)):
+            prop_id = int(c_args[i * 2])
+            prop_val = c_args[(i * 2) + 1]
+
+            value = None
+            if prop_id in self.STR_RESULT_TYPES:
+                value = str(ffi.string(prop_val[0]), API_ENCODING)
+                vix.Vix_FreeBuffer(prop_val[0])
+            elif prop_id == self.VIX_PROPERTY_JOB_RESULT_PROCESS_BEING_DEBUGGED:
+                value = bool(ffi.cast('Bool', prop_val[0]))
+            elif prop_id == self.VIX_PROPERTY_JOB_RESULT_PROCESS_START_TIME:
+                value = datetime.datetime.fromtimestamp(int(ffi.cast('int', prop_val[0])))
+            else:
+                value = int(ffi.cast('int', prop_val[0]))
+
+            result.append(value)
+
+        return tuple(result)
+
+    def get_properties(self, *args):
+        num = self._get_num_properties(args[0])
+        result = list()
+
+        for i in range(num):
+            result.append(self._get_nth_properties(i, *args))
+
+        return result
 
     def __del__(self):
         self.release()
