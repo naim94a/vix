@@ -557,8 +557,24 @@ class VixVM(VixHandle):
         raise NotImplemented()
 
     # Guest execution
-    def proc_kill(self):
-        raise NotImplemented()
+    @_blocking_job
+    def proc_kill(self, pid):
+        """Kills a process in guest VM.
+
+        :param int pid: PID of process in guest to kill.
+
+        :raises vix.VixError: If failed to kill process.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_KillProcessInGuest(
+            self._handle,
+            ffi.cast('uint64', pid),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def proc_list(self):
         raise NotImplemented()
