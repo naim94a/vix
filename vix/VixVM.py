@@ -554,8 +554,40 @@ class VixVM(VixHandle):
 
         return bool(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_GUEST_OBJECT_EXISTS))
 
-    def get_file_info(self):
-        raise NotImplemented()
+    def get_file_info(self, path):
+        """Gets information about specified file in guest.
+
+        :param str path: File path to get information about.
+
+        :returns: DirectoryListEntry instance.
+        :rtype: .DirectoryListEntry
+
+        :raises vix.VixError: On failure to get file info.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_GetFileInfoInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+        job.wait()
+        res = job.get_properties(
+            VixJob.VIX_PROPERTY_JOB_RESULT_FILE_SIZE,
+            VixJob.VIX_PROPERTY_JOB_RESULT_FILE_FLAGS,
+            VixJob.VIX_PROPERTY_JOB_RESULT_FILE_MOD_TIME,
+        )
+        assert len(res) == 1, 'Expected single result'
+        res = res[0]
+        return DirectoryListEntry(
+            name=None,
+            size=res[0],
+            is_dir=bool(res[1] & VixJob.VIX_FILE_ATTRIBUTES_DIRECTORY),
+            is_sym=bool(res[1] & VixJob.VIX_FILE_ATTRIBUTES_SYMLINK),
+            last_mod=res[2],
+        )
 
     def dir_list(self, path):
         """Gets directory listing of specified path in guest VM.
@@ -563,6 +595,8 @@ class VixVM(VixHandle):
         :param str path: Path to get directory list of.
 
         :returns: List of tuples, each containing: File Name, File Size, is dir, is symlink, mod time.
+
+        :raises vix.VixError: On failure to get file info.
 
         .. note:: This method is not supported by all VMware products.
         """
@@ -621,6 +655,8 @@ class VixVM(VixHandle):
 
         :returns: A list of tuples, each tuple contains: Process Name, PID, owner, cmd line, is debugged, start time.
         :rtype: list
+
+        :raises vix.VixError: On failure to get file info.
 
         .. note:: This method is not supported by all VMware products.
         """
