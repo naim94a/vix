@@ -1,6 +1,6 @@
 from .VixHandle import VixHandle
 from .VixError import VixError
-from vix import _backend
+from vix import _backend, API_ENCODING
 vix = _backend._vix
 ffi = _backend._ffi
 
@@ -90,7 +90,11 @@ class VixJob(VixHandle):
             c_args.append(ffi.cast('VixPropertyType', arg))
 
             # TODO: Check the arg type and allocate accordingly...
-            alloc = ffi.new('int*')
+            alloc = None
+            if arg == self.VIX_PROPERTY_JOB_RESULT_ITEM_NAME:
+                alloc = ffi.new('char**')
+            else:
+                alloc = ffi.new('int*')
             ret_data.append(alloc)
             c_args.append(alloc)
 
@@ -101,7 +105,17 @@ class VixJob(VixHandle):
             raise VixError(error_code)
 
         # deref data...
-        result = [res[0] for res in ret_data]
+        result = list()
+        for i in range(len(args)):
+            if args[i] == self.VIX_PROPERTY_NONE:
+                break
+            val = ret_data[i]
+            if args[i] == self.VIX_PROPERTY_JOB_RESULT_ITEM_NAME:
+                result.append(str(ffi.string(val[0]), API_ENCODING))
+                vix.Vix_FreeBuffer(val[0])
+            else:
+                result.append(val[0])
+
         return result[0] if len(result) == 1 else result
 
     def is_done(self):
