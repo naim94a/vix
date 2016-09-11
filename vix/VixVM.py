@@ -20,7 +20,7 @@ def _blocking_job(f):
 
 DirectoryListEntry = namedtuple('DirectoryListEntry', 'name size is_dir is_sym last_mod')
 ProcessListEntry = namedtuple('ProcessListEntry', 'name pid owner cmd is_debug start_time')
-
+SharedFolder = namedtuple('SharedFolder', 'name host_path write_access')
 
 class VixVM(VixHandle):
     """Represents a guest VM."""
@@ -822,8 +822,38 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )).wait(VixJob.VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_COUNT)
 
-    def get_shared_folder_state(self):
-        raise NotImplemented()
+    def get_shared_folder_state(self, index):
+        """Gets the state of a shared folder.
+
+        :param int index: Index of share.
+
+        :returns: tuple with share state information.
+        :rtype: SharedFolder
+
+        :raises vix.VixError: If failed to get state.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_GetSharedFolderState(
+            self._handle,
+            ffi.cast('int', index),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+        job.wait()
+        res = job.get_properties(
+            VixJob.VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
+            VixJob.VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_HOST,
+            VixJob.VIX_PROPERTY_JOB_RESULT_SHARED_FOLDER_FLAGS,
+        )
+        assert len(res) == 1, 'Expected single result'
+        res = res[0]
+        return SharedFolder(
+            name=res[0],
+            host_path=res[1],
+            write_access=bool(res[2] & VixVM.VIX_SHAREDFOLDER_WRITE_ACCESS),
+        )
 
     @_blocking_job
     def share_remove(self, share_name):
