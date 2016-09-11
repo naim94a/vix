@@ -150,7 +150,7 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 		:returns: Expected path.
 		:rtype: str
 
-		:raises NotImplented: If the OS/architecture are not recognized.
+		:raises NotImplemented: If the OS/architecture are not recognized.
 		"""
 
 		os_name = platform.system()
