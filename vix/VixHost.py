@@ -160,8 +160,8 @@ class VixHost(object):
         job = VixJob(vix.VixHost_OpenVM(
             self._handle,
             ffi.new('char[]', bytes(vmx_path, API_ENCODING)),
-            0,
-            0,
+            ffi.cast('VixVMOpenOptions', 0),
+            ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))

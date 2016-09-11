@@ -367,20 +367,107 @@ class VixVM(VixHandle):
         )
 
     # Guest & Host file mgmt.
-    def copy_guest_to_host(self):
-        raise NotImplemented()
+    @_blocking_job
+    def copy_guest_to_host(self, guest_path, host_path):
+        """Copies a file or directory from the VM to host.
 
-    def copy_host_to_guest(self):
-        raise NotImplemented()
+        :param str guest_path: Path to copy from on guest.
+        :param str host_path: Path to copy to on host.
 
-    def create_directory(self):
-        raise NotImplemented()
+        :raises vix.VixError: If copy failed.
+        """
+
+        return vix.VixVM_CopyFileFromGuestToHost(
+            self._handle,
+            ffi.new('char[]', bytes(guest_path, API_ENCODING)),
+            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def copy_host_to_guest(self, host_path, guest_path):
+        """Copies a file or directory from host to VM.
+
+        :param str host_path: Path to copy from on host.
+        :param str guest_path: Path to copy to on VM.
+
+        :raises vix.VixError: If failed to copy.
+        """
+
+        return vix.VixVM_CopyFileFromHostToGuest(
+            self._handle,
+            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.new('char[]', bytes(guest_path, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def create_directory(self, path):
+        """Creates a directory in the guest VM.
+
+        :param str path: Path to create in guest.
+
+        :raises vix.VixError: On failure to create directory.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_CreateDirectoryInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def create_temp(self):
-        raise NotImplemented()
+        """Creates a temporary file in guest.
 
-    def file_rename(self):
-        raise NotImplemented()
+        :returns: Temporary file name.
+        :rtype: str
+
+        :raises vix.VixError: On failure to create temporary file.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_CreateTempFileInGuest(
+            self._handle,
+            ffi.cast('int', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        return job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_ITEM_NAME)
+
+    @_blocking_job
+    def file_rename(self, old_name, new_name):
+        """Renames a file or directory in guest.
+
+        :param str old_name: Name of file to rename.
+        :param str new_name: The new name to give the file.
+
+        :raises vix.VixError: On failure to rename.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_RenameFileInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(old_name, API_ENCODING)),
+            ffi.new('char[]', bytes(new_name, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def dir_delete(self):
         raise NotImplemented()
@@ -407,11 +494,40 @@ class VixVM(VixHandle):
     def proc_list(self):
         raise NotImplemented()
 
-    def login(self):
-        raise NotImplemented()
+    @_blocking_job
+    def login(self, username, password, options=0):
+        """Login to the guest to allow further executions.
 
+        :param str username: Guest Login username.
+        :param str password: Guest login password.
+        :param int options: Must be 0 or VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT.
+
+        :raises vix.VixError: On failure to authenticate.
+        """
+
+        return vix.VixVM_LoginInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(username, API_ENCODING)) if username else ffi.cast('char*', 0),
+            ffi.new('char[]', bytes(password, API_ENCODING)) if password else ffi.cast('char*', 0),
+            ffi.cast('int', options),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
     def logout(self):
-        raise NotImplemented()
+        """Logout from guest. Closes any previous login context.
+
+        :raises vix.VixError: If failed to logout.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_LogoutFromGuest(
+            self._handle,
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def proc_run(self):
         raise NotImplemented()
