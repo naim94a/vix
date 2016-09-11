@@ -498,8 +498,22 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def install_tools(self):
-        raise NotImplemented()
+    @_blocking_job
+    def install_tools(self, options=VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER):
+        """Starts the VMware tools install operation on guest.
+
+        :param int options: Can be VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER or VIX_INSTALLTOOLS_AUTO_UPGRADE, both can be combined with VIX_INSTALLTOOLS_RETURN_IMMEDIATELY.
+
+        :raises vix.VixError: On failure to start install.
+        """
+
+        return vix.VixVM_InstallTools(
+            self._handle,
+            ffi.cast('int', options),
+            ffi.cast('char*', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     def __del__(self):
         self.release()
