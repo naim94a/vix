@@ -35,7 +35,9 @@ def _find_items_callback(job_handle, event_type, event_info, client_data):
     if error_code != VixError.VIX_OK:
         return
 
-    _find_results[idx].append(ffi.string(str_ptr[0]))
+    vmx = str(ffi.string(str_ptr[0]), API_ENCODING)
+
+    _find_results[idx].append(vmx)
     vix.Vix_FreeBuffer(str_ptr[0])
 
 
