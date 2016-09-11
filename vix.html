@@ -198,6 +198,12 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>search_type</strong> (<em>int</em>) &#8211; Any of VIX_FIND_*.</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of found VMs.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to find items.</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -710,128 +716,561 @@
 
 <dl class="method">
 <dt id="vix.VixVM.copy_guest_to_host">
-<code class="descname">copy_guest_to_host</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_guest_to_host" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">copy_guest_to_host</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_guest_to_host" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a file or directory from the VM to host.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>guest_path</strong> (<em>str</em>) &#8211; Path to copy from on guest.</li>
+<li><strong>host_path</strong> (<em>str</em>) &#8211; Path to copy to on host.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If copy failed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.copy_host_to_guest">
-<code class="descname">copy_host_to_guest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_host_to_guest" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">copy_host_to_guest</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_host_to_guest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a file or directory from host to VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>host_path</strong> (<em>str</em>) &#8211; Path to copy from on host.</li>
+<li><strong>guest_path</strong> (<em>str</em>) &#8211; Path to copy to on VM.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to copy.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.create_directory">
-<code class="descname">create_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_directory" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">create_directory</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a directory in the guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path to create in guest.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to create directory.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.create_temp">
 <code class="descname">create_temp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_temp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Creates a temporary file in guest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Temporary file name.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to create temporary file.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.file_rename">
-<code class="descname">file_rename</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_rename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">file_rename</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames a file or directory in guest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>old_name</strong> (<em>str</em>) &#8211; Name of file to rename.</li>
+<li><strong>new_name</strong> (<em>str</em>) &#8211; The new name to give the file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to rename.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.dir_delete">
-<code class="descname">dir_delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">dir_delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a directory in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path of directory to delete.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to delete directory.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.file_delete">
-<code class="descname">file_delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">file_delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a file in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path of file to delete.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to delete directory.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.dir_exists">
-<code class="descname">dir_exists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_exists" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">dir_exists</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a directory exists in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path to check if exists.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if directory exists, othwerwise False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to check.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.file_exists">
-<code class="descname">file_exists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_exists" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">file_exists</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a file exists in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; File to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if file exists, otherwise False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to check file existance.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.get_file_info">
-<code class="descname">get_file_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.get_file_info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">get_file_info</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.get_file_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets information about specified file in guest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; File path to get information about.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DirectoryListEntry instance.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DirectoryListEntry</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get file info.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.dir_list">
-<code class="descname">dir_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">dir_list</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets directory listing of specified path in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path to get directory list of.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of tuples, each containing: File Name, File Size, is dir, is symlink, mod time.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get file info.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.proc_kill">
-<code class="descname">proc_kill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_kill" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">proc_kill</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills a process in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pid</strong> (<em>int</em>) &#8211; PID of process in guest to kill.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to kill process.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.proc_list">
 <code class="descname">proc_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Gets the guest&#8217;s process list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples, each tuple contains: Process Name, PID, owner, cmd line, is debugged, start time.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get file info.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.login">
-<code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.login" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">login</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Login to the guest to allow further executions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>username</strong> (<em>str</em>) &#8211; Guest Login username.</li>
+<li><strong>password</strong> (<em>str</em>) &#8211; Guest login password.</li>
+<li><strong>options</strong> (<em>int</em>) &#8211; Must be 0 or VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to authenticate.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.logout">
-<code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.logout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">logout</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logout from guest. Closes any previous login context.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to logout.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.proc_run">
-<code class="descname">proc_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">proc_run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a process in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>program_name</strong> (<em>str</em>) &#8211; Name of program to execute in guest.</li>
+<li><strong>command_line</strong> (<em>str</em>) &#8211; Command line to execute program with.</li>
+<li><strong>should_block</strong> (<em>bool</em>) &#8211; If set to True, function will block until process exits in guest.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to execute process.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.run_script">
-<code class="descname">run_script</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.run_script" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">run_script</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.run_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes a script in guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>script_text</strong> (<em>str</em>) &#8211; The script to execute.</li>
+<li><strong>interpreter_path</strong> (<em>str</em>) &#8211; Path of the interpreter for the script.</li>
+<li><strong>should_block</strong> (<em>bool</em>) &#8211; If set to False, function will return immediately. True will block untill script returns.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to execute script.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.add_shared_folder">
-<code class="descname">add_shared_folder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.add_shared_folder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">add_shared_folder</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.add_shared_folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shares a folder with the guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>share_name</strong> (<em>str</em>) &#8211; Name of share in guest VM.</li>
+<li><strong>host_path</strong> (<em>str</em>) &#8211; Path to share in host.</li>
+<li><strong>write_access</strong> (<em>bool</em>) &#8211; True to allow guest to write to share.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to add share.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.share_enable">
-<code class="descname">share_enable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_enable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">share_enable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables/Disables shares between Host and guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>bool</em>) &#8211; True to enable, False to disable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to enable/disable shares.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
-<dt id="vix.VixVM.get_num_shared_folders">
-<code class="descname">get_num_shared_folders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.get_num_shared_folders" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="vix.VixVM.get_shared_folder_count">
+<code class="descname">get_shared_folder_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.get_shared_folder_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the count of shared folder of VM with host.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.get_shared_folder_state">
-<code class="descname">get_shared_folder_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.get_shared_folder_state" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">get_shared_folder_state</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.get_shared_folder_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the state of a shared folder.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) &#8211; Index of share.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple with share state information.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">SharedFolder</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to get state.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.share_remove">
-<code class="descname">share_remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_remove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">share_remove</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a share between host and guest VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>share_name</strong> (<em>str</em>) &#8211; Name of share to remove.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.share_set_state">
-<code class="descname">share_set_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_set_state" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">share_set_state</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_set_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the state for an existing share.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>share_name</strong> (<em>str</em>) &#8211; Name of share to modify.</li>
+<li><strong>host_path</strong> (<em>str</em>) &#8211; Path on host to set to share.</li>
+<li><strong>allow_write</strong> (<em>bool</em>) &#8211; Sets if the guest will be able to write to share.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to set share state.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.var_read">
-<code class="descname">var_read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">var_read</code><span class="sig-paren">(</span><em>name</em>, <em>variable_type=1</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads an environment string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; Name of variable to read.</li>
+<li><strong>variable_type</strong> (<em>int</em>) &#8211; Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The value of the variable.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get specified variable.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.var_write">
-<code class="descname">var_write</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_write" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">var_write</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes a string to the VM&#8217;s environment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; Name of env string to set.</li>
+<li><strong>value</strong> (<em>str</em>) &#8211; Value of env string to set.</li>
+<li><strong>variable_type</strong> (<em>int</em>) &#8211; Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to set environment.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMware products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.upgrade_virtual_hardware">
@@ -870,7 +1309,24 @@
 <dl class="method">
 <dt id="vix.VixVM.capture_screen_image">
 <code class="descname">capture_screen_image</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.capture_screen_image" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Captures a PNG screenshot from VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A PNG image in binary form.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to capture screenshot.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This method is not supported by all VMWare products.</p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="vix.VixVM.wait_for_tools">
@@ -890,8 +1346,19 @@
 
 <dl class="method">
 <dt id="vix.VixVM.install_tools">
-<code class="descname">install_tools</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.install_tools" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">install_tools</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.install_tools" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the VMware tools install operation on guest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>int</em>) &#8211; Can be VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER or VIX_INSTALLTOOLS_AUTO_UPGRADE, both can be combined with VIX_INSTALLTOOLS_RETURN_IMMEDIATELY.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to start install.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -2699,6 +3166,21 @@ Using these classes directly may cause python to crash.</p>
 <code class="descname">VIX_PROPERTY_VM_ENCRYPTION_PASSWORD</code><em class="property"> = 7001</em><a class="headerlink" href="#vix.VixJob.VixJob.VIX_PROPERTY_VM_ENCRYPTION_PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="vix.VixJob.VixJob.VIX_FILE_ATTRIBUTES_DIRECTORY">
+<code class="descname">VIX_FILE_ATTRIBUTES_DIRECTORY</code><em class="property"> = 1</em><a class="headerlink" href="#vix.VixJob.VixJob.VIX_FILE_ATTRIBUTES_DIRECTORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixJob.VixJob.VIX_FILE_ATTRIBUTES_SYMLINK">
+<code class="descname">VIX_FILE_ATTRIBUTES_SYMLINK</code><em class="property"> = 2</em><a class="headerlink" href="#vix.VixJob.VixJob.VIX_FILE_ATTRIBUTES_SYMLINK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixJob.VixJob.STR_RESULT_TYPES">
+<code class="descname">STR_RESULT_TYPES</code><em class="property"> = (3035, 3056, 3005, 3052, 3053, 3048)</em><a class="headerlink" href="#vix.VixJob.VixJob.STR_RESULT_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="vix.VixJob.VixJob.wait">
 <code class="descname">wait</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixJob.VixJob.wait" title="Permalink to this definition">¶</a></dt>
@@ -2751,6 +3233,26 @@ Using these classes directly may cause python to crash.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="vix.VixJob.VixJob.get_properties">
+<code class="descname">get_properties</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixJob.VixJob.get_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get properties of a job result</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> &#8211; properties to fetch.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples of requests properties.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to fetch results.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2777,7 +3279,7 @@ Using these classes directly may cause python to crash.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplented</strong> &#8211; If the OS/architecture are not recognized.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplemented</strong> &#8211; If the OS/architecture are not recognized.</td>
 </tr>
 </tbody>
 </table>
