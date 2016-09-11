@@ -11,6 +11,11 @@ Tested with VMware Workstation, this wrapper should support ESXs, VMware servers
   * Snapshot control
   * Cloning (both full and linked)
   * Finding powered on VMs (or registered, if your VMware product supports it)
+  * Script & command execution on guest.
+  * Listing directories & Processes
+  * Killing processes
+  * Deleting files & directories
+  * Control VMs environment
 * Deletion of VMs from host
 * Registration and unregistration of VMs from hosts.
 

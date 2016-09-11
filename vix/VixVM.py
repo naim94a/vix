@@ -596,8 +596,6 @@ class VixVM(VixHandle):
 
         return result
 
-
-
     # Guest execution
     @_blocking_job
     def proc_kill(self, pid):
