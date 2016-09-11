@@ -624,11 +624,54 @@ class VixVM(VixHandle):
         raise NotImplemented()
 
     # VM environment.
-    def var_read(self):
-        raise NotImplemented()
+    def var_read(self, name, variable_type=VIX_VM_GUEST_VARIABLE):
+        """Reads an environment string.
 
-    def var_write(self):
-        raise NotImplemented()
+        :param str name: Name of variable to read.
+        :param int variable_type: Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.
+
+        :returns: The value of the variable.
+        :rtype: str
+
+        :raises vix.VixError: On failure to get specified variable.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        job = VixJob(vix.VixVM_ReadVariable(
+            self._handle,
+            ffi.cast('int', variable_type),
+            ffi.new('char[]', bytes(name, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        return job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_VM_VARIABLE_STRING)
+
+    @_blocking_job
+    def var_write(self, name, value, variable_type=VIX_VM_GUEST_VARIABLE):
+        """Writes a string to the VM's environment.
+
+        :param str name: Name of env string to set.
+        :param str value: Value of env string to set.
+        :param int variable_type: Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.
+
+        :raises vix.VixError: On failure to set environment.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_WriteVariable(
+            self._handle,
+            ffi.cast('int', variable_type),
+            ffi.new('char[]', bytes(name, API_ENCODING)),
+            ffi.new('char[]', bytes(value, API_ENCODING)),
+            ffi.cast('int', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
 
     # Misc. methods
     @_blocking_job

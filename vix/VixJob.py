@@ -69,6 +69,11 @@ class VixJob(VixHandle):
     VIX_PROPERTY_GUEST_SHAREDFOLDERS_SHARES_PATH = 4525
     VIX_PROPERTY_VM_ENCRYPTION_PASSWORD = 7001
 
+    STR_RESULT_TYPES = (
+        VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
+        VIX_PROPERTY_JOB_RESULT_VM_VARIABLE_STRING,
+    )
+
     def __init__(self, handle):
         super(VixJob, self).__init__(handle)
         assert self.get_type() == VixHandle.VIX_HANDLETYPE_JOB, 'Expected VixJob handle.'
@@ -91,7 +96,7 @@ class VixJob(VixHandle):
 
             # TODO: Check the arg type and allocate accordingly...
             alloc = None
-            if arg == self.VIX_PROPERTY_JOB_RESULT_ITEM_NAME:
+            if arg in self.STR_RESULT_TYPES:
                 alloc = ffi.new('char**')
             else:
                 alloc = ffi.new('int*')
@@ -110,7 +115,7 @@ class VixJob(VixHandle):
             if args[i] == self.VIX_PROPERTY_NONE:
                 break
             val = ret_data[i]
-            if args[i] == self.VIX_PROPERTY_JOB_RESULT_ITEM_NAME:
+            if args[i] in self.STR_RESULT_TYPES:
                 result.append(str(ffi.string(val[0]), API_ENCODING))
                 vix.Vix_FreeBuffer(val[0])
             else:
