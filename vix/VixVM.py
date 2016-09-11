@@ -977,7 +977,44 @@ class VixVM(VixHandle):
         )
 
     def capture_screen_image(self):
-        raise NotImplemented()
+        """Captures a PNG screenshot from VM.
+
+        :returns: A PNG image in binary form.
+        :rtype: bytes
+
+        :raises vix.VixError: On failure to capture screenshot.
+
+        .. note:: This method is not supported by all VMWare products.
+        """
+
+        job = VixJob(vix.VixVM_CaptureScreenImage(
+            self._handle,
+            ffi.cast('int', self.VIX_CAPTURESCREENFORMAT_PNG),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        ))
+
+        bytes_ptr = ffi.new('int*')
+        data_ptr = ffi.new('char**')
+
+        error_code = vix.VixJob_Wait(
+            job._handle,
+            ffi.cast('int', VixJob.VIX_PROPERTY_JOB_RESULT_SCREEN_IMAGE_DATA),
+            bytes_ptr,
+            data_ptr,
+            ffi.cast('int', VixJob.VIX_PROPERTY_NONE)
+        )
+
+        if error_code != VixError.VIX_OK:
+            raise VixError(error_code)
+
+        img_len = int(bytes_ptr[0])
+        img_data = bytes(ffi.buffer(data_ptr[0], img_len))
+
+        vix.Vix_FreeBuffer(data_ptr[0])
+
+        return img_data
 
     # VMware tools
     @_blocking_job
