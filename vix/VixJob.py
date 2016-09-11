@@ -72,6 +72,7 @@ class VixJob(VixHandle):
     STR_RESULT_TYPES = (
         VIX_PROPERTY_JOB_RESULT_ITEM_NAME,
         VIX_PROPERTY_JOB_RESULT_VM_VARIABLE_STRING,
+        VIX_PROPERTY_JOB_RESULT_COMMAND_OUTPUT,
     )
 
     def __init__(self, handle):

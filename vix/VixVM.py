@@ -598,11 +598,51 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def proc_run(self):
-        raise NotImplemented()
+    @_blocking_job
+    def proc_run(self, program_name, command_line=None, should_block=True):
+        """Executes a process in guest VM.
 
-    def run_script(self):
-        raise NotImplemented()
+        :param str program_name: Name of program to execute in guest.
+        :param str command_line: Command line to execute program with.
+        :param bool should_block: If set to True, function will block until process exits in guest.
+
+        :raises vix.VixError: On failure to execute process.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_RunProgramInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(program_name, API_ENCODING)),
+            ffi.new('char[]', bytes(command_line, API_ENCODING)) if command_line else ffi.cast('char*', 0),
+            ffi.cast('VixRunProgramOptions', 0 if should_block else self.VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
+
+    @_blocking_job
+    def run_script(self, script_text, interpreter_path=None, should_block=True):
+        """Executes a script in guest VM.
+
+        :param str script_text: The script to execute.
+        :param str interpreter_path: Path of the interpreter for the script.
+        :param bool should_block: If set to False, function will return immediately. True will block untill script returns.
+
+        :raises vix.VixError: On failure to execute script.
+
+        .. note:: This method is not supported by all VMware products.
+        """
+
+        return vix.VixVM_RunScriptInGuest(
+            self._handle,
+            ffi.new('char[]', bytes(interpreter_path, API_ENCODING)) if interpreter_path else ffi.cast('char*', 0),
+            ffi.new('char[]', bytes(script_text, API_ENCODING)),
+            ffi.cast('VixRunProgramOptions', 0 if should_block else self.VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
+            ffi.cast('VixHandle', 0),
+            ffi.cast('VixEventProc*', 0),
+            ffi.cast('void*', 0),
+        )
 
     # Share mgmt.
     def add_shared_folder(self):
