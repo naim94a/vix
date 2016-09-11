@@ -212,6 +212,16 @@ class VixJob(VixHandle):
         return tuple(result)
 
     def get_properties(self, *args):
+        """Get properties of a job result
+
+        :param \*args: properties to fetch.
+
+        :returns: A list of tuples of requests properties.
+        :rtype: list
+
+        :raises vix.VixError: On failure to fetch results.
+        """
+
         num = self._get_num_properties(args[0])
         result = list()
 
