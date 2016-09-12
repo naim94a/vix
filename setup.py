@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
 	name='vix',
@@ -21,10 +21,12 @@ setup(
 		'Natural Language :: English',
 		'Operating System :: Microsoft :: Windows',
 		'Operating System :: POSIX :: Linux',
-		'Programming Language :: Python :: 2',
 		'Programming Language :: Python :: 3',
 		'Programming Language :: Python :: Implementation :: CPython',
 		'Programming Language :: Python :: Implementation :: PyPy',
 		'Topic :: System :: Systems Administration',
+	],
+	install_requires=[
+		'cffi>=1.8.2',
 	]
 )
