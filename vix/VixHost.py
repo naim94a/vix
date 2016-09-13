@@ -61,10 +61,7 @@ class VixHost(object):
     VIX_FIND_RUNNING_VMS = 1
     VIX_FIND_REGISTERED_VMS = 4
 
-    def __init__(self):
-        self._handle = None
-
-    def connect(self, service_provider=VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
+    def __init__(self, service_provider=VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
         """Connects to a VMware host.
 
         :param int service_provider: Specifies the service to connect to, may be any of VIX_SERVICEPROVIDER_* constants.
@@ -74,6 +71,7 @@ class VixHost(object):
         :raises AssertionError: If passed arguments are not the right types/sizes.
         :raises vix.VixError: On connection failure.
         """
+        self._handle = None
 
         assert self._handle == None, 'Instance is already connected.'
 
