@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
 	name='vix',
-	version='1.0.1',
+	version='1.0.2',
 	description='VIX binding for Python',
 	author='Naim A.',
 	author_email='naim94a@gmail.com',
@@ -13,7 +13,6 @@ setup(
 	},
 	license='GPLv3',
 	classifiers=[
-		'Development Status :: 4 - Beta', 
 		'Intended Audience :: Developers',
 		'Intended Audience :: Information Technology',
 		'Intended Audience :: System Administrators',
@@ -21,6 +20,7 @@ setup(
 		'Natural Language :: English',
 		'Operating System :: Microsoft :: Windows',
 		'Operating System :: POSIX :: Linux',
+		'Programming Language :: Python :: 2',
 		'Programming Language :: Python :: 3',
 		'Programming Language :: Python :: Implementation :: CPython',
 		'Programming Language :: Python :: Implementation :: PyPy',
