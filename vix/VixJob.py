@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+
+from .compat import _bytes, _str
 from .VixHandle import VixHandle
 from .VixError import VixError
 from vix import _backend, API_ENCODING
@@ -125,7 +128,7 @@ class VixJob(VixHandle):
                 break
             val = ret_data[i]
             if args[i] in self.STR_RESULT_TYPES:
-                result.append(str(ffi.string(val[0]), API_ENCODING))
+                result.append(_str(ffi.string(val[0]), API_ENCODING))
                 vix.Vix_FreeBuffer(val[0])
             else:
                 result.append(val[0])
@@ -184,7 +187,7 @@ class VixJob(VixHandle):
         error_code = vix.VixJob_GetNthProperties(
             self._handle,
             index,
-            *c_args,
+            *c_args
         )
 
         if error_code != VixError.VIX_OK:
@@ -198,7 +201,7 @@ class VixJob(VixHandle):
 
             value = None
             if prop_id in self.STR_RESULT_TYPES:
-                value = str(ffi.string(prop_val[0]), API_ENCODING)
+                value = _str(ffi.string(prop_val[0]), API_ENCODING)
                 vix.Vix_FreeBuffer(prop_val[0])
             elif prop_id == self.VIX_PROPERTY_JOB_RESULT_PROCESS_BEING_DEBUGGED:
                 value = bool(ffi.cast('Bool', prop_val[0]))

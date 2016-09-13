@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+
+from .compat import _bytes, _str
 from .VixJob import VixJob
 from .VixVM import VixVM
 from .VixHandle import VixHandle
@@ -35,7 +38,7 @@ def _find_items_callback(job_handle, event_type, event_info, client_data):
     if error_code != VixError.VIX_OK:
         return
 
-    vmx = str(ffi.string(str_ptr[0]), API_ENCODING)
+    vmx = _str(ffi.string(str_ptr[0]), API_ENCODING)
 
     _find_results[idx].append(vmx)
     vix.Vix_FreeBuffer(str_ptr[0])
@@ -85,10 +88,10 @@ class VixHost(object):
         job = VixJob(vix.VixHost_Connect(
             self.VIX_API_VERSION,
             service_provider,
-            ffi.cast('const char*', bytes(host[0], API_ENCODING) if host[0] else 0),
+            ffi.cast('const char*', _bytes(host[0], API_ENCODING) if host[0] else 0),
             host[1],
-            ffi.cast('const char*', bytes(credentials[0], API_ENCODING) if credentials[0] else 0),
-            ffi.cast('const char*', bytes(credentials[1], API_ENCODING) if credentials[1] else 0),
+            ffi.cast('const char*', _bytes(credentials[0], API_ENCODING) if credentials[0] else 0),
+            ffi.cast('const char*', _bytes(credentials[1], API_ENCODING) if credentials[1] else 0),
             0,
             0,
             ffi.cast('VixEventProc*', 0),
@@ -117,7 +120,7 @@ class VixHost(object):
 
         job = VixJob(vix.VixHost_RegisterVM(
             self._handle,
-            ffi.cast('const char*', bytes(vmx_path, API_ENCODING)),
+            ffi.cast('const char*', _bytes(vmx_path, API_ENCODING)),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))
@@ -137,7 +140,7 @@ class VixHost(object):
 
         job = VixJob(vix.VixHost_UnregisterVM(
             self._handle,
-            ffi.cast('const char*', bytes(vmx_path, API_ENCODING)),
+            ffi.cast('const char*', _bytes(vmx_path, API_ENCODING)),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))
@@ -159,7 +162,7 @@ class VixHost(object):
 
         job = VixJob(vix.VixHost_OpenVM(
             self._handle,
-            ffi.new('char[]', bytes(vmx_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(vmx_path, API_ENCODING)),
             ffi.cast('VixVMOpenOptions', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),

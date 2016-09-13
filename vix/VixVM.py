@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+
+from .compat import _bytes, _str
 from .VixError import VixError
 from .VixHandle import VixHandle
 from .VixSnapshot import VixSnapshot
@@ -200,7 +203,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.cast('VixHandle', snapshot._handle if snapshot else 0),
             ffi.cast('VixCloneType', self.VIX_CLONETYPE_LINKED if linked else self.VIX_CLONETYPE_FULL),
-            ffi.new('char[]', bytes(dest_vms, API_ENCODING)),
+            ffi.new('char[]', _bytes(dest_vms, API_ENCODING)),
             ffi.cast('VixCloneOptions', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -226,8 +229,8 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_CreateSnapshot(
             self._handle,
-            ffi.new('char[]', bytes(name, API_ENCODING)) if name else ffi.cast('char*', 0),
-            ffi.new('char[]', bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
+            ffi.new('char[]', _bytes(name, API_ENCODING)) if name else ffi.cast('char*', 0),
+            ffi.new('char[]', _bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
             ffi.cast('int', self.VIX_SNAPSHOT_INCLUDE_MEMORY if include_memory else 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -274,7 +277,7 @@ class VixVM(VixHandle):
         snapshot_handle = ffi.new('VixHandle*')
         error_code = vix.VixVM_GetNamedSnapshot(
             self._handle,
-            ffi.new('char[]', bytes(name, API_ENCODING)),
+            ffi.new('char[]', _bytes(name, API_ENCODING)),
             snapshot_handle,
         )
 
@@ -384,8 +387,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_CopyFileFromGuestToHost(
             self._handle,
-            ffi.new('char[]', bytes(guest_path, API_ENCODING)),
-            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(guest_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(host_path, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -404,8 +407,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_CopyFileFromHostToGuest(
             self._handle,
-            ffi.new('char[]', bytes(host_path, API_ENCODING)),
-            ffi.new('char[]', bytes(guest_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(host_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(guest_path, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -425,7 +428,7 @@ class VixVM(VixHandle):
 
         return vix.VixVM_CreateDirectoryInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -466,8 +469,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_RenameFileInGuest(
             self._handle,
-            ffi.new('char[]', bytes(old_name, API_ENCODING)),
-            ffi.new('char[]', bytes(new_name, API_ENCODING)),
+            ffi.new('char[]', _bytes(old_name, API_ENCODING)),
+            ffi.new('char[]', _bytes(new_name, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -487,7 +490,7 @@ class VixVM(VixHandle):
 
         return vix.VixVM_DeleteDirectoryInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -506,7 +509,7 @@ class VixVM(VixHandle):
 
         return vix.VixVM_DeleteFileInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -526,7 +529,7 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_DirectoryExistsInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))
@@ -548,7 +551,7 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_FileExistsInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))
@@ -570,7 +573,7 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_GetFileInfoInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         ))
@@ -604,7 +607,7 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_ListDirectoryInGuest(
             self._handle,
-            ffi.new('char[]', bytes(path, API_ENCODING)),
+            ffi.new('char[]', _bytes(path, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -700,8 +703,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_LoginInGuest(
             self._handle,
-            ffi.new('char[]', bytes(username, API_ENCODING)) if username else ffi.cast('char*', 0),
-            ffi.new('char[]', bytes(password, API_ENCODING)) if password else ffi.cast('char*', 0),
+            ffi.new('char[]', _bytes(username, API_ENCODING)) if username else ffi.cast('char*', 0),
+            ffi.new('char[]', _bytes(password, API_ENCODING)) if password else ffi.cast('char*', 0),
             ffi.cast('int', self.VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT if require_interactive else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -737,8 +740,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_RunProgramInGuest(
             self._handle,
-            ffi.new('char[]', bytes(program_name, API_ENCODING)),
-            ffi.new('char[]', bytes(command_line, API_ENCODING)) if command_line else ffi.cast('char*', 0),
+            ffi.new('char[]', _bytes(program_name, API_ENCODING)),
+            ffi.new('char[]', _bytes(command_line, API_ENCODING)) if command_line else ffi.cast('char*', 0),
             ffi.cast('VixRunProgramOptions', 0 if should_block else self.VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -760,8 +763,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_RunScriptInGuest(
             self._handle,
-            ffi.new('char[]', bytes(interpreter_path, API_ENCODING)) if interpreter_path else ffi.cast('char*', 0),
-            ffi.new('char[]', bytes(script_text, API_ENCODING)),
+            ffi.new('char[]', _bytes(interpreter_path, API_ENCODING)) if interpreter_path else ffi.cast('char*', 0),
+            ffi.new('char[]', _bytes(script_text, API_ENCODING)),
             ffi.cast('VixRunProgramOptions', 0 if should_block else self.VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
@@ -785,8 +788,8 @@ class VixVM(VixHandle):
         # TODO: return the path of shared folder in guest.
         return vix.VixVM_AddSharedFolder(
             self._handle,
-            ffi.new('char[]', bytes(share_name, API_ENCODING)),
-            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(share_name, API_ENCODING)),
+            ffi.new('char[]', _bytes(host_path, API_ENCODING)),
             ffi.cast('VixMsgSharedFolderOptions', self.VIX_SHAREDFOLDER_WRITE_ACCESS if write_access else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -867,7 +870,7 @@ class VixVM(VixHandle):
 
         return vix.VixVM_RemoveSharedFolder(
             self._handle,
-            ffi.new('char[]', bytes(share_name, API_ENCODING)),
+            ffi.new('char[]', _bytes(share_name, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -888,8 +891,8 @@ class VixVM(VixHandle):
 
         return vix.VixVM_SetSharedFolderState(
             self._handle,
-            ffi.new('char[]', bytes(share_name, API_ENCODING)),
-            ffi.new('char[]', bytes(host_path, API_ENCODING)),
+            ffi.new('char[]', _bytes(share_name, API_ENCODING)),
+            ffi.new('char[]', _bytes(host_path, API_ENCODING)),
             ffi.cast('VixMsgSharedFolderOptions', VixVM.VIX_SHAREDFOLDER_WRITE_ACCESS if allow_write else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -913,7 +916,7 @@ class VixVM(VixHandle):
         job = VixJob(vix.VixVM_ReadVariable(
             self._handle,
             ffi.cast('int', variable_type),
-            ffi.new('char[]', bytes(name, API_ENCODING)),
+            ffi.new('char[]', _bytes(name, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -937,8 +940,8 @@ class VixVM(VixHandle):
         return vix.VixVM_WriteVariable(
             self._handle,
             ffi.cast('int', variable_type),
-            ffi.new('char[]', bytes(name, API_ENCODING)),
-            ffi.new('char[]', bytes(value, API_ENCODING)),
+            ffi.new('char[]', _bytes(name, API_ENCODING)),
+            ffi.new('char[]', _bytes(value, API_ENCODING)),
             ffi.cast('int', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -1011,7 +1014,7 @@ class VixVM(VixHandle):
             raise VixError(error_code)
 
         img_len = int(bytes_ptr[0])
-        img_data = bytes(ffi.buffer(data_ptr[0], img_len))
+        img_data = _bytes(ffi.buffer(data_ptr[0], img_len))
 
         vix.Vix_FreeBuffer(data_ptr[0])
 
