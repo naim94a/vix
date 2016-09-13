@@ -101,49 +101,50 @@ class VixVM(VixHandle):
         )
 
     @_blocking_job
-    def power_off(self, options=VIX_VMPOWEROP_NORMAL):
+    def power_off(self, from_guest=False):
         """Powers off a VM.
 
-        :param int options: should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        :param bool from_guest: True to initiate from guest, otherwise False.
 
         :raises vix.VixError: On failure to power off VM.
         """
 
         return vix.VixVM_PowerOff(
             self._handle,
-            ffi.cast('VixVMPowerOpOptions', options),
+            ffi.cast('VixVMPowerOpOptions', self.VIX_VMPOWEROP_FROM_GUEST if from_guest else self.VIX_VMPOWEROP_NORMAL),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
 
     @_blocking_job
-    def power_on(self, options=VIX_VMPOWEROP_NORMAL):
+    def power_on(self, launch_gui=False):
         """Powers on a VM.
 
-        :param int options: Should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_LAUNCH_GUI.
+        :param bool launch_gui: True to launch GUI, otherwise False.
 
         :raises vix.VixError: On failure to power on VM.
         """
 
         return vix.VixVM_PowerOn(
             self._handle,
-            ffi.cast('VixVMPowerOpOptions', options),
+            ffi.cast('VixVMPowerOpOptions', self.VIX_VMPOWEROP_LAUNCH_GUI if launch_gui else self.VIX_VMPOWEROP_NORMAL),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
 
     @_blocking_job
-    def reset(self, options=VIX_VMPOWEROP_NORMAL):
+    def reset(self, from_guest=False):
         """Resets a virtual machine.
 
-        :param int options: Should be set to VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.
+        :param bool from_guest: True to initiate from guest, otherwise False.
+
         :raises vix.VixError: On failure to reset VM.
         """
 
         return vix.VixVM_Reset(
             self._handle,
-            ffi.cast('VixVMPowerOpOptions', options),
+            ffi.cast('VixVMPowerOpOptions', self.VIX_VMPOWEROP_FROM_GUEST if from_guest else self.VIX_VMPOWEROP_NORMAL),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -180,12 +181,12 @@ class VixVM(VixHandle):
         )
 
     # Snapshots
-    def clone(self, dest_vmx, snapshot=None, clone_type=VIX_CLONETYPE_LINKED):
+    def clone(self, dest_vmx, snapshot=None, linked=False):
         """Clones the VM to a specified location.
 
         :param str dest_vms: The clone will be stored here.
         :param .VixSnapshot snapshot: Optional snapshot as the state of the clone.
-        :param int clone_type: Must be VIX_CLONETYPE_FULL or VIX_CLONETYPE_LINKED.
+        :param bool linked: True for a linked clone, otherwise False for a full clone.
 
         :returns: Instance of the cloned VM.
         :rtype: .VixVM
@@ -198,7 +199,7 @@ class VixVM(VixHandle):
         job = VixJob(vix.VixVM_Clone(
             self._handle,
             ffi.cast('VixHandle', snapshot._handle if snapshot else 0),
-            ffi.cast('VixCloneType', clone_type),
+            ffi.cast('VixCloneType', self.VIX_CLONETYPE_LINKED if linked else self.VIX_CLONETYPE_FULL),
             ffi.new('char[]', bytes(dest_vms, API_ENCODING)),
             ffi.cast('VixCloneOptions', 0),
             ffi.cast('VixHandle', 0),
@@ -208,12 +209,12 @@ class VixVM(VixHandle):
 
         return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
-    def create_snapshot(self, name=None, description=None, options=VIX_SNAPSHOT_INCLUDE_MEMORY):
+    def create_snapshot(self, name=None, description=None, include_memory=True):
         """Create a VM snapshot.
 
         :param str name: Name of snapshot.
         :param str description: Snapshot description.
-        :param int options: 0 or VIX_SNAPSHOT_INCLUDE_MEMORY to include RAM.
+        :param bool include_memory: True to include RAM, otherwise False.
 
         :returns: Instance of the created snapshot
         :rtype: .VixSnapshot
@@ -227,7 +228,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', bytes(name, API_ENCODING)) if name else ffi.cast('char*', 0),
             ffi.new('char[]', bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
-            ffi.cast('int', options),
+            ffi.cast('int', self.VIX_SNAPSHOT_INCLUDE_MEMORY if include_memory else 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -351,11 +352,11 @@ class VixVM(VixHandle):
         )
 
     @_blocking_job
-    def snapshot_remove(self, snapshot, options=0):
+    def snapshot_remove(self, snapshot, remove_children=False):
         """Removed specified snapshot from VM.
 
         :param .VixSnapshot snapshot: The snapshot to remove.
-        :param int options: 0 or VIX_SNAPSHOT_REMOVE_CHILDREN to remove child snapshots too.
+        :param bool remove_children: True to remove child snapshots too, otherwise False.
 
         :raises vix.VixError: If failed to remove specified snapshot.
 
@@ -365,7 +366,7 @@ class VixVM(VixHandle):
         return vix.VixVM_RemoveSnapshot(
             self._handle,
             snapshot._handle,
-            ffi.cast('int', options),
+            ffi.cast('int', self.VIX_SNAPSHOT_REMOVE_CHILDREN if remove_children else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -687,12 +688,12 @@ class VixVM(VixHandle):
         )]
 
     @_blocking_job
-    def login(self, username, password, options=0):
+    def login(self, username, password, require_interactive=False):
         """Login to the guest to allow further executions.
 
         :param str username: Guest Login username.
         :param str password: Guest login password.
-        :param int options: Must be 0 or VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT.
+        :param bool require_interactive: If login requires an interactive session.
 
         :raises vix.VixError: On failure to authenticate.
         """
@@ -701,7 +702,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', bytes(username, API_ENCODING)) if username else ffi.cast('char*', 0),
             ffi.new('char[]', bytes(password, API_ENCODING)) if password else ffi.cast('char*', 0),
-            ffi.cast('int', options),
+            ffi.cast('int', self.VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT if require_interactive else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -961,17 +962,17 @@ class VixVM(VixHandle):
         )
 
     @_blocking_job
-    def vm_delete(self, options=0):
+    def vm_delete(self, delete_files=False):
         """Deletes VM from host.
 
-        :param int options: settings to VIX_VMDELETE_DISK_FILES will delete associated files.
+        :param bool delete_files: True to delete associated files from disk, otherwise False.
 
         :raises vix.VixError: If failed to delete VM.
         """
 
         return vix.VixVM_Delete(
             self._handle,
-            ffi.cast('VixVMDeleteOptions', options),
+            ffi.cast('VixVMDeleteOptions', self.VIX_VMDELETE_DISK_FILES if delete_files else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -1034,13 +1035,20 @@ class VixVM(VixHandle):
         )
 
     @_blocking_job
-    def install_tools(self, options=VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER):
+    def install_tools(self, auto_upgrade=False, blocking=True):
         """Starts the VMware tools install operation on guest.
 
-        :param int options: Can be VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER or VIX_INSTALLTOOLS_AUTO_UPGRADE, both can be combined with VIX_INSTALLTOOLS_RETURN_IMMEDIATELY.
+        :param bool auto_upgrade: True for auto upgrade, False will mount installer.
+        :param bool blocking: False will return immediatly, True will wait till operation ends.
 
         :raises vix.VixError: On failure to start install.
         """
+
+        options = 0
+        if blocking:
+            options |= self.VIX_INSTALLTOOLS_RETURN_IMMEDIATELY
+        if auto_upgrade:
+            options |= self.VIX_INSTALLTOOLS_AUTO_UPGRADE
 
         return vix.VixVM_InstallTools(
             self._handle,
