@@ -1,3 +1,4 @@
+import os
 import cffi
 import platform
 import sys
@@ -159,11 +160,17 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 			return '/usr/lib/libvixAllProducts.so'
 		elif os_name == 'Windows':
 			arch = platform.architecture()[0].lower()
-			if arch == '64bit':
-				return r'C:\Program Files (x86)\VMware\VMware VIX\Vix64AllProductsDyn.dll'
-			elif arch == '32bit':
-				return r'C:\Program Files\VMware\VMware VIX\VixAllProductsDyn.dll'
-			else:
-				raise NotImplemented('VixAllProductsDyn.dll could not be found.')
-		else:
-			raise NotImplemented("This VIX wrapper doesn't cover this OS")
+			machine = platform.machine().lower()
+
+			# Py: 32; Machine: 32: C:\Program Files\VMware\VMware VIX\VixAllProductsDyn.dll
+			# Py: 32; Machine: 64: C:\Program Files (x86)\VMware\VMware VIX\VixAllProductsDyn.dll
+			# Py: 64; Machine: 32: N/A
+			# Py: 64; Machine: 64: C:\Program Files (x86)\VMware\VMware VIX\Vix64AllProductsDyn.dll
+
+			base_path = r'C:\Program Files (x86)' if machine == 'amd64' else r'C:\Program Files'
+			base_path = os.path.join(base_path, 'VMware', 'VMware VIX')
+			base_path = os.path.join(base_path, 'Vix64AllProductsDyn.dll' if arch == '64bit' else 'VixAllProductsDyn.dll')
+
+			return base_path
+
+		raise NotImplemented('Unrecognized OS or architecure ({0}, {1}, {2})'.format(platform.architecure(), platform.machine(), platform.system()))
