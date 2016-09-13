@@ -436,7 +436,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>int</em>) &#8211; should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>from_guest</strong> (<em>bool</em>) &#8211; True to initiate from guest, otherwise False.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to power off VM.</td>
 </tr>
@@ -452,7 +452,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>int</em>) &#8211; Should be VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_LAUNCH_GUI.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>launch_gui</strong> (<em>bool</em>) &#8211; True to launch GUI, otherwise False.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to power on VM.</td>
 </tr>
@@ -468,7 +468,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>int</em>) &#8211; Should be set to VIX_VMPOWEROP_NORMAL or VIX_VMPOWEROP_FROM_GUEST.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>from_guest</strong> (<em>bool</em>) &#8211; True to initiate from guest, otherwise False.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to reset VM.</td>
 </tr>
@@ -510,7 +510,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.clone">
-<code class="descname">clone</code><span class="sig-paren">(</span><em>dest_vmx</em>, <em>snapshot=None</em>, <em>clone_type=1</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.clone" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clone</code><span class="sig-paren">(</span><em>dest_vmx</em>, <em>snapshot=None</em>, <em>linked=False</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.clone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clones the VM to a specified location.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -519,7 +519,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>dest_vms</strong> (<em>str</em>) &#8211; The clone will be stored here.</li>
 <li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) &#8211; Optional snapshot as the state of the clone.</li>
-<li><strong>clone_type</strong> (<em>int</em>) &#8211; Must be VIX_CLONETYPE_FULL or VIX_CLONETYPE_LINKED.</li>
+<li><strong>linked</strong> (<em>bool</em>) &#8211; True for a linked clone, otherwise False for a full clone.</li>
 </ul>
 </td>
 </tr>
@@ -542,7 +542,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.create_snapshot">
-<code class="descname">create_snapshot</code><span class="sig-paren">(</span><em>name=None</em>, <em>description=None</em>, <em>options=2</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_snapshot" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_snapshot</code><span class="sig-paren">(</span><em>name=None</em>, <em>description=None</em>, <em>include_memory=True</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_snapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a VM snapshot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -551,7 +551,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>name</strong> (<em>str</em>) &#8211; Name of snapshot.</li>
 <li><strong>description</strong> (<em>str</em>) &#8211; Snapshot description.</li>
-<li><strong>options</strong> (<em>int</em>) &#8211; 0 or VIX_SNAPSHOT_INCLUDE_MEMORY to include RAM.</li>
+<li><strong>include_memory</strong> (<em>bool</em>) &#8211; True to include RAM, otherwise False.</li>
 </ul>
 </td>
 </tr>
@@ -699,7 +699,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) &#8211; The snapshot to remove.</li>
-<li><strong>options</strong> (<em>int</em>) &#8211; 0 or VIX_SNAPSHOT_REMOVE_CHILDREN to remove child snapshots too.</li>
+<li><strong>remove_children</strong> (<em>bool</em>) &#8211; True to remove child snapshots too, otherwise False.</li>
 </ul>
 </td>
 </tr>
@@ -1010,7 +1010,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>username</strong> (<em>str</em>) &#8211; Guest Login username.</li>
 <li><strong>password</strong> (<em>str</em>) &#8211; Guest login password.</li>
-<li><strong>options</strong> (<em>int</em>) &#8211; Must be 0 or VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT.</li>
+<li><strong>require_interactive</strong> (<em>bool</em>) &#8211; If login requires an interactive session.</li>
 </ul>
 </td>
 </tr>
@@ -1298,7 +1298,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>int</em>) &#8211; settings to VIX_VMDELETE_DISK_FILES will delete associated files.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delete_files</strong> (<em>bool</em>) &#8211; True to delete associated files from disk, otherwise False.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to delete VM.</td>
 </tr>
@@ -1352,9 +1352,14 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>int</em>) &#8211; Can be VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER or VIX_INSTALLTOOLS_AUTO_UPGRADE, both can be combined with VIX_INSTALLTOOLS_RETURN_IMMEDIATELY.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>auto_upgrade</strong> (<em>bool</em>) &#8211; True for auto upgrade, False will mount installer.</li>
+<li><strong>blocking</strong> (<em>bool</em>) &#8211; False will return immediatly, True will wait till operation ends.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to start install.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to start install.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1432,103 +1437,13 @@
 <em class="property">exception </em><code class="descclassname">vix.</code><code class="descname">VixError</code><span class="sig-paren">(</span><em>error_code</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
 <dl class="attribute">
-<dt id="vix.VixError.VIX_OK">
-<code class="descname">VIX_OK</code><em class="property"> = 0</em><a class="headerlink" href="#vix.VixError.VIX_OK" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.ERRORS">
+<code class="descname">ERRORS</code><em class="property"> = {0: 'VIX_OK', 1: 'VIX_E_FAIL', 2: 'VIX_E_OUT_OF_MEMORY', 3: 'VIX_E_INVALID_ARG', 4: 'VIX_E_FILE_NOT_FOUND', 5: 'VIX_E_OBJECT_IS_BUSY', 6: 'VIX_E_NOT_SUPPORTED', 7: 'VIX_E_FILE_ERROR', 8: 'VIX_E_DISK_FULL', 9: 'VIX_E_INCORRECT_FILE_TYPE', 10: 'VIX_E_CANCELLED', 11: 'VIX_E_FILE_READ_ONLY', 12: 'VIX_E_FILE_ALREADY_EXISTS', 13: 'VIX_E_FILE_ACCESS_ERROR', 14: 'VIX_E_REQUIRES_LARGE_FILES', 15: 'VIX_E_FILE_ALREADY_LOCKED', 16: 'VIX_E_VMDB', 21009: 'VIX_E_TOOLS_INSTALL_ERROR', 21010: 'VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE', 21011: 'VIX_E_TOOLS_INSTALL_IN_PROGRESS', 20: 'VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT', 21: 'VIX_E_FILE_TOO_BIG', 22: 'VIX_E_FILE_NAME_INVALID', 23: 'VIX_E_ALREADY_EXISTS', 24: 'VIX_E_BUFFER_TOOSMALL', 25: 'VIX_E_OBJECT_NOT_FOUND', 26: 'VIX_E_HOST_NOT_CONNECTED', 27: 'VIX_E_INVALID_UTF8_STRING', 29: 'VIX_E_UNFINISHED_JOB', 30: 'VIX_E_NEED_KEY', 31: 'VIX_E_OPERATION_ALREADY_IN_PROGRESS', 32: 'VIX_E_LICENSE', 20001: 'VIX_E_NOT_A_FILE', 34: 'VIX_E_VM_HOST_DISCONNECTED', 35: 'VIX_E_AUTHENTICATION_FAIL', 36: 'VIX_E_HOST_CONNECTION_LOST', 20005: 'VIX_E_OPERATION_DISABLED', 41: 'VIX_E_DUPLICATE_NAME', 24313: 'VIX_E_MNTAPI_REGWRITE_ERROR', 44: 'VIX_E_ARGUMENT_TOO_BIG', 21000: 'VIX_E_TOOLS_INSTALL_NO_IMAGE', 20000: 'VIX_E_GUEST_VOLUMES_NOT_FROZEN', 19000: 'VIX_E_SCREEN_CAPTURE_ERROR', 16052: 'VIX_E_DISK_KEY_NOTFOUND', 19002: 'VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL', 19003: 'VIX_E_SCREEN_CAPTURE_LARGE_DATA', 21002: 'VIX_E_TOOLS_INSTALL_NO_DEVICE', 16053: 'VIX_E_DISK_SUBSYSTEM_INIT_FAIL', 21003: 'VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED', 16054: 'VIX_E_DISK_INVALID_CONNECTION', 21001: 'VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE', 21005: 'VIX_E_TOOLS_INSTALL_INIT_FAILED', 18000: 'VIX_E_CANNOT_CONNECT_TO_HOST', 18001: 'VIX_E_NOT_FOR_REMOTE_HOST', 18002: 'VIX_E_INVALID_HOSTNAME_SPECIFICATION', 20002: 'VIX_E_NOT_A_DIRECTORY', 21006: 'VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED', 21007: 'VIX_E_TOOLS_INSTALL_GUEST_NOT_READY', 17000: 'VIX_E_CRYPTO_UNKNOWN_ALGORITHM', 17001: 'VIX_E_CRYPTO_BAD_BUFFER_SIZE', 17002: 'VIX_E_CRYPTO_INVALID_OPERATION', 17003: 'VIX_E_CRYPTO_RANDOM_DEVICE', 17004: 'VIX_E_CRYPTO_NEED_PASSWORD', 17005: 'VIX_E_CRYPTO_BAD_PASSWORD', 17006: 'VIX_E_CRYPTO_NOT_IN_DICTIONARY', 16061: 'VIX_E_DISK_ENCODING', 17008: 'VIX_E_CRYPTO_ERROR', 17009: 'VIX_E_CRYPTO_BAD_FORMAT', 17010: 'VIX_E_CRYPTO_LOCKED', 17011: 'VIX_E_CRYPTO_EMPTY', 17012: 'VIX_E_CRYPTO_KEYSAFE_LOCATOR', 21012: 'VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED', 16000: 'VIX_E_DISK_INVAL', 16001: 'VIX_E_DISK_NOINIT', 16002: 'VIX_E_DISK_NOIO', 16003: 'VIX_E_DISK_PARTIALCHAIN', 16006: 'VIX_E_DISK_NEEDSREPAIR', 16007: 'VIX_E_DISK_OUTOFRANGE', 16008: 'VIX_E_DISK_CID_MISMATCH', 16009: 'VIX_E_DISK_CANTSHRINK', 16010: 'VIX_E_DISK_PARTMISMATCH', 16011: 'VIX_E_DISK_UNSUPPORTEDDISKVERSION', 16012: 'VIX_E_DISK_OPENPARENT', 16013: 'VIX_E_DISK_NOTSUPPORTED', 16014: 'VIX_E_DISK_NEEDKEY', 16015: 'VIX_E_DISK_NOKEYOVERRIDE', 16016: 'VIX_E_DISK_NOTENCRYPTED', 16017: 'VIX_E_DISK_NOKEY', 16018: 'VIX_E_DISK_INVALIDPARTITIONTABLE', 16019: 'VIX_E_DISK_NOTNORMAL', 16020: 'VIX_E_DISK_NOTENCDESC', 16022: 'VIX_E_DISK_NEEDVMFS', 16024: 'VIX_E_DISK_RAWTOOBIG', 24004: 'VIX_E_MNTAPI_DISK_IS_MOUNTED', 16027: 'VIX_E_DISK_TOOMANYOPENFILES', 16028: 'VIX_E_DISK_TOOMANYREDO', 16029: 'VIX_E_DISK_RAWTOOSMALL', 16030: 'VIX_E_DISK_INVALIDCHAIN', 24005: 'VIX_E_MNTAPI_DISK_NOT_SAFE', 24010: 'VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS', 24009: 'VIX_E_MNTAPI_UMOUNT', 24006: 'VIX_E_MNTAPI_DISK_CANT_OPEN', 24007: 'VIX_E_MNTAPI_CANT_READ_PARTS', 20004: 'VIX_E_FILE_NAME_TOO_LONG', 24008: 'VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND', 14003: 'VIX_E_HOST_DISK_INVALID_VALUE', 14004: 'VIX_E_HOST_DISK_SECTORSIZE', 14005: 'VIX_E_HOST_FILE_ERROR_EOF', 14006: 'VIX_E_HOST_NETBLKDEV_HANDSHAKE', 14007: 'VIX_E_HOST_SOCKET_CREATION_ERROR', 14008: 'VIX_E_HOST_SERVER_NOT_FOUND', 14009: 'VIX_E_HOST_NETWORK_CONN_REFUSED', 14010: 'VIX_E_HOST_TCP_SOCKET_ERROR', 14011: 'VIX_E_HOST_TCP_CONN_LOST', 14012: 'VIX_E_HOST_NBD_HASHFILE_VOLUME', 14013: 'VIX_E_HOST_NBD_HASHFILE_INIT', 16062: 'VIX_E_DISK_CANTREPAIR', 16063: 'VIX_E_DISK_INVALIDDISK', 16064: 'VIX_E_DISK_NOLICENSE', 16065: 'VIX_E_DISK_NODEVICE', 16066: 'VIX_E_DISK_UNSUPPORTEDDEVICE', 16067: 'VIX_E_DISK_CAPACITY_MISMATCH', 16068: 'VIX_E_DISK_PARENT_NOTALLOWED', 16069: 'VIX_E_DISK_ATTACH_ROOTLINK', 13000: 'VIX_E_SNAPSHOT_INVAL', 13001: 'VIX_E_SNAPSHOT_DUMPER', 13002: 'VIX_E_SNAPSHOT_DISKLIB', 13003: 'VIX_E_SNAPSHOT_NOTFOUND', 13004: 'VIX_E_SNAPSHOT_EXISTS', 13005: 'VIX_E_SNAPSHOT_VERSION', 13006: 'VIX_E_SNAPSHOT_NOPERM', 13007: 'VIX_E_SNAPSHOT_CONFIG', 13008: 'VIX_E_SNAPSHOT_NOCHANGE', 13009: 'VIX_E_SNAPSHOT_CHECKPOINT', 13010: 'VIX_E_SNAPSHOT_LOCKED', 13011: 'VIX_E_SNAPSHOT_INCONSISTENT', 13012: 'VIX_E_SNAPSHOT_NAMETOOLONG', 13013: 'VIX_E_SNAPSHOT_VIXFILE', 13014: 'VIX_E_SNAPSHOT_DISKLOCKED', 13015: 'VIX_E_SNAPSHOT_DUPLICATEDDISK', 13016: 'VIX_E_SNAPSHOT_INDEPENDENTDISK', 13017: 'VIX_E_SNAPSHOT_NONUNIQUE_NAME', 13018: 'VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK', 13019: 'VIX_E_SNAPSHOT_MAXSNAPSHOTS', 13020: 'VIX_E_SNAPSHOT_MIN_FREE_SPACE', 13021: 'VIX_E_SNAPSHOT_HIERARCHY_TOODEEP', 13024: 'VIX_E_SNAPSHOT_NOT_REVERTABLE', 3024: 'VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST', 3025: 'VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST', 20003: 'VIX_E_NO_SUCH_PROCESS', 24300: 'VIX_E_MNTAPI_INCOMPATIBLE_VERSION', 3026: 'VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED', 24302: 'VIX_E_MNTAPI_DRIVE_LETTER_IN_USE', 24303: 'VIX_E_MNTAPI_DRIVE_LETTER_ALREADY_ASSIGNED', 24304: 'VIX_E_MNTAPI_VOLUME_NOT_MOUNTED', 24305: 'VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED', 24306: 'VIX_E_MNTAPI_FORMAT_FAILURE', 24019: 'VIX_E_MNTAPI_DAEMON', 24308: 'VIX_E_MNTAPI_ALREADY_OPENED', 24309: 'VIX_E_MNTAPI_ITEM_NOT_FOUND', 24310: 'VIX_E_MNTAPI_UNSUPPROTED_BOOT_LOADER', 24311: 'VIX_E_MNTAPI_UNSUPPROTED_OS', 24312: 'VIX_E_MNTAPI_CODECONVERSION', 24020: 'VIX_E_MNTAPI_INTERNAL', 24314: 'VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME', 24315: 'VIX_E_MNTAPI_PARTITION_NOT_FOUND', 24316: 'VIX_E_MNTAPI_PUTFILE_ERROR', 24317: 'VIX_E_MNTAPI_GETFILE_ERROR', 24318: 'VIX_E_MNTAPI_REG_NOT_OPENED', 24319: 'VIX_E_MNTAPI_REGDELKEY_ERROR', 24320: 'VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR', 24321: 'VIX_E_MNTAPI_OPEN_FAILURE', 24322: 'VIX_E_MNTAPI_VOLUME_NOT_WRITABLE', 24011: 'VIX_E_MNTAPI_PARTITION_RANGE', 10000: 'VIX_E_INVALID_MESSAGE_HEADER', 10001: 'VIX_E_INVALID_MESSAGE_BODY', 24014: 'VIX_E_MNTAPI_DICT_LOCKED', 17007: 'VIX_E_CRYPTO_NO_CRYPTO', 30001: 'VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL', 30003: 'VIX_E_NET_HTTP_URL_MALFORMAT', 30005: 'VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY', 24015: 'VIX_E_MNTAPI_OPEN_HANDLES', 30007: 'VIX_E_NET_HTTP_COULDNT_CONNECT', 8000: 'VIX_E_BAD_VM_INDEX', 30006: 'VIX_E_NET_HTTP_COULDNT_RESOLVE_HOST', 30022: 'VIX_E_NET_HTTP_HTTP_RETURNED_ERROR', 30028: 'VIX_E_NET_HTTP_OPERATION_TIMEDOUT', 24017: 'VIX_E_MNTAPI_NO_ROOT', 30035: 'VIX_E_NET_HTTP_SSL_CONNECT_ERROR', 24016: 'VIX_E_MNTAPI_CANT_MAKE_VAR_DIR', 19001: 'VIX_E_SCREEN_CAPTURE_BAD_FORMAT', 24000: 'VIX_E_MNTAPI_MOUNTPT_NOT_FOUND', 30047: 'VIX_E_NET_HTTP_TOO_MANY_REDIRECTS', 26000: 'VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED', 6000: 'VIX_E_UNRECOGNIZED_PROPERTY', 6001: 'VIX_E_INVALID_PROPERTY_VALUE', 6002: 'VIX_E_READ_ONLY_PROPERTY', 6003: 'VIX_E_MISSING_REQUIRED_PROPERTY', 6004: 'VIX_E_INVALID_SERIALIZED_DATA', 6005: 'VIX_E_PROPERTY_TYPE_MISMATCH', 24301: 'VIX_E_MNTAPI_OS_ERROR', 24018: 'VIX_E_MNTAPI_LOOP_FAILED', 24001: 'VIX_E_MNTAPI_MOUNTPT_IN_USE', 4000: 'VIX_E_VM_NOT_FOUND', 4001: 'VIX_E_NOT_SUPPORTED_FOR_VM_VERSION', 4002: 'VIX_E_CANNOT_READ_VM_CONFIG', 4003: 'VIX_E_TEMPLATE_VM', 4004: 'VIX_E_VM_ALREADY_LOADED', 4006: 'VIX_E_VM_ALREADY_UP_TO_DATE', 25000: 'VIX_ASYNC', 4011: 'VIX_E_VM_UNSUPPORTED_GUEST', 24002: 'VIX_E_MNTAPI_DISK_NOT_FOUND', 24307: 'VIX_E_MNTAPI_NO_DRIVER', 3000: 'VIX_E_TIMEOUT_WAITING_FOR_TOOLS', 3001: 'VIX_E_UNRECOGNIZED_COMMAND', 3003: 'VIX_E_OP_NOT_SUPPORTED_ON_GUEST', 3004: 'VIX_E_PROGRAM_NOT_STARTED', 3005: 'VIX_E_CANNOT_START_READ_ONLY_VM', 3006: 'VIX_E_VM_NOT_RUNNING', 3007: 'VIX_E_VM_IS_RUNNING', 3008: 'VIX_E_CANNOT_CONNECT_TO_VM', 3009: 'VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE', 3010: 'VIX_E_NO_GUEST_OS_INSTALLED', 3011: 'VIX_E_VM_INSUFFICIENT_HOST_MEMORY', 3012: 'VIX_E_SUSPEND_ERROR', 3013: 'VIX_E_VM_NOT_ENOUGH_CPUS', 3014: 'VIX_E_HOST_USER_PERMISSIONS', 3015: 'VIX_E_GUEST_USER_PERMISSIONS', 3016: 'VIX_E_TOOLS_NOT_RUNNING', 3017: 'VIX_E_GUEST_OPERATIONS_PROHIBITED', 3018: 'VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED', 3019: 'VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED', 24012: 'VIX_E_MNTAPI_PERM', 24013: 'VIX_E_MNTAPI_DICT', 24003: 'VIX_E_MNTAPI_DISK_NOT_MOUNTED', 3023: 'VIX_E_MISSING_ANON_GUEST_ACCOUNT', 2000: 'VIX_E_NOT_FOUND', 2001: 'VIX_E_TYPE_MISMATCH', 2002: 'VIX_E_INVALID_XML', 3027: 'VIX_E_MUST_BE_CONSOLE_USER', 3028: 'VIX_E_VMX_MSG_DIALOG_AND_NO_UI', 24021: 'VIX_E_MNTAPI_SYSTEM', 24022: 'VIX_E_MNTAPI_NO_CONNECTION_DETAILS', 3031: 'VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE', 3032: 'VIX_E_LOGIN_TYPE_NOT_SUPPORTED', 3033: 'VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST', 3034: 'VIX_E_INTERACTIVE_SESSION_NOT_PRESENT', 3035: 'VIX_E_INTERACTIVE_SESSION_USER_MISMATCH', 3041: 'VIX_E_CANNOT_POWER_ON_VM', 3043: 'VIX_E_NO_DISPLAY_SERVER', 3046: 'VIX_E_TOO_MANY_LOGONS', 3047: 'VIX_E_INVALID_AUTHENTICATION_SESSION', 1000: 'VIX_E_INVALID_HANDLE', 1001: 'VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE', 1002: 'VIX_E_TOO_MANY_HANDLES', 22001: 'VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED', 22002: 'VIX_E_WRAPPER_VERSION_NOT_FOUND', 22003: 'VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND', 22004: 'VIX_E_WRAPPER_PLAYER_NOT_INSTALLED', 22005: 'VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED', 22006: 'VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS', 30200: 'VIX_E_NET_HTTP_TRANSFER', 30201: 'VIX_E_NET_HTTP_SSL_SECURITY', 30202: 'VIX_E_NET_HTTP_GENERIC', 21004: 'VIX_E_TOOLS_INSTALL_CANCELLED'}</em><a class="headerlink" href="#vix.VixError.ERRORS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_FAIL">
-<code class="descname">VIX_E_FAIL</code><em class="property"> = 1</em><a class="headerlink" href="#vix.VixError.VIX_E_FAIL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_OUT_OF_MEMORY">
-<code class="descname">VIX_E_OUT_OF_MEMORY</code><em class="property"> = 2</em><a class="headerlink" href="#vix.VixError.VIX_E_OUT_OF_MEMORY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_ARG">
-<code class="descname">VIX_E_INVALID_ARG</code><em class="property"> = 3</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_ARG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_NOT_FOUND">
-<code class="descname">VIX_E_FILE_NOT_FOUND</code><em class="property"> = 4</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_OBJECT_IS_BUSY">
-<code class="descname">VIX_E_OBJECT_IS_BUSY</code><em class="property"> = 5</em><a class="headerlink" href="#vix.VixError.VIX_E_OBJECT_IS_BUSY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_SUPPORTED">
-<code class="descname">VIX_E_NOT_SUPPORTED</code><em class="property"> = 6</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_ERROR">
-<code class="descname">VIX_E_FILE_ERROR</code><em class="property"> = 7</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_FULL">
-<code class="descname">VIX_E_DISK_FULL</code><em class="property"> = 8</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_FULL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INCORRECT_FILE_TYPE">
-<code class="descname">VIX_E_INCORRECT_FILE_TYPE</code><em class="property"> = 9</em><a class="headerlink" href="#vix.VixError.VIX_E_INCORRECT_FILE_TYPE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANCELLED">
-<code class="descname">VIX_E_CANCELLED</code><em class="property"> = 10</em><a class="headerlink" href="#vix.VixError.VIX_E_CANCELLED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_READ_ONLY">
-<code class="descname">VIX_E_FILE_READ_ONLY</code><em class="property"> = 11</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_READ_ONLY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_ALREADY_EXISTS">
-<code class="descname">VIX_E_FILE_ALREADY_EXISTS</code><em class="property"> = 12</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ALREADY_EXISTS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_ACCESS_ERROR">
-<code class="descname">VIX_E_FILE_ACCESS_ERROR</code><em class="property"> = 13</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ACCESS_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_REQUIRES_LARGE_FILES">
-<code class="descname">VIX_E_REQUIRES_LARGE_FILES</code><em class="property"> = 14</em><a class="headerlink" href="#vix.VixError.VIX_E_REQUIRES_LARGE_FILES" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_ALREADY_LOCKED">
-<code class="descname">VIX_E_FILE_ALREADY_LOCKED</code><em class="property"> = 15</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ALREADY_LOCKED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VMDB">
-<code class="descname">VIX_E_VMDB</code><em class="property"> = 16</em><a class="headerlink" href="#vix.VixError.VIX_E_VMDB" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT">
-<code class="descname">VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT</code><em class="property"> = 20</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_TOO_BIG">
-<code class="descname">VIX_E_FILE_TOO_BIG</code><em class="property"> = 21</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_TOO_BIG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_NAME_INVALID">
-<code class="descname">VIX_E_FILE_NAME_INVALID</code><em class="property"> = 22</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_NAME_INVALID" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_ASYNC">
+<code class="descname">VIX_ASYNC</code><em class="property"> = 25000</em><a class="headerlink" href="#vix.VixError.VIX_ASYNC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1537,63 +1452,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_BUFFER_TOOSMALL">
-<code class="descname">VIX_E_BUFFER_TOOSMALL</code><em class="property"> = 24</em><a class="headerlink" href="#vix.VixError.VIX_E_BUFFER_TOOSMALL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_OBJECT_NOT_FOUND">
-<code class="descname">VIX_E_OBJECT_NOT_FOUND</code><em class="property"> = 25</em><a class="headerlink" href="#vix.VixError.VIX_E_OBJECT_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_NOT_CONNECTED">
-<code class="descname">VIX_E_HOST_NOT_CONNECTED</code><em class="property"> = 26</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NOT_CONNECTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_UTF8_STRING">
-<code class="descname">VIX_E_INVALID_UTF8_STRING</code><em class="property"> = 27</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_UTF8_STRING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_OPERATION_ALREADY_IN_PROGRESS">
-<code class="descname">VIX_E_OPERATION_ALREADY_IN_PROGRESS</code><em class="property"> = 31</em><a class="headerlink" href="#vix.VixError.VIX_E_OPERATION_ALREADY_IN_PROGRESS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_UNFINISHED_JOB">
-<code class="descname">VIX_E_UNFINISHED_JOB</code><em class="property"> = 29</em><a class="headerlink" href="#vix.VixError.VIX_E_UNFINISHED_JOB" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NEED_KEY">
-<code class="descname">VIX_E_NEED_KEY</code><em class="property"> = 30</em><a class="headerlink" href="#vix.VixError.VIX_E_NEED_KEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_LICENSE">
-<code class="descname">VIX_E_LICENSE</code><em class="property"> = 32</em><a class="headerlink" href="#vix.VixError.VIX_E_LICENSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_HOST_DISCONNECTED">
-<code class="descname">VIX_E_VM_HOST_DISCONNECTED</code><em class="property"> = 34</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_HOST_DISCONNECTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_AUTHENTICATION_FAIL">
-<code class="descname">VIX_E_AUTHENTICATION_FAIL</code><em class="property"> = 35</em><a class="headerlink" href="#vix.VixError.VIX_E_AUTHENTICATION_FAIL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_CONNECTION_LOST">
-<code class="descname">VIX_E_HOST_CONNECTION_LOST</code><em class="property"> = 36</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_CONNECTION_LOST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DUPLICATE_NAME">
-<code class="descname">VIX_E_DUPLICATE_NAME</code><em class="property"> = 41</em><a class="headerlink" href="#vix.VixError.VIX_E_DUPLICATE_NAME" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED">
+<code class="descname">VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3018</em><a class="headerlink" href="#vix.VixError.VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1602,268 +1462,13 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_HANDLE">
-<code class="descname">VIX_E_INVALID_HANDLE</code><em class="property"> = 1000</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_HANDLE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED">
+<code class="descname">VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED</code><em class="property"> = 26000</em><a class="headerlink" href="#vix.VixError.VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE">
-<code class="descname">VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE</code><em class="property"> = 1001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOO_MANY_HANDLES">
-<code class="descname">VIX_E_TOO_MANY_HANDLES</code><em class="property"> = 1002</em><a class="headerlink" href="#vix.VixError.VIX_E_TOO_MANY_HANDLES" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_FOUND">
-<code class="descname">VIX_E_NOT_FOUND</code><em class="property"> = 2000</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TYPE_MISMATCH">
-<code class="descname">VIX_E_TYPE_MISMATCH</code><em class="property"> = 2001</em><a class="headerlink" href="#vix.VixError.VIX_E_TYPE_MISMATCH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_XML">
-<code class="descname">VIX_E_INVALID_XML</code><em class="property"> = 2002</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_XML" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TIMEOUT_WAITING_FOR_TOOLS">
-<code class="descname">VIX_E_TIMEOUT_WAITING_FOR_TOOLS</code><em class="property"> = 3000</em><a class="headerlink" href="#vix.VixError.VIX_E_TIMEOUT_WAITING_FOR_TOOLS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_UNRECOGNIZED_COMMAND">
-<code class="descname">VIX_E_UNRECOGNIZED_COMMAND</code><em class="property"> = 3001</em><a class="headerlink" href="#vix.VixError.VIX_E_UNRECOGNIZED_COMMAND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_OP_NOT_SUPPORTED_ON_GUEST">
-<code class="descname">VIX_E_OP_NOT_SUPPORTED_ON_GUEST</code><em class="property"> = 3003</em><a class="headerlink" href="#vix.VixError.VIX_E_OP_NOT_SUPPORTED_ON_GUEST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_PROGRAM_NOT_STARTED">
-<code class="descname">VIX_E_PROGRAM_NOT_STARTED</code><em class="property"> = 3004</em><a class="headerlink" href="#vix.VixError.VIX_E_PROGRAM_NOT_STARTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANNOT_START_READ_ONLY_VM">
-<code class="descname">VIX_E_CANNOT_START_READ_ONLY_VM</code><em class="property"> = 3005</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_START_READ_ONLY_VM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_NOT_RUNNING">
-<code class="descname">VIX_E_VM_NOT_RUNNING</code><em class="property"> = 3006</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_NOT_RUNNING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_IS_RUNNING">
-<code class="descname">VIX_E_VM_IS_RUNNING</code><em class="property"> = 3007</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_IS_RUNNING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANNOT_CONNECT_TO_VM">
-<code class="descname">VIX_E_CANNOT_CONNECT_TO_VM</code><em class="property"> = 3008</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_CONNECT_TO_VM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE">
-<code class="descname">VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE</code><em class="property"> = 3009</em><a class="headerlink" href="#vix.VixError.VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NO_GUEST_OS_INSTALLED">
-<code class="descname">VIX_E_NO_GUEST_OS_INSTALLED</code><em class="property"> = 3010</em><a class="headerlink" href="#vix.VixError.VIX_E_NO_GUEST_OS_INSTALLED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_INSUFFICIENT_HOST_MEMORY">
-<code class="descname">VIX_E_VM_INSUFFICIENT_HOST_MEMORY</code><em class="property"> = 3011</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_INSUFFICIENT_HOST_MEMORY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_SUSPEND_ERROR">
-<code class="descname">VIX_E_SUSPEND_ERROR</code><em class="property"> = 3012</em><a class="headerlink" href="#vix.VixError.VIX_E_SUSPEND_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_NOT_ENOUGH_CPUS">
-<code class="descname">VIX_E_VM_NOT_ENOUGH_CPUS</code><em class="property"> = 3013</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_NOT_ENOUGH_CPUS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_USER_PERMISSIONS">
-<code class="descname">VIX_E_HOST_USER_PERMISSIONS</code><em class="property"> = 3014</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_USER_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_GUEST_USER_PERMISSIONS">
-<code class="descname">VIX_E_GUEST_USER_PERMISSIONS</code><em class="property"> = 3015</em><a class="headerlink" href="#vix.VixError.VIX_E_GUEST_USER_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_NOT_RUNNING">
-<code class="descname">VIX_E_TOOLS_NOT_RUNNING</code><em class="property"> = 3016</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_NOT_RUNNING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_GUEST_OPERATIONS_PROHIBITED">
-<code class="descname">VIX_E_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3017</em><a class="headerlink" href="#vix.VixError.VIX_E_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED">
-<code class="descname">VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3018</em><a class="headerlink" href="#vix.VixError.VIX_E_ANON_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED">
-<code class="descname">VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3019</em><a class="headerlink" href="#vix.VixError.VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MISSING_ANON_GUEST_ACCOUNT">
-<code class="descname">VIX_E_MISSING_ANON_GUEST_ACCOUNT</code><em class="property"> = 3023</em><a class="headerlink" href="#vix.VixError.VIX_E_MISSING_ANON_GUEST_ACCOUNT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST">
-<code class="descname">VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST</code><em class="property"> = 3024</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST">
-<code class="descname">VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST</code><em class="property"> = 3025</em><a class="headerlink" href="#vix.VixError.VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED">
-<code class="descname">VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3026</em><a class="headerlink" href="#vix.VixError.VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MUST_BE_CONSOLE_USER">
-<code class="descname">VIX_E_MUST_BE_CONSOLE_USER</code><em class="property"> = 3027</em><a class="headerlink" href="#vix.VixError.VIX_E_MUST_BE_CONSOLE_USER" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VMX_MSG_DIALOG_AND_NO_UI">
-<code class="descname">VIX_E_VMX_MSG_DIALOG_AND_NO_UI</code><em class="property"> = 3028</em><a class="headerlink" href="#vix.VixError.VIX_E_VMX_MSG_DIALOG_AND_NO_UI" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE">
-<code class="descname">VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE</code><em class="property"> = 3031</em><a class="headerlink" href="#vix.VixError.VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_LOGIN_TYPE_NOT_SUPPORTED">
-<code class="descname">VIX_E_LOGIN_TYPE_NOT_SUPPORTED</code><em class="property"> = 3032</em><a class="headerlink" href="#vix.VixError.VIX_E_LOGIN_TYPE_NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST">
-<code class="descname">VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST</code><em class="property"> = 3033</em><a class="headerlink" href="#vix.VixError.VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INTERACTIVE_SESSION_NOT_PRESENT">
-<code class="descname">VIX_E_INTERACTIVE_SESSION_NOT_PRESENT</code><em class="property"> = 3034</em><a class="headerlink" href="#vix.VixError.VIX_E_INTERACTIVE_SESSION_NOT_PRESENT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INTERACTIVE_SESSION_USER_MISMATCH">
-<code class="descname">VIX_E_INTERACTIVE_SESSION_USER_MISMATCH</code><em class="property"> = 3035</em><a class="headerlink" href="#vix.VixError.VIX_E_INTERACTIVE_SESSION_USER_MISMATCH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANNOT_POWER_ON_VM">
-<code class="descname">VIX_E_CANNOT_POWER_ON_VM</code><em class="property"> = 3041</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_POWER_ON_VM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NO_DISPLAY_SERVER">
-<code class="descname">VIX_E_NO_DISPLAY_SERVER</code><em class="property"> = 3043</em><a class="headerlink" href="#vix.VixError.VIX_E_NO_DISPLAY_SERVER" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOO_MANY_LOGONS">
-<code class="descname">VIX_E_TOO_MANY_LOGONS</code><em class="property"> = 3046</em><a class="headerlink" href="#vix.VixError.VIX_E_TOO_MANY_LOGONS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_AUTHENTICATION_SESSION">
-<code class="descname">VIX_E_INVALID_AUTHENTICATION_SESSION</code><em class="property"> = 3047</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_AUTHENTICATION_SESSION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_NOT_FOUND">
-<code class="descname">VIX_E_VM_NOT_FOUND</code><em class="property"> = 4000</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_SUPPORTED_FOR_VM_VERSION">
-<code class="descname">VIX_E_NOT_SUPPORTED_FOR_VM_VERSION</code><em class="property"> = 4001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED_FOR_VM_VERSION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANNOT_READ_VM_CONFIG">
-<code class="descname">VIX_E_CANNOT_READ_VM_CONFIG</code><em class="property"> = 4002</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_READ_VM_CONFIG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TEMPLATE_VM">
-<code class="descname">VIX_E_TEMPLATE_VM</code><em class="property"> = 4003</em><a class="headerlink" href="#vix.VixError.VIX_E_TEMPLATE_VM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_ALREADY_LOADED">
-<code class="descname">VIX_E_VM_ALREADY_LOADED</code><em class="property"> = 4004</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_ALREADY_LOADED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_ALREADY_UP_TO_DATE">
-<code class="descname">VIX_E_VM_ALREADY_UP_TO_DATE</code><em class="property"> = 4006</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_ALREADY_UP_TO_DATE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_VM_UNSUPPORTED_GUEST">
-<code class="descname">VIX_E_VM_UNSUPPORTED_GUEST</code><em class="property"> = 4011</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_UNSUPPORTED_GUEST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_UNRECOGNIZED_PROPERTY">
-<code class="descname">VIX_E_UNRECOGNIZED_PROPERTY</code><em class="property"> = 6000</em><a class="headerlink" href="#vix.VixError.VIX_E_UNRECOGNIZED_PROPERTY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_PROPERTY_VALUE">
-<code class="descname">VIX_E_INVALID_PROPERTY_VALUE</code><em class="property"> = 6001</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_PROPERTY_VALUE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_READ_ONLY_PROPERTY">
-<code class="descname">VIX_E_READ_ONLY_PROPERTY</code><em class="property"> = 6002</em><a class="headerlink" href="#vix.VixError.VIX_E_READ_ONLY_PROPERTY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MISSING_REQUIRED_PROPERTY">
-<code class="descname">VIX_E_MISSING_REQUIRED_PROPERTY</code><em class="property"> = 6003</em><a class="headerlink" href="#vix.VixError.VIX_E_MISSING_REQUIRED_PROPERTY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_SERIALIZED_DATA">
-<code class="descname">VIX_E_INVALID_SERIALIZED_DATA</code><em class="property"> = 6004</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_SERIALIZED_DATA" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_PROPERTY_TYPE_MISMATCH">
-<code class="descname">VIX_E_PROPERTY_TYPE_MISMATCH</code><em class="property"> = 6005</em><a class="headerlink" href="#vix.VixError.VIX_E_PROPERTY_TYPE_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_AUTHENTICATION_FAIL">
+<code class="descname">VIX_E_AUTHENTICATION_FAIL</code><em class="property"> = 35</em><a class="headerlink" href="#vix.VixError.VIX_E_AUTHENTICATION_FAIL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1872,128 +1477,383 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_MESSAGE_HEADER">
-<code class="descname">VIX_E_INVALID_MESSAGE_HEADER</code><em class="property"> = 10000</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_MESSAGE_HEADER" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_BUFFER_TOOSMALL">
+<code class="descname">VIX_E_BUFFER_TOOSMALL</code><em class="property"> = 24</em><a class="headerlink" href="#vix.VixError.VIX_E_BUFFER_TOOSMALL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_INVALID_MESSAGE_BODY">
-<code class="descname">VIX_E_INVALID_MESSAGE_BODY</code><em class="property"> = 10001</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_MESSAGE_BODY" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANCELLED">
+<code class="descname">VIX_E_CANCELLED</code><em class="property"> = 10</em><a class="headerlink" href="#vix.VixError.VIX_E_CANCELLED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_INVAL">
-<code class="descname">VIX_E_SNAPSHOT_INVAL</code><em class="property"> = 13000</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_INVAL" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST">
+<code class="descname">VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST</code><em class="property"> = 3024</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_AUTHENTICATE_WITH_GUEST" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_DUMPER">
-<code class="descname">VIX_E_SNAPSHOT_DUMPER</code><em class="property"> = 13001</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DUMPER" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANNOT_CONNECT_TO_HOST">
+<code class="descname">VIX_E_CANNOT_CONNECT_TO_HOST</code><em class="property"> = 18000</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_CONNECT_TO_HOST" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_DISKLIB">
-<code class="descname">VIX_E_SNAPSHOT_DISKLIB</code><em class="property"> = 13002</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DISKLIB" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANNOT_CONNECT_TO_VM">
+<code class="descname">VIX_E_CANNOT_CONNECT_TO_VM</code><em class="property"> = 3008</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_CONNECT_TO_VM" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_NOTFOUND">
-<code class="descname">VIX_E_SNAPSHOT_NOTFOUND</code><em class="property"> = 13003</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOTFOUND" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANNOT_POWER_ON_VM">
+<code class="descname">VIX_E_CANNOT_POWER_ON_VM</code><em class="property"> = 3041</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_POWER_ON_VM" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_EXISTS">
-<code class="descname">VIX_E_SNAPSHOT_EXISTS</code><em class="property"> = 13004</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_EXISTS" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANNOT_READ_VM_CONFIG">
+<code class="descname">VIX_E_CANNOT_READ_VM_CONFIG</code><em class="property"> = 4002</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_READ_VM_CONFIG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_VERSION">
-<code class="descname">VIX_E_SNAPSHOT_VERSION</code><em class="property"> = 13005</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_VERSION" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CANNOT_START_READ_ONLY_VM">
+<code class="descname">VIX_E_CANNOT_START_READ_ONLY_VM</code><em class="property"> = 3005</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_START_READ_ONLY_VM" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_NOPERM">
-<code class="descname">VIX_E_SNAPSHOT_NOPERM</code><em class="property"> = 13006</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOPERM" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED">
+<code class="descname">VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3026</em><a class="headerlink" href="#vix.VixError.VIX_E_CONSOLE_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_CONFIG">
-<code class="descname">VIX_E_SNAPSHOT_CONFIG</code><em class="property"> = 13007</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_CONFIG" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_BAD_BUFFER_SIZE">
+<code class="descname">VIX_E_CRYPTO_BAD_BUFFER_SIZE</code><em class="property"> = 17001</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_BAD_BUFFER_SIZE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_NOCHANGE">
-<code class="descname">VIX_E_SNAPSHOT_NOCHANGE</code><em class="property"> = 13008</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOCHANGE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_BAD_FORMAT">
+<code class="descname">VIX_E_CRYPTO_BAD_FORMAT</code><em class="property"> = 17009</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_BAD_FORMAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_CHECKPOINT">
-<code class="descname">VIX_E_SNAPSHOT_CHECKPOINT</code><em class="property"> = 13009</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_CHECKPOINT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_BAD_PASSWORD">
+<code class="descname">VIX_E_CRYPTO_BAD_PASSWORD</code><em class="property"> = 17005</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_BAD_PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_LOCKED">
-<code class="descname">VIX_E_SNAPSHOT_LOCKED</code><em class="property"> = 13010</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_LOCKED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_EMPTY">
+<code class="descname">VIX_E_CRYPTO_EMPTY</code><em class="property"> = 17011</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_EMPTY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_INCONSISTENT">
-<code class="descname">VIX_E_SNAPSHOT_INCONSISTENT</code><em class="property"> = 13011</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_INCONSISTENT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_ERROR">
+<code class="descname">VIX_E_CRYPTO_ERROR</code><em class="property"> = 17008</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_NAMETOOLONG">
-<code class="descname">VIX_E_SNAPSHOT_NAMETOOLONG</code><em class="property"> = 13012</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NAMETOOLONG" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_INVALID_OPERATION">
+<code class="descname">VIX_E_CRYPTO_INVALID_OPERATION</code><em class="property"> = 17002</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_INVALID_OPERATION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_VIXFILE">
-<code class="descname">VIX_E_SNAPSHOT_VIXFILE</code><em class="property"> = 13013</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_VIXFILE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_KEYSAFE_LOCATOR">
+<code class="descname">VIX_E_CRYPTO_KEYSAFE_LOCATOR</code><em class="property"> = 17012</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_KEYSAFE_LOCATOR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_DISKLOCKED">
-<code class="descname">VIX_E_SNAPSHOT_DISKLOCKED</code><em class="property"> = 13014</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DISKLOCKED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_LOCKED">
+<code class="descname">VIX_E_CRYPTO_LOCKED</code><em class="property"> = 17010</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_LOCKED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_DUPLICATEDDISK">
-<code class="descname">VIX_E_SNAPSHOT_DUPLICATEDDISK</code><em class="property"> = 13015</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DUPLICATEDDISK" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_NEED_PASSWORD">
+<code class="descname">VIX_E_CRYPTO_NEED_PASSWORD</code><em class="property"> = 17004</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_NEED_PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_INDEPENDENTDISK">
-<code class="descname">VIX_E_SNAPSHOT_INDEPENDENTDISK</code><em class="property"> = 13016</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_INDEPENDENTDISK" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_NOT_IN_DICTIONARY">
+<code class="descname">VIX_E_CRYPTO_NOT_IN_DICTIONARY</code><em class="property"> = 17006</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_NOT_IN_DICTIONARY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_NONUNIQUE_NAME">
-<code class="descname">VIX_E_SNAPSHOT_NONUNIQUE_NAME</code><em class="property"> = 13017</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NONUNIQUE_NAME" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_NO_CRYPTO">
+<code class="descname">VIX_E_CRYPTO_NO_CRYPTO</code><em class="property"> = 17007</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_NO_CRYPTO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK">
-<code class="descname">VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK</code><em class="property"> = 13018</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_RANDOM_DEVICE">
+<code class="descname">VIX_E_CRYPTO_RANDOM_DEVICE</code><em class="property"> = 17003</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_RANDOM_DEVICE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_MAXSNAPSHOTS">
-<code class="descname">VIX_E_SNAPSHOT_MAXSNAPSHOTS</code><em class="property"> = 13019</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_MAXSNAPSHOTS" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_CRYPTO_UNKNOWN_ALGORITHM">
+<code class="descname">VIX_E_CRYPTO_UNKNOWN_ALGORITHM</code><em class="property"> = 17000</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_UNKNOWN_ALGORITHM" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_MIN_FREE_SPACE">
-<code class="descname">VIX_E_SNAPSHOT_MIN_FREE_SPACE</code><em class="property"> = 13020</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_MIN_FREE_SPACE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_DISK_ATTACH_ROOTLINK">
+<code class="descname">VIX_E_DISK_ATTACH_ROOTLINK</code><em class="property"> = 16069</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_ATTACH_ROOTLINK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_HIERARCHY_TOODEEP">
-<code class="descname">VIX_E_SNAPSHOT_HIERARCHY_TOODEEP</code><em class="property"> = 13021</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_HIERARCHY_TOODEEP" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_DISK_CANTREPAIR">
+<code class="descname">VIX_E_DISK_CANTREPAIR</code><em class="property"> = 16062</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CANTREPAIR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SNAPSHOT_NOT_REVERTABLE">
-<code class="descname">VIX_E_SNAPSHOT_NOT_REVERTABLE</code><em class="property"> = 13024</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOT_REVERTABLE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_DISK_CANTSHRINK">
+<code class="descname">VIX_E_DISK_CANTSHRINK</code><em class="property"> = 16009</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CANTSHRINK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_CAPACITY_MISMATCH">
+<code class="descname">VIX_E_DISK_CAPACITY_MISMATCH</code><em class="property"> = 16067</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CAPACITY_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_CID_MISMATCH">
+<code class="descname">VIX_E_DISK_CID_MISMATCH</code><em class="property"> = 16008</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CID_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_ENCODING">
+<code class="descname">VIX_E_DISK_ENCODING</code><em class="property"> = 16061</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_ENCODING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_FULL">
+<code class="descname">VIX_E_DISK_FULL</code><em class="property"> = 8</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_FULL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_INVAL">
+<code class="descname">VIX_E_DISK_INVAL</code><em class="property"> = 16000</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_INVALIDCHAIN">
+<code class="descname">VIX_E_DISK_INVALIDCHAIN</code><em class="property"> = 16030</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALIDCHAIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_INVALIDDISK">
+<code class="descname">VIX_E_DISK_INVALIDDISK</code><em class="property"> = 16063</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALIDDISK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_INVALIDPARTITIONTABLE">
+<code class="descname">VIX_E_DISK_INVALIDPARTITIONTABLE</code><em class="property"> = 16018</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALIDPARTITIONTABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_INVALID_CONNECTION">
+<code class="descname">VIX_E_DISK_INVALID_CONNECTION</code><em class="property"> = 16054</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALID_CONNECTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_KEY_NOTFOUND">
+<code class="descname">VIX_E_DISK_KEY_NOTFOUND</code><em class="property"> = 16052</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_KEY_NOTFOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NEEDKEY">
+<code class="descname">VIX_E_DISK_NEEDKEY</code><em class="property"> = 16014</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NEEDKEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NEEDSREPAIR">
+<code class="descname">VIX_E_DISK_NEEDSREPAIR</code><em class="property"> = 16006</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NEEDSREPAIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NEEDVMFS">
+<code class="descname">VIX_E_DISK_NEEDVMFS</code><em class="property"> = 16022</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NEEDVMFS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NODEVICE">
+<code class="descname">VIX_E_DISK_NODEVICE</code><em class="property"> = 16065</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NODEVICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOINIT">
+<code class="descname">VIX_E_DISK_NOINIT</code><em class="property"> = 16001</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOINIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOIO">
+<code class="descname">VIX_E_DISK_NOIO</code><em class="property"> = 16002</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOIO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOKEY">
+<code class="descname">VIX_E_DISK_NOKEY</code><em class="property"> = 16017</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOKEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOKEYOVERRIDE">
+<code class="descname">VIX_E_DISK_NOKEYOVERRIDE</code><em class="property"> = 16015</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOKEYOVERRIDE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOLICENSE">
+<code class="descname">VIX_E_DISK_NOLICENSE</code><em class="property"> = 16064</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOLICENSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOTENCDESC">
+<code class="descname">VIX_E_DISK_NOTENCDESC</code><em class="property"> = 16020</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTENCDESC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOTENCRYPTED">
+<code class="descname">VIX_E_DISK_NOTENCRYPTED</code><em class="property"> = 16016</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTENCRYPTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOTNORMAL">
+<code class="descname">VIX_E_DISK_NOTNORMAL</code><em class="property"> = 16019</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTNORMAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_NOTSUPPORTED">
+<code class="descname">VIX_E_DISK_NOTSUPPORTED</code><em class="property"> = 16013</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTSUPPORTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_OPENPARENT">
+<code class="descname">VIX_E_DISK_OPENPARENT</code><em class="property"> = 16012</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_OPENPARENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_OUTOFRANGE">
+<code class="descname">VIX_E_DISK_OUTOFRANGE</code><em class="property"> = 16007</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_OUTOFRANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_PARENT_NOTALLOWED">
+<code class="descname">VIX_E_DISK_PARENT_NOTALLOWED</code><em class="property"> = 16068</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_PARENT_NOTALLOWED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_PARTIALCHAIN">
+<code class="descname">VIX_E_DISK_PARTIALCHAIN</code><em class="property"> = 16003</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_PARTIALCHAIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_PARTMISMATCH">
+<code class="descname">VIX_E_DISK_PARTMISMATCH</code><em class="property"> = 16010</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_PARTMISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_RAWTOOBIG">
+<code class="descname">VIX_E_DISK_RAWTOOBIG</code><em class="property"> = 16024</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_RAWTOOBIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_RAWTOOSMALL">
+<code class="descname">VIX_E_DISK_RAWTOOSMALL</code><em class="property"> = 16029</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_RAWTOOSMALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_SUBSYSTEM_INIT_FAIL">
+<code class="descname">VIX_E_DISK_SUBSYSTEM_INIT_FAIL</code><em class="property"> = 16053</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_SUBSYSTEM_INIT_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_TOOMANYOPENFILES">
+<code class="descname">VIX_E_DISK_TOOMANYOPENFILES</code><em class="property"> = 16027</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_TOOMANYOPENFILES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_TOOMANYREDO">
+<code class="descname">VIX_E_DISK_TOOMANYREDO</code><em class="property"> = 16028</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_TOOMANYREDO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_UNSUPPORTEDDEVICE">
+<code class="descname">VIX_E_DISK_UNSUPPORTEDDEVICE</code><em class="property"> = 16066</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_UNSUPPORTEDDEVICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DISK_UNSUPPORTEDDISKVERSION">
+<code class="descname">VIX_E_DISK_UNSUPPORTEDDISKVERSION</code><em class="property"> = 16011</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_UNSUPPORTEDDISKVERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_DUPLICATE_NAME">
+<code class="descname">VIX_E_DUPLICATE_NAME</code><em class="property"> = 41</em><a class="headerlink" href="#vix.VixError.VIX_E_DUPLICATE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST">
+<code class="descname">VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST</code><em class="property"> = 3033</em><a class="headerlink" href="#vix.VixError.VIX_E_EMPTY_PASSWORD_NOT_ALLOWED_IN_GUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FAIL">
+<code class="descname">VIX_E_FAIL</code><em class="property"> = 1</em><a class="headerlink" href="#vix.VixError.VIX_E_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_ACCESS_ERROR">
+<code class="descname">VIX_E_FILE_ACCESS_ERROR</code><em class="property"> = 13</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ACCESS_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_ALREADY_EXISTS">
+<code class="descname">VIX_E_FILE_ALREADY_EXISTS</code><em class="property"> = 12</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ALREADY_EXISTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_ALREADY_LOCKED">
+<code class="descname">VIX_E_FILE_ALREADY_LOCKED</code><em class="property"> = 15</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ALREADY_LOCKED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_ERROR">
+<code class="descname">VIX_E_FILE_ERROR</code><em class="property"> = 7</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_NAME_INVALID">
+<code class="descname">VIX_E_FILE_NAME_INVALID</code><em class="property"> = 22</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_NAME_INVALID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_NAME_TOO_LONG">
+<code class="descname">VIX_E_FILE_NAME_TOO_LONG</code><em class="property"> = 20004</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_NAME_TOO_LONG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_NOT_FOUND">
+<code class="descname">VIX_E_FILE_NOT_FOUND</code><em class="property"> = 4</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_READ_ONLY">
+<code class="descname">VIX_E_FILE_READ_ONLY</code><em class="property"> = 11</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_READ_ONLY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_FILE_TOO_BIG">
+<code class="descname">VIX_E_FILE_TOO_BIG</code><em class="property"> = 21</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_TOO_BIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_GUEST_OPERATIONS_PROHIBITED">
+<code class="descname">VIX_E_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3017</em><a class="headerlink" href="#vix.VixError.VIX_E_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_GUEST_USER_PERMISSIONS">
+<code class="descname">VIX_E_GUEST_USER_PERMISSIONS</code><em class="property"> = 3015</em><a class="headerlink" href="#vix.VixError.VIX_E_GUEST_USER_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_GUEST_VOLUMES_NOT_FROZEN">
+<code class="descname">VIX_E_GUEST_VOLUMES_NOT_FROZEN</code><em class="property"> = 20000</em><a class="headerlink" href="#vix.VixError.VIX_E_GUEST_VOLUMES_NOT_FROZEN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_HOST_CONNECTION_LOST">
+<code class="descname">VIX_E_HOST_CONNECTION_LOST</code><em class="property"> = 36</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_CONNECTION_LOST" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2012,33 +1872,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_NETBLKDEV_HANDSHAKE">
-<code class="descname">VIX_E_HOST_NETBLKDEV_HANDSHAKE</code><em class="property"> = 14006</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NETBLKDEV_HANDSHAKE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_SOCKET_CREATION_ERROR">
-<code class="descname">VIX_E_HOST_SOCKET_CREATION_ERROR</code><em class="property"> = 14007</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_SOCKET_CREATION_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_SERVER_NOT_FOUND">
-<code class="descname">VIX_E_HOST_SERVER_NOT_FOUND</code><em class="property"> = 14008</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_SERVER_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_NETWORK_CONN_REFUSED">
-<code class="descname">VIX_E_HOST_NETWORK_CONN_REFUSED</code><em class="property"> = 14009</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NETWORK_CONN_REFUSED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_TCP_SOCKET_ERROR">
-<code class="descname">VIX_E_HOST_TCP_SOCKET_ERROR</code><em class="property"> = 14010</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_TCP_SOCKET_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_TCP_CONN_LOST">
-<code class="descname">VIX_E_HOST_TCP_CONN_LOST</code><em class="property"> = 14011</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_TCP_CONN_LOST" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_NBD_HASHFILE_INIT">
+<code class="descname">VIX_E_HOST_NBD_HASHFILE_INIT</code><em class="property"> = 14013</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NBD_HASHFILE_INIT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2047,268 +1882,73 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_HOST_NBD_HASHFILE_INIT">
-<code class="descname">VIX_E_HOST_NBD_HASHFILE_INIT</code><em class="property"> = 14013</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NBD_HASHFILE_INIT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_NETBLKDEV_HANDSHAKE">
+<code class="descname">VIX_E_HOST_NETBLKDEV_HANDSHAKE</code><em class="property"> = 14006</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NETBLKDEV_HANDSHAKE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_INVAL">
-<code class="descname">VIX_E_DISK_INVAL</code><em class="property"> = 16000</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVAL" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_NETWORK_CONN_REFUSED">
+<code class="descname">VIX_E_HOST_NETWORK_CONN_REFUSED</code><em class="property"> = 14009</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NETWORK_CONN_REFUSED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOINIT">
-<code class="descname">VIX_E_DISK_NOINIT</code><em class="property"> = 16001</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOINIT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_NOT_CONNECTED">
+<code class="descname">VIX_E_HOST_NOT_CONNECTED</code><em class="property"> = 26</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_NOT_CONNECTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOIO">
-<code class="descname">VIX_E_DISK_NOIO</code><em class="property"> = 16002</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOIO" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_SERVER_NOT_FOUND">
+<code class="descname">VIX_E_HOST_SERVER_NOT_FOUND</code><em class="property"> = 14008</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_SERVER_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_PARTIALCHAIN">
-<code class="descname">VIX_E_DISK_PARTIALCHAIN</code><em class="property"> = 16003</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_PARTIALCHAIN" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_SOCKET_CREATION_ERROR">
+<code class="descname">VIX_E_HOST_SOCKET_CREATION_ERROR</code><em class="property"> = 14007</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_SOCKET_CREATION_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NEEDSREPAIR">
-<code class="descname">VIX_E_DISK_NEEDSREPAIR</code><em class="property"> = 16006</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NEEDSREPAIR" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_TCP_CONN_LOST">
+<code class="descname">VIX_E_HOST_TCP_CONN_LOST</code><em class="property"> = 14011</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_TCP_CONN_LOST" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_OUTOFRANGE">
-<code class="descname">VIX_E_DISK_OUTOFRANGE</code><em class="property"> = 16007</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_OUTOFRANGE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_TCP_SOCKET_ERROR">
+<code class="descname">VIX_E_HOST_TCP_SOCKET_ERROR</code><em class="property"> = 14010</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_TCP_SOCKET_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_CID_MISMATCH">
-<code class="descname">VIX_E_DISK_CID_MISMATCH</code><em class="property"> = 16008</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CID_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_HOST_USER_PERMISSIONS">
+<code class="descname">VIX_E_HOST_USER_PERMISSIONS</code><em class="property"> = 3014</em><a class="headerlink" href="#vix.VixError.VIX_E_HOST_USER_PERMISSIONS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_CANTSHRINK">
-<code class="descname">VIX_E_DISK_CANTSHRINK</code><em class="property"> = 16009</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CANTSHRINK" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INCORRECT_FILE_TYPE">
+<code class="descname">VIX_E_INCORRECT_FILE_TYPE</code><em class="property"> = 9</em><a class="headerlink" href="#vix.VixError.VIX_E_INCORRECT_FILE_TYPE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_PARTMISMATCH">
-<code class="descname">VIX_E_DISK_PARTMISMATCH</code><em class="property"> = 16010</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_PARTMISMATCH" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INTERACTIVE_SESSION_NOT_PRESENT">
+<code class="descname">VIX_E_INTERACTIVE_SESSION_NOT_PRESENT</code><em class="property"> = 3034</em><a class="headerlink" href="#vix.VixError.VIX_E_INTERACTIVE_SESSION_NOT_PRESENT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_UNSUPPORTEDDISKVERSION">
-<code class="descname">VIX_E_DISK_UNSUPPORTEDDISKVERSION</code><em class="property"> = 16011</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_UNSUPPORTEDDISKVERSION" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INTERACTIVE_SESSION_USER_MISMATCH">
+<code class="descname">VIX_E_INTERACTIVE_SESSION_USER_MISMATCH</code><em class="property"> = 3035</em><a class="headerlink" href="#vix.VixError.VIX_E_INTERACTIVE_SESSION_USER_MISMATCH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_OPENPARENT">
-<code class="descname">VIX_E_DISK_OPENPARENT</code><em class="property"> = 16012</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_OPENPARENT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_ARG">
+<code class="descname">VIX_E_INVALID_ARG</code><em class="property"> = 3</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_ARG" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOTSUPPORTED">
-<code class="descname">VIX_E_DISK_NOTSUPPORTED</code><em class="property"> = 16013</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTSUPPORTED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_AUTHENTICATION_SESSION">
+<code class="descname">VIX_E_INVALID_AUTHENTICATION_SESSION</code><em class="property"> = 3047</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_AUTHENTICATION_SESSION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NEEDKEY">
-<code class="descname">VIX_E_DISK_NEEDKEY</code><em class="property"> = 16014</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NEEDKEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOKEYOVERRIDE">
-<code class="descname">VIX_E_DISK_NOKEYOVERRIDE</code><em class="property"> = 16015</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOKEYOVERRIDE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOTENCRYPTED">
-<code class="descname">VIX_E_DISK_NOTENCRYPTED</code><em class="property"> = 16016</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTENCRYPTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOKEY">
-<code class="descname">VIX_E_DISK_NOKEY</code><em class="property"> = 16017</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOKEY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_INVALIDPARTITIONTABLE">
-<code class="descname">VIX_E_DISK_INVALIDPARTITIONTABLE</code><em class="property"> = 16018</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALIDPARTITIONTABLE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOTNORMAL">
-<code class="descname">VIX_E_DISK_NOTNORMAL</code><em class="property"> = 16019</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTNORMAL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOTENCDESC">
-<code class="descname">VIX_E_DISK_NOTENCDESC</code><em class="property"> = 16020</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOTENCDESC" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NEEDVMFS">
-<code class="descname">VIX_E_DISK_NEEDVMFS</code><em class="property"> = 16022</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NEEDVMFS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_RAWTOOBIG">
-<code class="descname">VIX_E_DISK_RAWTOOBIG</code><em class="property"> = 16024</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_RAWTOOBIG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_TOOMANYOPENFILES">
-<code class="descname">VIX_E_DISK_TOOMANYOPENFILES</code><em class="property"> = 16027</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_TOOMANYOPENFILES" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_TOOMANYREDO">
-<code class="descname">VIX_E_DISK_TOOMANYREDO</code><em class="property"> = 16028</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_TOOMANYREDO" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_RAWTOOSMALL">
-<code class="descname">VIX_E_DISK_RAWTOOSMALL</code><em class="property"> = 16029</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_RAWTOOSMALL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_INVALIDCHAIN">
-<code class="descname">VIX_E_DISK_INVALIDCHAIN</code><em class="property"> = 16030</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALIDCHAIN" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_KEY_NOTFOUND">
-<code class="descname">VIX_E_DISK_KEY_NOTFOUND</code><em class="property"> = 16052</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_KEY_NOTFOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_SUBSYSTEM_INIT_FAIL">
-<code class="descname">VIX_E_DISK_SUBSYSTEM_INIT_FAIL</code><em class="property"> = 16053</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_SUBSYSTEM_INIT_FAIL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_INVALID_CONNECTION">
-<code class="descname">VIX_E_DISK_INVALID_CONNECTION</code><em class="property"> = 16054</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALID_CONNECTION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_ENCODING">
-<code class="descname">VIX_E_DISK_ENCODING</code><em class="property"> = 16061</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_ENCODING" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_CANTREPAIR">
-<code class="descname">VIX_E_DISK_CANTREPAIR</code><em class="property"> = 16062</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CANTREPAIR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_INVALIDDISK">
-<code class="descname">VIX_E_DISK_INVALIDDISK</code><em class="property"> = 16063</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_INVALIDDISK" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NOLICENSE">
-<code class="descname">VIX_E_DISK_NOLICENSE</code><em class="property"> = 16064</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NOLICENSE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_NODEVICE">
-<code class="descname">VIX_E_DISK_NODEVICE</code><em class="property"> = 16065</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_NODEVICE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_UNSUPPORTEDDEVICE">
-<code class="descname">VIX_E_DISK_UNSUPPORTEDDEVICE</code><em class="property"> = 16066</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_UNSUPPORTEDDEVICE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_CAPACITY_MISMATCH">
-<code class="descname">VIX_E_DISK_CAPACITY_MISMATCH</code><em class="property"> = 16067</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_CAPACITY_MISMATCH" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_PARENT_NOTALLOWED">
-<code class="descname">VIX_E_DISK_PARENT_NOTALLOWED</code><em class="property"> = 16068</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_PARENT_NOTALLOWED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_DISK_ATTACH_ROOTLINK">
-<code class="descname">VIX_E_DISK_ATTACH_ROOTLINK</code><em class="property"> = 16069</em><a class="headerlink" href="#vix.VixError.VIX_E_DISK_ATTACH_ROOTLINK" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_UNKNOWN_ALGORITHM">
-<code class="descname">VIX_E_CRYPTO_UNKNOWN_ALGORITHM</code><em class="property"> = 17000</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_UNKNOWN_ALGORITHM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_BAD_BUFFER_SIZE">
-<code class="descname">VIX_E_CRYPTO_BAD_BUFFER_SIZE</code><em class="property"> = 17001</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_BAD_BUFFER_SIZE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_INVALID_OPERATION">
-<code class="descname">VIX_E_CRYPTO_INVALID_OPERATION</code><em class="property"> = 17002</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_INVALID_OPERATION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_RANDOM_DEVICE">
-<code class="descname">VIX_E_CRYPTO_RANDOM_DEVICE</code><em class="property"> = 17003</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_RANDOM_DEVICE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_NEED_PASSWORD">
-<code class="descname">VIX_E_CRYPTO_NEED_PASSWORD</code><em class="property"> = 17004</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_NEED_PASSWORD" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_BAD_PASSWORD">
-<code class="descname">VIX_E_CRYPTO_BAD_PASSWORD</code><em class="property"> = 17005</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_BAD_PASSWORD" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_NOT_IN_DICTIONARY">
-<code class="descname">VIX_E_CRYPTO_NOT_IN_DICTIONARY</code><em class="property"> = 17006</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_NOT_IN_DICTIONARY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_NO_CRYPTO">
-<code class="descname">VIX_E_CRYPTO_NO_CRYPTO</code><em class="property"> = 17007</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_NO_CRYPTO" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_ERROR">
-<code class="descname">VIX_E_CRYPTO_ERROR</code><em class="property"> = 17008</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_BAD_FORMAT">
-<code class="descname">VIX_E_CRYPTO_BAD_FORMAT</code><em class="property"> = 17009</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_BAD_FORMAT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_LOCKED">
-<code class="descname">VIX_E_CRYPTO_LOCKED</code><em class="property"> = 17010</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_LOCKED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_EMPTY">
-<code class="descname">VIX_E_CRYPTO_EMPTY</code><em class="property"> = 17011</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_EMPTY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CRYPTO_KEYSAFE_LOCATOR">
-<code class="descname">VIX_E_CRYPTO_KEYSAFE_LOCATOR</code><em class="property"> = 17012</em><a class="headerlink" href="#vix.VixError.VIX_E_CRYPTO_KEYSAFE_LOCATOR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_CANNOT_CONNECT_TO_HOST">
-<code class="descname">VIX_E_CANNOT_CONNECT_TO_HOST</code><em class="property"> = 18000</em><a class="headerlink" href="#vix.VixError.VIX_E_CANNOT_CONNECT_TO_HOST" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_FOR_REMOTE_HOST">
-<code class="descname">VIX_E_NOT_FOR_REMOTE_HOST</code><em class="property"> = 18001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_FOR_REMOTE_HOST" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_HANDLE">
+<code class="descname">VIX_E_INVALID_HANDLE</code><em class="property"> = 1000</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_HANDLE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2317,178 +1957,63 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_ERROR">
-<code class="descname">VIX_E_SCREEN_CAPTURE_ERROR</code><em class="property"> = 19000</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_MESSAGE_BODY">
+<code class="descname">VIX_E_INVALID_MESSAGE_BODY</code><em class="property"> = 10001</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_MESSAGE_BODY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_BAD_FORMAT">
-<code class="descname">VIX_E_SCREEN_CAPTURE_BAD_FORMAT</code><em class="property"> = 19001</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_BAD_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_MESSAGE_HEADER">
+<code class="descname">VIX_E_INVALID_MESSAGE_HEADER</code><em class="property"> = 10000</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_MESSAGE_HEADER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL">
-<code class="descname">VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL</code><em class="property"> = 19002</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_PROPERTY_VALUE">
+<code class="descname">VIX_E_INVALID_PROPERTY_VALUE</code><em class="property"> = 6001</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_PROPERTY_VALUE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_LARGE_DATA">
-<code class="descname">VIX_E_SCREEN_CAPTURE_LARGE_DATA</code><em class="property"> = 19003</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_LARGE_DATA" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_SERIALIZED_DATA">
+<code class="descname">VIX_E_INVALID_SERIALIZED_DATA</code><em class="property"> = 6004</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_SERIALIZED_DATA" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_GUEST_VOLUMES_NOT_FROZEN">
-<code class="descname">VIX_E_GUEST_VOLUMES_NOT_FROZEN</code><em class="property"> = 20000</em><a class="headerlink" href="#vix.VixError.VIX_E_GUEST_VOLUMES_NOT_FROZEN" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_UTF8_STRING">
+<code class="descname">VIX_E_INVALID_UTF8_STRING</code><em class="property"> = 27</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_UTF8_STRING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_A_FILE">
-<code class="descname">VIX_E_NOT_A_FILE</code><em class="property"> = 20001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_A_FILE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_INVALID_XML">
+<code class="descname">VIX_E_INVALID_XML</code><em class="property"> = 2002</em><a class="headerlink" href="#vix.VixError.VIX_E_INVALID_XML" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NOT_A_DIRECTORY">
-<code class="descname">VIX_E_NOT_A_DIRECTORY</code><em class="property"> = 20002</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_A_DIRECTORY" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_LICENSE">
+<code class="descname">VIX_E_LICENSE</code><em class="property"> = 32</em><a class="headerlink" href="#vix.VixError.VIX_E_LICENSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NO_SUCH_PROCESS">
-<code class="descname">VIX_E_NO_SUCH_PROCESS</code><em class="property"> = 20003</em><a class="headerlink" href="#vix.VixError.VIX_E_NO_SUCH_PROCESS" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_LOGIN_TYPE_NOT_SUPPORTED">
+<code class="descname">VIX_E_LOGIN_TYPE_NOT_SUPPORTED</code><em class="property"> = 3032</em><a class="headerlink" href="#vix.VixError.VIX_E_LOGIN_TYPE_NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_FILE_NAME_TOO_LONG">
-<code class="descname">VIX_E_FILE_NAME_TOO_LONG</code><em class="property"> = 20004</em><a class="headerlink" href="#vix.VixError.VIX_E_FILE_NAME_TOO_LONG" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MISSING_ANON_GUEST_ACCOUNT">
+<code class="descname">VIX_E_MISSING_ANON_GUEST_ACCOUNT</code><em class="property"> = 3023</em><a class="headerlink" href="#vix.VixError.VIX_E_MISSING_ANON_GUEST_ACCOUNT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_OPERATION_DISABLED">
-<code class="descname">VIX_E_OPERATION_DISABLED</code><em class="property"> = 20005</em><a class="headerlink" href="#vix.VixError.VIX_E_OPERATION_DISABLED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MISSING_REQUIRED_PROPERTY">
+<code class="descname">VIX_E_MISSING_REQUIRED_PROPERTY</code><em class="property"> = 6003</em><a class="headerlink" href="#vix.VixError.VIX_E_MISSING_REQUIRED_PROPERTY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_NO_IMAGE">
-<code class="descname">VIX_E_TOOLS_INSTALL_NO_IMAGE</code><em class="property"> = 21000</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_NO_IMAGE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_ALREADY_OPENED">
+<code class="descname">VIX_E_MNTAPI_ALREADY_OPENED</code><em class="property"> = 24308</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_ALREADY_OPENED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE">
-<code class="descname">VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE</code><em class="property"> = 21001</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_NO_DEVICE">
-<code class="descname">VIX_E_TOOLS_INSTALL_NO_DEVICE</code><em class="property"> = 21002</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_NO_DEVICE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED">
-<code class="descname">VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED</code><em class="property"> = 21003</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_CANCELLED">
-<code class="descname">VIX_E_TOOLS_INSTALL_CANCELLED</code><em class="property"> = 21004</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_CANCELLED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_INIT_FAILED">
-<code class="descname">VIX_E_TOOLS_INSTALL_INIT_FAILED</code><em class="property"> = 21005</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_INIT_FAILED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED">
-<code class="descname">VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED</code><em class="property"> = 21006</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_GUEST_NOT_READY">
-<code class="descname">VIX_E_TOOLS_INSTALL_GUEST_NOT_READY</code><em class="property"> = 21007</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_GUEST_NOT_READY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_ERROR">
-<code class="descname">VIX_E_TOOLS_INSTALL_ERROR</code><em class="property"> = 21009</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE">
-<code class="descname">VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE</code><em class="property"> = 21010</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_IN_PROGRESS">
-<code class="descname">VIX_E_TOOLS_INSTALL_IN_PROGRESS</code><em class="property"> = 21011</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_IN_PROGRESS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED">
-<code class="descname">VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED</code><em class="property"> = 21012</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED">
-<code class="descname">VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED</code><em class="property"> = 22001</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_WRAPPER_VERSION_NOT_FOUND">
-<code class="descname">VIX_E_WRAPPER_VERSION_NOT_FOUND</code><em class="property"> = 22002</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_VERSION_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND">
-<code class="descname">VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND</code><em class="property"> = 22003</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_WRAPPER_PLAYER_NOT_INSTALLED">
-<code class="descname">VIX_E_WRAPPER_PLAYER_NOT_INSTALLED</code><em class="property"> = 22004</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_PLAYER_NOT_INSTALLED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED">
-<code class="descname">VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED</code><em class="property"> = 22005</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS">
-<code class="descname">VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS</code><em class="property"> = 22006</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_MOUNTPT_NOT_FOUND">
-<code class="descname">VIX_E_MNTAPI_MOUNTPT_NOT_FOUND</code><em class="property"> = 24000</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_MOUNTPT_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_MOUNTPT_IN_USE">
-<code class="descname">VIX_E_MNTAPI_MOUNTPT_IN_USE</code><em class="property"> = 24001</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_MOUNTPT_IN_USE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DISK_NOT_FOUND">
-<code class="descname">VIX_E_MNTAPI_DISK_NOT_FOUND</code><em class="property"> = 24002</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DISK_NOT_MOUNTED">
-<code class="descname">VIX_E_MNTAPI_DISK_NOT_MOUNTED</code><em class="property"> = 24003</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_NOT_MOUNTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DISK_IS_MOUNTED">
-<code class="descname">VIX_E_MNTAPI_DISK_IS_MOUNTED</code><em class="property"> = 24004</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_IS_MOUNTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DISK_NOT_SAFE">
-<code class="descname">VIX_E_MNTAPI_DISK_NOT_SAFE</code><em class="property"> = 24005</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_NOT_SAFE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DISK_CANT_OPEN">
-<code class="descname">VIX_E_MNTAPI_DISK_CANT_OPEN</code><em class="property"> = 24006</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_CANT_OPEN" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_CANT_MAKE_VAR_DIR">
+<code class="descname">VIX_E_MNTAPI_CANT_MAKE_VAR_DIR</code><em class="property"> = 24016</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_CANT_MAKE_VAR_DIR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2497,28 +2022,18 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND">
-<code class="descname">VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND</code><em class="property"> = 24008</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_CODECONVERSION">
+<code class="descname">VIX_E_MNTAPI_CODECONVERSION</code><em class="property"> = 24312</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_CODECONVERSION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_UMOUNT">
-<code class="descname">VIX_E_MNTAPI_UMOUNT</code><em class="property"> = 24009</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_UMOUNT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR">
+<code class="descname">VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR</code><em class="property"> = 24320</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS">
-<code class="descname">VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS</code><em class="property"> = 24010</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_PARTITION_RANGE">
-<code class="descname">VIX_E_MNTAPI_PARTITION_RANGE</code><em class="property"> = 24011</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PARTITION_RANGE" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_PERM">
-<code class="descname">VIX_E_MNTAPI_PERM</code><em class="property"> = 24012</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PERM" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DAEMON">
+<code class="descname">VIX_E_MNTAPI_DAEMON</code><em class="property"> = 24019</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DAEMON" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2532,58 +2047,28 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_OPEN_HANDLES">
-<code class="descname">VIX_E_MNTAPI_OPEN_HANDLES</code><em class="property"> = 24015</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_OPEN_HANDLES" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DISK_CANT_OPEN">
+<code class="descname">VIX_E_MNTAPI_DISK_CANT_OPEN</code><em class="property"> = 24006</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_CANT_OPEN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_CANT_MAKE_VAR_DIR">
-<code class="descname">VIX_E_MNTAPI_CANT_MAKE_VAR_DIR</code><em class="property"> = 24016</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_CANT_MAKE_VAR_DIR" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DISK_IS_MOUNTED">
+<code class="descname">VIX_E_MNTAPI_DISK_IS_MOUNTED</code><em class="property"> = 24004</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_IS_MOUNTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_NO_ROOT">
-<code class="descname">VIX_E_MNTAPI_NO_ROOT</code><em class="property"> = 24017</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_ROOT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DISK_NOT_FOUND">
+<code class="descname">VIX_E_MNTAPI_DISK_NOT_FOUND</code><em class="property"> = 24002</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_LOOP_FAILED">
-<code class="descname">VIX_E_MNTAPI_LOOP_FAILED</code><em class="property"> = 24018</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_LOOP_FAILED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DISK_NOT_MOUNTED">
+<code class="descname">VIX_E_MNTAPI_DISK_NOT_MOUNTED</code><em class="property"> = 24003</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_NOT_MOUNTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DAEMON">
-<code class="descname">VIX_E_MNTAPI_DAEMON</code><em class="property"> = 24019</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DAEMON" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_INTERNAL">
-<code class="descname">VIX_E_MNTAPI_INTERNAL</code><em class="property"> = 24020</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_INTERNAL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_SYSTEM">
-<code class="descname">VIX_E_MNTAPI_SYSTEM</code><em class="property"> = 24021</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_SYSTEM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_NO_CONNECTION_DETAILS">
-<code class="descname">VIX_E_MNTAPI_NO_CONNECTION_DETAILS</code><em class="property"> = 24022</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_CONNECTION_DETAILS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_INCOMPATIBLE_VERSION">
-<code class="descname">VIX_E_MNTAPI_INCOMPATIBLE_VERSION</code><em class="property"> = 24300</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_INCOMPATIBLE_VERSION" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_OS_ERROR">
-<code class="descname">VIX_E_MNTAPI_OS_ERROR</code><em class="property"> = 24301</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_OS_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_DRIVE_LETTER_IN_USE">
-<code class="descname">VIX_E_MNTAPI_DRIVE_LETTER_IN_USE</code><em class="property"> = 24302</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DRIVE_LETTER_IN_USE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DISK_NOT_SAFE">
+<code class="descname">VIX_E_MNTAPI_DISK_NOT_SAFE</code><em class="property"> = 24005</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DISK_NOT_SAFE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2592,13 +2077,8 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_VOLUME_NOT_MOUNTED">
-<code class="descname">VIX_E_MNTAPI_VOLUME_NOT_MOUNTED</code><em class="property"> = 24304</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_VOLUME_NOT_MOUNTED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED">
-<code class="descname">VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED</code><em class="property"> = 24305</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_DRIVE_LETTER_IN_USE">
+<code class="descname">VIX_E_MNTAPI_DRIVE_LETTER_IN_USE</code><em class="property"> = 24302</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_DRIVE_LETTER_IN_USE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2607,18 +2087,128 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_NO_DRIVER">
-<code class="descname">VIX_E_MNTAPI_NO_DRIVER</code><em class="property"> = 24307</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_DRIVER" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_GETFILE_ERROR">
+<code class="descname">VIX_E_MNTAPI_GETFILE_ERROR</code><em class="property"> = 24317</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_GETFILE_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_ALREADY_OPENED">
-<code class="descname">VIX_E_MNTAPI_ALREADY_OPENED</code><em class="property"> = 24308</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_ALREADY_OPENED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_INCOMPATIBLE_VERSION">
+<code class="descname">VIX_E_MNTAPI_INCOMPATIBLE_VERSION</code><em class="property"> = 24300</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_INCOMPATIBLE_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_INTERNAL">
+<code class="descname">VIX_E_MNTAPI_INTERNAL</code><em class="property"> = 24020</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_INTERNAL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="vix.VixError.VIX_E_MNTAPI_ITEM_NOT_FOUND">
 <code class="descname">VIX_E_MNTAPI_ITEM_NOT_FOUND</code><em class="property"> = 24309</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_ITEM_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_LOOP_FAILED">
+<code class="descname">VIX_E_MNTAPI_LOOP_FAILED</code><em class="property"> = 24018</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_LOOP_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_MOUNTPT_IN_USE">
+<code class="descname">VIX_E_MNTAPI_MOUNTPT_IN_USE</code><em class="property"> = 24001</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_MOUNTPT_IN_USE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_MOUNTPT_NOT_FOUND">
+<code class="descname">VIX_E_MNTAPI_MOUNTPT_NOT_FOUND</code><em class="property"> = 24000</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_MOUNTPT_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_NO_CONNECTION_DETAILS">
+<code class="descname">VIX_E_MNTAPI_NO_CONNECTION_DETAILS</code><em class="property"> = 24022</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_CONNECTION_DETAILS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_NO_DRIVER">
+<code class="descname">VIX_E_MNTAPI_NO_DRIVER</code><em class="property"> = 24307</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_DRIVER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS">
+<code class="descname">VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS</code><em class="property"> = 24010</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_MOUNTABLE_PARTITONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_NO_ROOT">
+<code class="descname">VIX_E_MNTAPI_NO_ROOT</code><em class="property"> = 24017</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_NO_ROOT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_OPEN_FAILURE">
+<code class="descname">VIX_E_MNTAPI_OPEN_FAILURE</code><em class="property"> = 24321</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_OPEN_FAILURE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_OPEN_HANDLES">
+<code class="descname">VIX_E_MNTAPI_OPEN_HANDLES</code><em class="property"> = 24015</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_OPEN_HANDLES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_OS_ERROR">
+<code class="descname">VIX_E_MNTAPI_OS_ERROR</code><em class="property"> = 24301</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_OS_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_PARTITION_NOT_FOUND">
+<code class="descname">VIX_E_MNTAPI_PARTITION_NOT_FOUND</code><em class="property"> = 24315</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PARTITION_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_PARTITION_RANGE">
+<code class="descname">VIX_E_MNTAPI_PARTITION_RANGE</code><em class="property"> = 24011</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PARTITION_RANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_PERM">
+<code class="descname">VIX_E_MNTAPI_PERM</code><em class="property"> = 24012</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PERM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_PUTFILE_ERROR">
+<code class="descname">VIX_E_MNTAPI_PUTFILE_ERROR</code><em class="property"> = 24316</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PUTFILE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_REGDELKEY_ERROR">
+<code class="descname">VIX_E_MNTAPI_REGDELKEY_ERROR</code><em class="property"> = 24319</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_REGDELKEY_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_REGWRITE_ERROR">
+<code class="descname">VIX_E_MNTAPI_REGWRITE_ERROR</code><em class="property"> = 24313</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_REGWRITE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_REG_NOT_OPENED">
+<code class="descname">VIX_E_MNTAPI_REG_NOT_OPENED</code><em class="property"> = 24318</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_REG_NOT_OPENED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_SYSTEM">
+<code class="descname">VIX_E_MNTAPI_SYSTEM</code><em class="property"> = 24021</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_SYSTEM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_UMOUNT">
+<code class="descname">VIX_E_MNTAPI_UMOUNT</code><em class="property"> = 24009</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_UMOUNT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND">
+<code class="descname">VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND</code><em class="property"> = 24008</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_UMOUNT_APP_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME">
+<code class="descname">VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME</code><em class="property"> = 24314</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2632,53 +2222,13 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_CODECONVERSION">
-<code class="descname">VIX_E_MNTAPI_CODECONVERSION</code><em class="property"> = 24312</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_CODECONVERSION" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED">
+<code class="descname">VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED</code><em class="property"> = 24305</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_VOLUME_ALREADY_MOUNTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_REGWRITE_ERROR">
-<code class="descname">VIX_E_MNTAPI_REGWRITE_ERROR</code><em class="property"> = 24313</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_REGWRITE_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME">
-<code class="descname">VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME</code><em class="property"> = 24314</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_UNSUPPORTED_FT_VOLUME" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_PARTITION_NOT_FOUND">
-<code class="descname">VIX_E_MNTAPI_PARTITION_NOT_FOUND</code><em class="property"> = 24315</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PARTITION_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_PUTFILE_ERROR">
-<code class="descname">VIX_E_MNTAPI_PUTFILE_ERROR</code><em class="property"> = 24316</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_PUTFILE_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_GETFILE_ERROR">
-<code class="descname">VIX_E_MNTAPI_GETFILE_ERROR</code><em class="property"> = 24317</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_GETFILE_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_REG_NOT_OPENED">
-<code class="descname">VIX_E_MNTAPI_REG_NOT_OPENED</code><em class="property"> = 24318</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_REG_NOT_OPENED" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_REGDELKEY_ERROR">
-<code class="descname">VIX_E_MNTAPI_REGDELKEY_ERROR</code><em class="property"> = 24319</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_REGDELKEY_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR">
-<code class="descname">VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR</code><em class="property"> = 24320</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_CREATE_PARTITIONTABLE_ERROR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_MNTAPI_OPEN_FAILURE">
-<code class="descname">VIX_E_MNTAPI_OPEN_FAILURE</code><em class="property"> = 24321</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_OPEN_FAILURE" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MNTAPI_VOLUME_NOT_MOUNTED">
+<code class="descname">VIX_E_MNTAPI_VOLUME_NOT_MOUNTED</code><em class="property"> = 24304</em><a class="headerlink" href="#vix.VixError.VIX_E_MNTAPI_VOLUME_NOT_MOUNTED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2687,28 +2237,18 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_ASYNC">
-<code class="descname">VIX_ASYNC</code><em class="property"> = 25000</em><a class="headerlink" href="#vix.VixError.VIX_ASYNC" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_MUST_BE_CONSOLE_USER">
+<code class="descname">VIX_E_MUST_BE_CONSOLE_USER</code><em class="property"> = 3027</em><a class="headerlink" href="#vix.VixError.VIX_E_MUST_BE_CONSOLE_USER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED">
-<code class="descname">VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED</code><em class="property"> = 26000</em><a class="headerlink" href="#vix.VixError.VIX_E_ASYNC_MIXEDMODE_UNSUPPORTED" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_NEED_KEY">
+<code class="descname">VIX_E_NEED_KEY</code><em class="property"> = 30</em><a class="headerlink" href="#vix.VixError.VIX_E_NEED_KEY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL">
-<code class="descname">VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL</code><em class="property"> = 30001</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NET_HTTP_URL_MALFORMAT">
-<code class="descname">VIX_E_NET_HTTP_URL_MALFORMAT</code><em class="property"> = 30003</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_URL_MALFORMAT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="vix.VixError.VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY">
-<code class="descname">VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY</code><em class="property"> = 30005</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_NET_HTTP_COULDNT_CONNECT">
+<code class="descname">VIX_E_NET_HTTP_COULDNT_CONNECT</code><em class="property"> = 30007</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_COULDNT_CONNECT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2717,8 +2257,13 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NET_HTTP_COULDNT_CONNECT">
-<code class="descname">VIX_E_NET_HTTP_COULDNT_CONNECT</code><em class="property"> = 30007</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_COULDNT_CONNECT" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY">
+<code class="descname">VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY</code><em class="property"> = 30005</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_COULDNT_RESOLVE_PROXY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NET_HTTP_GENERIC">
+<code class="descname">VIX_E_NET_HTTP_GENERIC</code><em class="property"> = 30202</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_GENERIC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2737,6 +2282,11 @@
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="vix.VixError.VIX_E_NET_HTTP_SSL_SECURITY">
+<code class="descname">VIX_E_NET_HTTP_SSL_SECURITY</code><em class="property"> = 30201</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_SSL_SECURITY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="vix.VixError.VIX_E_NET_HTTP_TOO_MANY_REDIRECTS">
 <code class="descname">VIX_E_NET_HTTP_TOO_MANY_REDIRECTS</code><em class="property"> = 30047</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_TOO_MANY_REDIRECTS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2747,13 +2297,473 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NET_HTTP_SSL_SECURITY">
-<code class="descname">VIX_E_NET_HTTP_SSL_SECURITY</code><em class="property"> = 30201</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_SSL_SECURITY" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL">
+<code class="descname">VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL</code><em class="property"> = 30001</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_UNSUPPORTED_PROTOCOL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="vix.VixError.VIX_E_NET_HTTP_GENERIC">
-<code class="descname">VIX_E_NET_HTTP_GENERIC</code><em class="property"> = 30202</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_GENERIC" title="Permalink to this definition">¶</a></dt>
+<dt id="vix.VixError.VIX_E_NET_HTTP_URL_MALFORMAT">
+<code class="descname">VIX_E_NET_HTTP_URL_MALFORMAT</code><em class="property"> = 30003</em><a class="headerlink" href="#vix.VixError.VIX_E_NET_HTTP_URL_MALFORMAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_A_DIRECTORY">
+<code class="descname">VIX_E_NOT_A_DIRECTORY</code><em class="property"> = 20002</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_A_DIRECTORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_A_FILE">
+<code class="descname">VIX_E_NOT_A_FILE</code><em class="property"> = 20001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_A_FILE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_FOR_REMOTE_HOST">
+<code class="descname">VIX_E_NOT_FOR_REMOTE_HOST</code><em class="property"> = 18001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_FOR_REMOTE_HOST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_FOUND">
+<code class="descname">VIX_E_NOT_FOUND</code><em class="property"> = 2000</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_SUPPORTED">
+<code class="descname">VIX_E_NOT_SUPPORTED</code><em class="property"> = 6</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_SUPPORTED_FOR_VM_VERSION">
+<code class="descname">VIX_E_NOT_SUPPORTED_FOR_VM_VERSION</code><em class="property"> = 4001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED_FOR_VM_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE">
+<code class="descname">VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE</code><em class="property"> = 1001</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED_ON_HANDLE_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT">
+<code class="descname">VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT</code><em class="property"> = 20</em><a class="headerlink" href="#vix.VixError.VIX_E_NOT_SUPPORTED_ON_REMOTE_OBJECT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NO_DISPLAY_SERVER">
+<code class="descname">VIX_E_NO_DISPLAY_SERVER</code><em class="property"> = 3043</em><a class="headerlink" href="#vix.VixError.VIX_E_NO_DISPLAY_SERVER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NO_GUEST_OS_INSTALLED">
+<code class="descname">VIX_E_NO_GUEST_OS_INSTALLED</code><em class="property"> = 3010</em><a class="headerlink" href="#vix.VixError.VIX_E_NO_GUEST_OS_INSTALLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_NO_SUCH_PROCESS">
+<code class="descname">VIX_E_NO_SUCH_PROCESS</code><em class="property"> = 20003</em><a class="headerlink" href="#vix.VixError.VIX_E_NO_SUCH_PROCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OBJECT_IS_BUSY">
+<code class="descname">VIX_E_OBJECT_IS_BUSY</code><em class="property"> = 5</em><a class="headerlink" href="#vix.VixError.VIX_E_OBJECT_IS_BUSY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OBJECT_NOT_FOUND">
+<code class="descname">VIX_E_OBJECT_NOT_FOUND</code><em class="property"> = 25</em><a class="headerlink" href="#vix.VixError.VIX_E_OBJECT_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OPERATION_ALREADY_IN_PROGRESS">
+<code class="descname">VIX_E_OPERATION_ALREADY_IN_PROGRESS</code><em class="property"> = 31</em><a class="headerlink" href="#vix.VixError.VIX_E_OPERATION_ALREADY_IN_PROGRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OPERATION_DISABLED">
+<code class="descname">VIX_E_OPERATION_DISABLED</code><em class="property"> = 20005</em><a class="headerlink" href="#vix.VixError.VIX_E_OPERATION_DISABLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE">
+<code class="descname">VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE</code><em class="property"> = 3031</em><a class="headerlink" href="#vix.VixError.VIX_E_OPERATION_NOT_ALLOWED_FOR_LOGIN_TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OP_NOT_SUPPORTED_ON_GUEST">
+<code class="descname">VIX_E_OP_NOT_SUPPORTED_ON_GUEST</code><em class="property"> = 3003</em><a class="headerlink" href="#vix.VixError.VIX_E_OP_NOT_SUPPORTED_ON_GUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_OUT_OF_MEMORY">
+<code class="descname">VIX_E_OUT_OF_MEMORY</code><em class="property"> = 2</em><a class="headerlink" href="#vix.VixError.VIX_E_OUT_OF_MEMORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE">
+<code class="descname">VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE</code><em class="property"> = 3009</em><a class="headerlink" href="#vix.VixError.VIX_E_POWEROP_SCRIPTS_NOT_AVAILABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_PROGRAM_NOT_STARTED">
+<code class="descname">VIX_E_PROGRAM_NOT_STARTED</code><em class="property"> = 3004</em><a class="headerlink" href="#vix.VixError.VIX_E_PROGRAM_NOT_STARTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_PROPERTY_TYPE_MISMATCH">
+<code class="descname">VIX_E_PROPERTY_TYPE_MISMATCH</code><em class="property"> = 6005</em><a class="headerlink" href="#vix.VixError.VIX_E_PROPERTY_TYPE_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_READ_ONLY_PROPERTY">
+<code class="descname">VIX_E_READ_ONLY_PROPERTY</code><em class="property"> = 6002</em><a class="headerlink" href="#vix.VixError.VIX_E_READ_ONLY_PROPERTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_REQUIRES_LARGE_FILES">
+<code class="descname">VIX_E_REQUIRES_LARGE_FILES</code><em class="property"> = 14</em><a class="headerlink" href="#vix.VixError.VIX_E_REQUIRES_LARGE_FILES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED">
+<code class="descname">VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED</code><em class="property"> = 3019</em><a class="headerlink" href="#vix.VixError.VIX_E_ROOT_GUEST_OPERATIONS_PROHIBITED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_BAD_FORMAT">
+<code class="descname">VIX_E_SCREEN_CAPTURE_BAD_FORMAT</code><em class="property"> = 19001</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_BAD_FORMAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL">
+<code class="descname">VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL</code><em class="property"> = 19002</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_COMPRESSION_FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_ERROR">
+<code class="descname">VIX_E_SCREEN_CAPTURE_ERROR</code><em class="property"> = 19000</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SCREEN_CAPTURE_LARGE_DATA">
+<code class="descname">VIX_E_SCREEN_CAPTURE_LARGE_DATA</code><em class="property"> = 19003</em><a class="headerlink" href="#vix.VixError.VIX_E_SCREEN_CAPTURE_LARGE_DATA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_CHECKPOINT">
+<code class="descname">VIX_E_SNAPSHOT_CHECKPOINT</code><em class="property"> = 13009</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_CHECKPOINT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_CONFIG">
+<code class="descname">VIX_E_SNAPSHOT_CONFIG</code><em class="property"> = 13007</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_CONFIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_DISKLIB">
+<code class="descname">VIX_E_SNAPSHOT_DISKLIB</code><em class="property"> = 13002</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DISKLIB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_DISKLOCKED">
+<code class="descname">VIX_E_SNAPSHOT_DISKLOCKED</code><em class="property"> = 13014</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DISKLOCKED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_DUMPER">
+<code class="descname">VIX_E_SNAPSHOT_DUMPER</code><em class="property"> = 13001</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DUMPER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_DUPLICATEDDISK">
+<code class="descname">VIX_E_SNAPSHOT_DUPLICATEDDISK</code><em class="property"> = 13015</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_DUPLICATEDDISK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_EXISTS">
+<code class="descname">VIX_E_SNAPSHOT_EXISTS</code><em class="property"> = 13004</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_EXISTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_HIERARCHY_TOODEEP">
+<code class="descname">VIX_E_SNAPSHOT_HIERARCHY_TOODEEP</code><em class="property"> = 13021</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_HIERARCHY_TOODEEP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_INCONSISTENT">
+<code class="descname">VIX_E_SNAPSHOT_INCONSISTENT</code><em class="property"> = 13011</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_INCONSISTENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_INDEPENDENTDISK">
+<code class="descname">VIX_E_SNAPSHOT_INDEPENDENTDISK</code><em class="property"> = 13016</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_INDEPENDENTDISK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_INVAL">
+<code class="descname">VIX_E_SNAPSHOT_INVAL</code><em class="property"> = 13000</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_INVAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_LOCKED">
+<code class="descname">VIX_E_SNAPSHOT_LOCKED</code><em class="property"> = 13010</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_LOCKED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_MAXSNAPSHOTS">
+<code class="descname">VIX_E_SNAPSHOT_MAXSNAPSHOTS</code><em class="property"> = 13019</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_MAXSNAPSHOTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK">
+<code class="descname">VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK</code><em class="property"> = 13018</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_MEMORY_ON_INDEPENDENT_DISK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_MIN_FREE_SPACE">
+<code class="descname">VIX_E_SNAPSHOT_MIN_FREE_SPACE</code><em class="property"> = 13020</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_MIN_FREE_SPACE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_NAMETOOLONG">
+<code class="descname">VIX_E_SNAPSHOT_NAMETOOLONG</code><em class="property"> = 13012</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NAMETOOLONG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_NOCHANGE">
+<code class="descname">VIX_E_SNAPSHOT_NOCHANGE</code><em class="property"> = 13008</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOCHANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_NONUNIQUE_NAME">
+<code class="descname">VIX_E_SNAPSHOT_NONUNIQUE_NAME</code><em class="property"> = 13017</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NONUNIQUE_NAME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_NOPERM">
+<code class="descname">VIX_E_SNAPSHOT_NOPERM</code><em class="property"> = 13006</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOPERM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_NOTFOUND">
+<code class="descname">VIX_E_SNAPSHOT_NOTFOUND</code><em class="property"> = 13003</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOTFOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_NOT_REVERTABLE">
+<code class="descname">VIX_E_SNAPSHOT_NOT_REVERTABLE</code><em class="property"> = 13024</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_NOT_REVERTABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_VERSION">
+<code class="descname">VIX_E_SNAPSHOT_VERSION</code><em class="property"> = 13005</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SNAPSHOT_VIXFILE">
+<code class="descname">VIX_E_SNAPSHOT_VIXFILE</code><em class="property"> = 13013</em><a class="headerlink" href="#vix.VixError.VIX_E_SNAPSHOT_VIXFILE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_SUSPEND_ERROR">
+<code class="descname">VIX_E_SUSPEND_ERROR</code><em class="property"> = 3012</em><a class="headerlink" href="#vix.VixError.VIX_E_SUSPEND_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TEMPLATE_VM">
+<code class="descname">VIX_E_TEMPLATE_VM</code><em class="property"> = 4003</em><a class="headerlink" href="#vix.VixError.VIX_E_TEMPLATE_VM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TIMEOUT_WAITING_FOR_TOOLS">
+<code class="descname">VIX_E_TIMEOUT_WAITING_FOR_TOOLS</code><em class="property"> = 3000</em><a class="headerlink" href="#vix.VixError.VIX_E_TIMEOUT_WAITING_FOR_TOOLS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE">
+<code class="descname">VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE</code><em class="property"> = 21010</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_ALREADY_UP_TO_DATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED">
+<code class="descname">VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED</code><em class="property"> = 21006</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_AUTO_NOT_SUPPORTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_CANCELLED">
+<code class="descname">VIX_E_TOOLS_INSTALL_CANCELLED</code><em class="property"> = 21004</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_CANCELLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED">
+<code class="descname">VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED</code><em class="property"> = 21003</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_DEVICE_NOT_CONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_ERROR">
+<code class="descname">VIX_E_TOOLS_INSTALL_ERROR</code><em class="property"> = 21009</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_GUEST_NOT_READY">
+<code class="descname">VIX_E_TOOLS_INSTALL_GUEST_NOT_READY</code><em class="property"> = 21007</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_GUEST_NOT_READY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED">
+<code class="descname">VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED</code><em class="property"> = 21012</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_COPY_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE">
+<code class="descname">VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE</code><em class="property"> = 21001</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_IMAGE_INACCESIBLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_INIT_FAILED">
+<code class="descname">VIX_E_TOOLS_INSTALL_INIT_FAILED</code><em class="property"> = 21005</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_INIT_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_IN_PROGRESS">
+<code class="descname">VIX_E_TOOLS_INSTALL_IN_PROGRESS</code><em class="property"> = 21011</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_IN_PROGRESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_NO_DEVICE">
+<code class="descname">VIX_E_TOOLS_INSTALL_NO_DEVICE</code><em class="property"> = 21002</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_NO_DEVICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_INSTALL_NO_IMAGE">
+<code class="descname">VIX_E_TOOLS_INSTALL_NO_IMAGE</code><em class="property"> = 21000</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_INSTALL_NO_IMAGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOOLS_NOT_RUNNING">
+<code class="descname">VIX_E_TOOLS_NOT_RUNNING</code><em class="property"> = 3016</em><a class="headerlink" href="#vix.VixError.VIX_E_TOOLS_NOT_RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOO_MANY_HANDLES">
+<code class="descname">VIX_E_TOO_MANY_HANDLES</code><em class="property"> = 1002</em><a class="headerlink" href="#vix.VixError.VIX_E_TOO_MANY_HANDLES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TOO_MANY_LOGONS">
+<code class="descname">VIX_E_TOO_MANY_LOGONS</code><em class="property"> = 3046</em><a class="headerlink" href="#vix.VixError.VIX_E_TOO_MANY_LOGONS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_TYPE_MISMATCH">
+<code class="descname">VIX_E_TYPE_MISMATCH</code><em class="property"> = 2001</em><a class="headerlink" href="#vix.VixError.VIX_E_TYPE_MISMATCH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_UNFINISHED_JOB">
+<code class="descname">VIX_E_UNFINISHED_JOB</code><em class="property"> = 29</em><a class="headerlink" href="#vix.VixError.VIX_E_UNFINISHED_JOB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_UNRECOGNIZED_COMMAND">
+<code class="descname">VIX_E_UNRECOGNIZED_COMMAND</code><em class="property"> = 3001</em><a class="headerlink" href="#vix.VixError.VIX_E_UNRECOGNIZED_COMMAND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST">
+<code class="descname">VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST</code><em class="property"> = 3025</em><a class="headerlink" href="#vix.VixError.VIX_E_UNRECOGNIZED_COMMAND_IN_GUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_UNRECOGNIZED_PROPERTY">
+<code class="descname">VIX_E_UNRECOGNIZED_PROPERTY</code><em class="property"> = 6000</em><a class="headerlink" href="#vix.VixError.VIX_E_UNRECOGNIZED_PROPERTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VMDB">
+<code class="descname">VIX_E_VMDB</code><em class="property"> = 16</em><a class="headerlink" href="#vix.VixError.VIX_E_VMDB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VMX_MSG_DIALOG_AND_NO_UI">
+<code class="descname">VIX_E_VMX_MSG_DIALOG_AND_NO_UI</code><em class="property"> = 3028</em><a class="headerlink" href="#vix.VixError.VIX_E_VMX_MSG_DIALOG_AND_NO_UI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_ALREADY_LOADED">
+<code class="descname">VIX_E_VM_ALREADY_LOADED</code><em class="property"> = 4004</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_ALREADY_LOADED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_ALREADY_UP_TO_DATE">
+<code class="descname">VIX_E_VM_ALREADY_UP_TO_DATE</code><em class="property"> = 4006</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_ALREADY_UP_TO_DATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_HOST_DISCONNECTED">
+<code class="descname">VIX_E_VM_HOST_DISCONNECTED</code><em class="property"> = 34</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_HOST_DISCONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_INSUFFICIENT_HOST_MEMORY">
+<code class="descname">VIX_E_VM_INSUFFICIENT_HOST_MEMORY</code><em class="property"> = 3011</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_INSUFFICIENT_HOST_MEMORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_IS_RUNNING">
+<code class="descname">VIX_E_VM_IS_RUNNING</code><em class="property"> = 3007</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_IS_RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_NOT_ENOUGH_CPUS">
+<code class="descname">VIX_E_VM_NOT_ENOUGH_CPUS</code><em class="property"> = 3013</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_NOT_ENOUGH_CPUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_NOT_FOUND">
+<code class="descname">VIX_E_VM_NOT_FOUND</code><em class="property"> = 4000</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_NOT_RUNNING">
+<code class="descname">VIX_E_VM_NOT_RUNNING</code><em class="property"> = 3006</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_NOT_RUNNING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_VM_UNSUPPORTED_GUEST">
+<code class="descname">VIX_E_VM_UNSUPPORTED_GUEST</code><em class="property"> = 4011</em><a class="headerlink" href="#vix.VixError.VIX_E_VM_UNSUPPORTED_GUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS">
+<code class="descname">VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS</code><em class="property"> = 22006</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_MULTIPLE_SERVICEPROVIDERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_WRAPPER_PLAYER_NOT_INSTALLED">
+<code class="descname">VIX_E_WRAPPER_PLAYER_NOT_INSTALLED</code><em class="property"> = 22004</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_PLAYER_NOT_INSTALLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED">
+<code class="descname">VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED</code><em class="property"> = 22005</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_RUNTIME_NOT_INSTALLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND">
+<code class="descname">VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND</code><em class="property"> = 22003</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_SERVICEPROVIDER_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_WRAPPER_VERSION_NOT_FOUND">
+<code class="descname">VIX_E_WRAPPER_VERSION_NOT_FOUND</code><em class="property"> = 22002</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_VERSION_NOT_FOUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED">
+<code class="descname">VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED</code><em class="property"> = 22001</em><a class="headerlink" href="#vix.VixError.VIX_E_WRAPPER_WORKSTATION_NOT_INSTALLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="vix.VixError.VIX_OK">
+<code class="descname">VIX_OK</code><em class="property"> = 0</em><a class="headerlink" href="#vix.VixError.VIX_OK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
