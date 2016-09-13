@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
 	name='vix',
 	version='1.0.2',
-	description='VIX binding for Python',
+	description='VMware VIX binding for Python (unofficial)',
 	author='Naim A.',
 	author_email='naim94a@gmail.com',
 	url='https://github.com/naim94a/vix',
