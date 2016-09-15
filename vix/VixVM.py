@@ -980,10 +980,12 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    def capture_screen_image(self):
+    def capture_screen_image(self, filename=None):
         """Captures a PNG screenshot from VM.
 
-        :returns: A PNG image in binary form.
+        :param str filename: A filename to save image to. If this file exists it will be overwritten. None will return the image a string/BLOB.
+
+        :returns: A PNG image in binary form if filename is None, otherwise None
         :rtype: bytes
 
         :raises vix.VixError: On failure to capture screenshot.
@@ -1018,7 +1020,11 @@ class VixVM(VixHandle):
 
         vix.Vix_FreeBuffer(data_ptr[0])
 
-        return img_data
+        if filename:
+            with open(filename, "wb") as fd:
+                fd.write(img_data)
+        else:
+            return img_data
 
     # VMware tools
     @_blocking_job
