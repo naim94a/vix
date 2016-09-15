@@ -167,12 +167,13 @@ class VixHost(object):
             ffi.cast('void*', 0),
         ))
 
-        return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
+        return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE), vmx_path)
 
-    def find_items(self, search_type=VIX_FIND_RUNNING_VMS):
+    def find_items(self, search_type=VIX_FIND_RUNNING_VMS, names_only=False):
         """Finds VMs on host with requested citeria.
 
         :param int search_type: Any of VIX_FIND_*.
+        :param bool names_only: True will return a list of vmx paths, False will return VixVM instances.
 
         :returns: List of found VMs.
         :rtype: list
@@ -194,7 +195,12 @@ class VixHost(object):
 
         job.wait()
 
-        return _find_results.pop(key)
+        items = _find_results.pop(key)
+
+        if names_only:
+            return items
+        else:
+            return [self.open_vm(vmx_path) for vmx_path in items]
 
     def __del__(self):
         self.disconnect()

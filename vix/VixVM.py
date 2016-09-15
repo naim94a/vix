@@ -82,10 +82,24 @@ class VixVM(VixHandle):
     VIX_VMPOWEROP_LAUNCH_GUI = 0x0200
     VIX_VMPOWEROP_START_VM_PAUSED = 0x1000
 
-    def __init__(self, handle):
+    def __init__(self, handle, vmx_path):
         super(VixVM, self).__init__(handle)
+        self._vmx_path = vmx_path
 
         assert self.get_type() == VixHandle.VIX_HANDLETYPE_VM, 'Expected VixVM handle.'
+
+    @property
+    def vmx_path(self):
+        """Gets VM'x vmx path.
+
+        :returns: Guest's VMX path.
+        :rtype: str
+        """
+
+        return self._vmx_path
+
+    def __repr__(self):
+        return "<VixVM @ {0}>".format(self.vmx_path)
 
     # Power
     @_blocking_job
