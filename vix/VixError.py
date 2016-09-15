@@ -1,3 +1,9 @@
+from __future__ import absolute_import
+
+from .compat import _str
+from vix import _backend, API_ENCODING
+vix = _backend._vix
+ffi = _backend._ffi
 
 class VixError(Exception):
     ERRORS = {
@@ -316,7 +322,24 @@ class VixError(Exception):
         self._error = error_code
 
     def __str__(self):
-        return "<VixError {1} ({0})>".format(str(self._error), self.ERRORS.get(self._error) or "?")
+        return "VixError #{0}: {1}".format(str(self._error), self.get_error_text() or "?")
+
+    def get_error_text(self):
+        """Get an error's text
+
+        :returns: A human readable error message.
+        :rtype: str
+        """
+
+        return _str(
+            ffi.string(
+                vix.Vix_GetErrorText(
+                    ffi.cast('VixError', self._error), 
+                    ffi.cast('char*', 0)
+                )
+            ), 
+        API_ENCODING
+        )
 
 for error_code in VixError.ERRORS:
     setattr(VixError, VixError.ERRORS[error_code], error_code)
