@@ -17,7 +17,6 @@ Example:
 	:caption: snapshot-demo.py
 
 	from vix import VixHost, VixError
-	from vix.VixVM import VIX_SNAPSHOT_INCLUDE_MEMORY
 
 	host = VixHost()
 	host.connect()
@@ -27,8 +26,8 @@ Example:
 
 		snapshot = vm.create_snapshot(
 			'Todays Snapshot', 
-			'Just testing vix', 
-			VIX_SNAPSHOT_INCLUDE_MEMORY
+			'Just testing vix',
+			include_memory=True
 		)
 
 		print("Made snapshot!")
