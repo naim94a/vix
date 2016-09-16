@@ -30,26 +30,26 @@ class VixVM(VixHandle):
     
     _VIX_VMDELETE_DISK_FILES = 0x0002
 
-    _VIX_POWERSTATE_POWERING_OFF = 0x0001
-    _VIX_POWERSTATE_POWERED_OFF = 0x0002
-    _VIX_POWERSTATE_POWERING_ON = 0x0004
-    _VIX_POWERSTATE_POWERED_ON = 0x0008
-    _VIX_POWERSTATE_SUSPENDING = 0x0010
-    _VIX_POWERSTATE_SUSPENDED = 0x0020
-    _VIX_POWERSTATE_TOOLS_RUNNING = 0x0040
-    _VIX_POWERSTATE_RESETTING = 0x0080
-    _VIX_POWERSTATE_BLOCKED_ON_MSG = 0x0100
-    _VIX_POWERSTATE_PAUSED = 0x0200
-    _VIX_POWERSTATE_RESUMING = 0x0800
+    VIX_POWERSTATE_POWERING_OFF = 0x0001
+    VIX_POWERSTATE_POWERED_OFF = 0x0002
+    VIX_POWERSTATE_POWERING_ON = 0x0004
+    VIX_POWERSTATE_POWERED_ON = 0x0008
+    VIX_POWERSTATE_SUSPENDING = 0x0010
+    VIX_POWERSTATE_SUSPENDED = 0x0020
+    VIX_POWERSTATE_TOOLS_RUNNING = 0x0040
+    VIX_POWERSTATE_RESETTING = 0x0080
+    VIX_POWERSTATE_BLOCKED_ON_MSG = 0x0100
+    VIX_POWERSTATE_PAUSED = 0x0200
+    VIX_POWERSTATE_RESUMING = 0x0800
 
-    _VIX_TOOLSSTATE_UNKNOWN = 0x0001
-    _VIX_TOOLSSTATE_RUNNING = 0x0002
-    _VIX_TOOLSSTATE_NOT_INSTALLED = 0x0004
+    VIX_TOOLSSTATE_UNKNOWN = 0x0001
+    VIX_TOOLSSTATE_RUNNING = 0x0002
+    VIX_TOOLSSTATE_NOT_INSTALLED = 0x0004
 
-    _VIX_VM_SUPPORT_SHARED_FOLDERS = 0x0001
-    _VIX_VM_SUPPORT_MULTIPLE_SNAPSHOTS = 0x0002
-    _VIX_VM_SUPPORT_TOOLS_INSTALL = 0x0004
-    _VIX_VM_SUPPORT_HARDWARE_UPGRADE = 0x0008
+    VIX_VM_SUPPORT_SHARED_FOLDERS = 0x0001
+    VIX_VM_SUPPORT_MULTIPLE_SNAPSHOTS = 0x0002
+    VIX_VM_SUPPORT_TOOLS_INSTALL = 0x0004
+    VIX_VM_SUPPORT_HARDWARE_UPGRADE = 0x0008
 
     _VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT = 0x08
 
@@ -82,9 +82,8 @@ class VixVM(VixHandle):
     VIX_VMPOWEROP_LAUNCH_GUI = 0x0200
     VIX_VMPOWEROP_START_VM_PAUSED = 0x1000
 
-    def __init__(self, handle, vmx_path):
+    def __init__(self, handle):
         super(VixVM, self).__init__(handle)
-        self._vmx_path = vmx_path
 
         assert self.get_type() == VixHandle.VIX_HANDLETYPE_VM, 'Expected VixVM handle.'
 
@@ -96,7 +95,86 @@ class VixVM(VixHandle):
         :rtype: str
         """
 
-        return self._vmx_path
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_VMX_PATHNAME)
+
+    @property
+    def machine_info(self):
+        """Get the VM's hardware specs
+
+        :returns: a tuple: (num_cpus, memory)
+        :rtype: tuple
+        """
+
+        return self.get_properties(
+            VixHandle.VIX_PROPERTY_VM_NUM_VCPUS, 
+            VixHandle.VIX_PROPERTY_VM_MEMORY_SIZE
+        )
+
+    @property
+    def is_running(self):
+        """Checks if VM is running
+
+        :returns: True if running otherwise False.
+        :rtype: bool
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_IS_RUNNING)
+
+    @property
+    def guest_os(self):
+        """The guest's Operating System
+
+        :rtype: str
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_GUESTOS)
+
+    @property
+    def name(self):
+        """Name of the VM.
+
+        :rtype: str
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_NAME)
+
+    @property
+    def is_readonly(self):
+        """Checks if the VM is readonly.
+
+        :rtype: bool
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_READ_ONLY)
+
+    @property
+    def power_state(self):
+        """Gets the VMs power state.
+
+        :returns: Any of VixVM.VIX_VM_POWERSTATE_*
+        :rtype: int
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_POWER_STATE)
+
+    @property
+    def tools_state(self):
+        """Get the VMware tools state.
+
+        :returns: Any of VixVM.VIX_VM_TOOLSSTATE_*
+        :rtype: int
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_TOOLS_STATE)
+
+    @property
+    def supported_features(self):
+        """Get features supported by the VM.
+
+        :returns: Any of VixVM.VIX_VM_SUPPORT_*.
+        :rtype: int
+        """
+        return self.get_properties(VixHandle.VIX_PROPERTY_VM_SUPPORTED_FEATURES)
 
     def __repr__(self):
         return "<VixVM @ {0}>".format(self.vmx_path)
