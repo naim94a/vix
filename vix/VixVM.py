@@ -28,53 +28,53 @@ SharedFolder = namedtuple('SharedFolder', 'name host_path write_access')
 class VixVM(VixHandle):
     """Represents a guest VM."""
     
-    VIX_VMDELETE_DISK_FILES = 0x0002
+    _VIX_VMDELETE_DISK_FILES = 0x0002
 
-    VIX_POWERSTATE_POWERING_OFF = 0x0001
-    VIX_POWERSTATE_POWERED_OFF = 0x0002
-    VIX_POWERSTATE_POWERING_ON = 0x0004
-    VIX_POWERSTATE_POWERED_ON = 0x0008
-    VIX_POWERSTATE_SUSPENDING = 0x0010
-    VIX_POWERSTATE_SUSPENDED = 0x0020
-    VIX_POWERSTATE_TOOLS_RUNNING = 0x0040
-    VIX_POWERSTATE_RESETTING = 0x0080
-    VIX_POWERSTATE_BLOCKED_ON_MSG = 0x0100
-    VIX_POWERSTATE_PAUSED = 0x0200
-    VIX_POWERSTATE_RESUMING = 0x0800
+    _VIX_POWERSTATE_POWERING_OFF = 0x0001
+    _VIX_POWERSTATE_POWERED_OFF = 0x0002
+    _VIX_POWERSTATE_POWERING_ON = 0x0004
+    _VIX_POWERSTATE_POWERED_ON = 0x0008
+    _VIX_POWERSTATE_SUSPENDING = 0x0010
+    _VIX_POWERSTATE_SUSPENDED = 0x0020
+    _VIX_POWERSTATE_TOOLS_RUNNING = 0x0040
+    _VIX_POWERSTATE_RESETTING = 0x0080
+    _VIX_POWERSTATE_BLOCKED_ON_MSG = 0x0100
+    _VIX_POWERSTATE_PAUSED = 0x0200
+    _VIX_POWERSTATE_RESUMING = 0x0800
 
-    VIX_TOOLSSTATE_UNKNOWN = 0x0001
-    VIX_TOOLSSTATE_RUNNING = 0x0002
-    VIX_TOOLSSTATE_NOT_INSTALLED = 0x0004
+    _VIX_TOOLSSTATE_UNKNOWN = 0x0001
+    _VIX_TOOLSSTATE_RUNNING = 0x0002
+    _VIX_TOOLSSTATE_NOT_INSTALLED = 0x0004
 
-    VIX_VM_SUPPORT_SHARED_FOLDERS = 0x0001
-    VIX_VM_SUPPORT_MULTIPLE_SNAPSHOTS = 0x0002
-    VIX_VM_SUPPORT_TOOLS_INSTALL = 0x0004
-    VIX_VM_SUPPORT_HARDWARE_UPGRADE = 0x0008
+    _VIX_VM_SUPPORT_SHARED_FOLDERS = 0x0001
+    _VIX_VM_SUPPORT_MULTIPLE_SNAPSHOTS = 0x0002
+    _VIX_VM_SUPPORT_TOOLS_INSTALL = 0x0004
+    _VIX_VM_SUPPORT_HARDWARE_UPGRADE = 0x0008
 
-    VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT = 0x08
+    _VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT = 0x08
 
-    VIX_RUNPROGRAM_RETURN_IMMEDIATELY = 0x0001
-    VIX_RUNPROGRAM_ACTIVATE_WINDOW = 0x0002
+    _VIX_RUNPROGRAM_RETURN_IMMEDIATELY = 0x0001
+    _VIX_RUNPROGRAM_ACTIVATE_WINDOW = 0x0002
 
     VIX_VM_GUEST_VARIABLE = 1
     VIX_VM_CONFIG_RUNTIME_ONLY = 2
     VIX_GUEST_ENVIRONMENT_VARIABLE = 3
 
-    VIX_SNAPSHOT_REMOVE_CHILDREN = 0x0001
+    _VIX_SNAPSHOT_REMOVE_CHILDREN = 0x0001
 
-    VIX_SNAPSHOT_INCLUDE_MEMORY = 0x0002
+    _VIX_SNAPSHOT_INCLUDE_MEMORY = 0x0002
 
-    VIX_SHAREDFOLDER_WRITE_ACCESS = 0x04
+    _VIX_SHAREDFOLDER_WRITE_ACCESS = 0x04
 
-    VIX_CAPTURESCREENFORMAT_PNG = 0x01
-    VIX_CAPTURESCREENFORMAT_PNG_NOCOMPRESS = 0x02
+    _VIX_CAPTURESCREENFORMAT_PNG = 0x01
+    _VIX_CAPTURESCREENFORMAT_PNG_NOCOMPRESS = 0x02
 
-    VIX_CLONETYPE_FULL = 0
-    VIX_CLONETYPE_LINKED = 1
+    _VIX_CLONETYPE_FULL = 0
+    _VIX_CLONETYPE_LINKED = 1
 
-    VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER = 0x00
-    VIX_INSTALLTOOLS_AUTO_UPGRADE = 0x01
-    VIX_INSTALLTOOLS_RETURN_IMMEDIATELY = 0x02
+    _VIX_INSTALLTOOLS_MOUNT_TOOLS_INSTALLER = 0x00
+    _VIX_INSTALLTOOLS_AUTO_UPGRADE = 0x01
+    _VIX_INSTALLTOOLS_RETURN_IMMEDIATELY = 0x02
 
     VIX_VMPOWEROP_NORMAL = 0
     VIX_VMPOWEROP_FROM_GUEST = 0x0004
@@ -216,7 +216,7 @@ class VixVM(VixHandle):
         job = VixJob(vix.VixVM_Clone(
             self._handle,
             ffi.cast('VixHandle', snapshot._handle if snapshot else 0),
-            ffi.cast('VixCloneType', self.VIX_CLONETYPE_LINKED if linked else self.VIX_CLONETYPE_FULL),
+            ffi.cast('VixCloneType', self._VIX_CLONETYPE_LINKED if linked else self._VIX_CLONETYPE_FULL),
             ffi.new('char[]', _bytes(dest_vms, API_ENCODING)),
             ffi.cast('VixCloneOptions', 0),
             ffi.cast('VixHandle', 0),
@@ -245,7 +245,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', _bytes(name, API_ENCODING)) if name else ffi.cast('char*', 0),
             ffi.new('char[]', _bytes(description, API_ENCODING)) if description else  ffi.cast('char*', 0),
-            ffi.cast('int', self.VIX_SNAPSHOT_INCLUDE_MEMORY if include_memory else 0),
+            ffi.cast('int', self._VIX_SNAPSHOT_INCLUDE_MEMORY if include_memory else 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -383,7 +383,7 @@ class VixVM(VixHandle):
         return vix.VixVM_RemoveSnapshot(
             self._handle,
             snapshot._handle,
-            ffi.cast('int', self.VIX_SNAPSHOT_REMOVE_CHILDREN if remove_children else 0),
+            ffi.cast('int', self._VIX_SNAPSHOT_REMOVE_CHILDREN if remove_children else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -719,7 +719,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', _bytes(username, API_ENCODING)) if username else ffi.cast('char*', 0),
             ffi.new('char[]', _bytes(password, API_ENCODING)) if password else ffi.cast('char*', 0),
-            ffi.cast('int', self.VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT if require_interactive else 0),
+            ffi.cast('int', self._VIX_LOGIN_IN_GUEST_REQUIRE_INTERACTIVE_ENVIRONMENT if require_interactive else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -756,7 +756,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', _bytes(program_name, API_ENCODING)),
             ffi.new('char[]', _bytes(command_line, API_ENCODING)) if command_line else ffi.cast('char*', 0),
-            ffi.cast('VixRunProgramOptions', 0 if should_block else self.VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
+            ffi.cast('VixRunProgramOptions', 0 if should_block else self._VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -779,7 +779,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', _bytes(interpreter_path, API_ENCODING)) if interpreter_path else ffi.cast('char*', 0),
             ffi.new('char[]', _bytes(script_text, API_ENCODING)),
-            ffi.cast('VixRunProgramOptions', 0 if should_block else self.VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
+            ffi.cast('VixRunProgramOptions', 0 if should_block else self._VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -804,7 +804,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', _bytes(share_name, API_ENCODING)),
             ffi.new('char[]', _bytes(host_path, API_ENCODING)),
-            ffi.cast('VixMsgSharedFolderOptions', self.VIX_SHAREDFOLDER_WRITE_ACCESS if write_access else 0),
+            ffi.cast('VixMsgSharedFolderOptions', self._VIX_SHAREDFOLDER_WRITE_ACCESS if write_access else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -870,7 +870,7 @@ class VixVM(VixHandle):
         return SharedFolder(
             name=res[0],
             host_path=res[1],
-            write_access=bool(res[2] & VixVM.VIX_SHAREDFOLDER_WRITE_ACCESS),
+            write_access=bool(res[2] & VixVM._VIX_SHAREDFOLDER_WRITE_ACCESS),
         )
 
     @_blocking_job
@@ -907,7 +907,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.new('char[]', _bytes(share_name, API_ENCODING)),
             ffi.new('char[]', _bytes(host_path, API_ENCODING)),
-            ffi.cast('VixMsgSharedFolderOptions', VixVM.VIX_SHAREDFOLDER_WRITE_ACCESS if allow_write else 0),
+            ffi.cast('VixMsgSharedFolderOptions', VixVM._VIX_SHAREDFOLDER_WRITE_ACCESS if allow_write else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -989,7 +989,7 @@ class VixVM(VixHandle):
 
         return vix.VixVM_Delete(
             self._handle,
-            ffi.cast('VixVMDeleteOptions', self.VIX_VMDELETE_DISK_FILES if delete_files else 0),
+            ffi.cast('VixVMDeleteOptions', self._VIX_VMDELETE_DISK_FILES if delete_files else 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
@@ -1009,7 +1009,7 @@ class VixVM(VixHandle):
 
         job = VixJob(vix.VixVM_CaptureScreenImage(
             self._handle,
-            ffi.cast('int', self.VIX_CAPTURESCREENFORMAT_PNG),
+            ffi.cast('int', self._VIX_CAPTURESCREENFORMAT_PNG),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
@@ -1069,9 +1069,9 @@ class VixVM(VixHandle):
 
         options = 0
         if blocking:
-            options |= self.VIX_INSTALLTOOLS_RETURN_IMMEDIATELY
+            options |= self._VIX_INSTALLTOOLS_RETURN_IMMEDIATELY
         if auto_upgrade:
-            options |= self.VIX_INSTALLTOOLS_AUTO_UPGRADE
+            options |= self._VIX_INSTALLTOOLS_AUTO_UPGRADE
 
         return vix.VixVM_InstallTools(
             self._handle,

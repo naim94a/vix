@@ -50,9 +50,9 @@ VixHostInfo = namedtuple('VixHostInfo', 'host_type api_version software_version'
 class VixHost(object):
     """Represents a VMware virtualization host."""
 
-    VIX_API_VERSION = -1
+    _VIX_API_VERSION = -1
 
-    VIX_HOSTOPTION_VERIFY_SSL_CERT = 0x4000
+    _VIX_HOSTOPTION_VERIFY_SSL_CERT = 0x4000
 
     VIX_SERVICEPROVIDER_DEFAULT = 1
     VIX_SERVICEPROVIDER_VMWARE_SERVER = 2
@@ -103,7 +103,7 @@ class VixHost(object):
         assert len(credentials) == 2 and type(credentials) == tuple, 'Credentials must be a tuple of size 2'
 
         job = VixJob(vix.VixHost_Connect(
-            self.VIX_API_VERSION,
+            self._VIX_API_VERSION,
             service_provider,
             ffi.cast('const char*', _bytes(host[0], API_ENCODING) if host[0] else 0),
             host[1],
