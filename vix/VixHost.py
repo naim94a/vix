@@ -186,7 +186,7 @@ class VixHost(object):
             ffi.cast('void*', 0),
         ))
 
-        return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE), vmx_path)
+        return VixVM(job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE))
 
     def find_items(self, search_type=VIX_FIND_RUNNING_VMS, names_only=False):
         """Finds VMs on host with requested citeria.
