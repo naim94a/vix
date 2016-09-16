@@ -12,6 +12,33 @@ class VixSnapshot(VixHandle):
         super(VixSnapshot, self).__init__(handle)
         assert self.get_type() == VixHandle.VIX_HANDLETYPE_SNAPSHOT, 'Expected VixSnapshot handle.'
 
+    @property
+    def name(self):
+        """Gets the snapshot's name.
+
+        :rtype: str
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_SNAPSHOT_DISPLAYNAME)
+
+    @property
+    def description(self):
+        """Get the snapshot's description.
+
+        :rtype: str
+        """
+        return self.get_properties(VixHandle.VIX_PROPERTY_SNAPSHOT_DESCRIPTION)
+    
+    @property
+    def power_state(self):
+        """Gets the snapshot's power state.
+        
+        :returns: Power state, can be a combination of VixVM.VIX_VM_POWERSTATE_*
+        :rtype: int
+        """
+
+        return self.get_properties(VixHandle.VIX_PROPERTY_SNAPSHOT_POWERSTATE)
+
     def get_num_children(self):
         """Gets the number of children the current snapshot has.
 
