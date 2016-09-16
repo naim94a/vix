@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from collections import namedtuple
 from .compat import _bytes, _str
 from .VixJob import VixJob
 from .VixVM import VixVM
@@ -43,6 +44,8 @@ def _find_items_callback(job_handle, event_type, event_info, client_data):
     _find_results[idx].append(vmx)
     vix.Vix_FreeBuffer(str_ptr[0])
 
+VixHostInfo = namedtuple('VixHostInfo', 'host_type api_version software_version')
+
 
 class VixHost(object):
     """Represents a VMware virtualization host."""
@@ -60,6 +63,22 @@ class VixHost(object):
 
     VIX_FIND_RUNNING_VMS = 1
     VIX_FIND_REGISTERED_VMS = 4
+
+    @property
+    def host_info(self):
+        """property returns the Host's version.
+
+        :returns: Host's type, api and software version.
+        :rtype: .VixHostInfo
+
+        :raises vix.VixError: If failed to get version information.
+        """
+        res = VixHandle(self._handle).get_properties(
+            VixHandle.VIX_PROPERTY_HOST_HOSTTYPE,
+            VixHandle.VIX_PROPERTY_HOST_API_VERSION,
+            VixHandle.VIX_PROPERTY_HOST_SOFTWARE_VERSION,
+        )
+        return VixHostInfo(host_type=res[0], api_version=res[1], software_version=res[2])
 
     def __init__(self, service_provider=VIX_SERVICEPROVIDER_DEFAULT, host=None, credentials=None):
         """Connects to a VMware host.
