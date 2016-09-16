@@ -106,7 +106,6 @@ class VixHandle(object):
             c_args.append(alloc)
             ret_vals.append((alloc, prop_type))
 
-        print(ret_vals)
         c_args.append(ffi.cast('VixPropertyID', self.VIX_PROPERTY_NONE))
 
         error_code = vix.Vix_GetProperties(self._handle, *c_args)
