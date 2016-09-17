@@ -82,7 +82,7 @@ class VixSnapshot(VixHandle):
     def get_parent(self):
         """Gets the parent of the current snapshot.
 
-        :returns: Parent of current snapshot.
+        :returns: Parent of current snapshot or None if snapshot is a root.
         :rtype: .VixSnapshot
 
         :raises vix.VixError: On failure to get snapshot.
@@ -96,5 +96,10 @@ class VixSnapshot(VixHandle):
 
         if error_code != VixError.VIX_OK:
             raise VixError(error_code)
+
+        temp_handle = VixHandle(parent_handle[0])
+        if temp_handle.get_type() == VixHandle.VIX_HANDLETYPE_NONE:
+            temp_handle.release()
+            return None
 
         return VixSnapshot(parent_handle[0])

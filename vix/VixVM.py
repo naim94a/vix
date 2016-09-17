@@ -191,7 +191,7 @@ class VixVM(VixHandle):
             self._handle,
             ffi.cast('int', 0),
             ffi.cast('VixHandle', 0),
-            ffi.cast('VixEventProc', 0),
+            ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
 
@@ -295,8 +295,8 @@ class VixVM(VixHandle):
             self._handle,
             ffi.cast('VixHandle', snapshot._handle if snapshot else 0),
             ffi.cast('VixCloneType', self._VIX_CLONETYPE_LINKED if linked else self._VIX_CLONETYPE_FULL),
-            ffi.new('char[]', _bytes(dest_vms, API_ENCODING)),
-            ffi.cast('VixCloneOptions', 0),
+            ffi.new('char[]', _bytes(dest_vmx, API_ENCODING)),
+            ffi.cast('int', 0),
             ffi.cast('VixHandle', 0),
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
