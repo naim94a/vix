@@ -24,7 +24,7 @@ Tested with VMware Workstation, this wrapper should support ESXs, VMware servers
 * Registration and unregistration of VMs from hosts.
 
 ## Licenses
-vix (this project) is released under the [GPLv3](License) license. 
+vix (this project) is released under the [GPLv3](LICENSE) license. 
 This projects uses redistributable software developed by VMware.
 
 ## Bugs, Features, support
