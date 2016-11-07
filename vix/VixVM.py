@@ -1131,7 +1131,7 @@ class VixVM(VixHandle):
         return vix.VixVM_WaitForToolsInGuest(
             self._handle,
             ffi.cast('int', timeout),
-            ffi.cast('VixEventProc', 0),
+            ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
         )
 
