@@ -8,7 +8,7 @@
 	:license: GPLv3, see LICENSE for more details.
 """
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 from .VixBackend import VixBackend as _VixBackend
 _backend = _VixBackend()
