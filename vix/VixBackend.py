@@ -173,4 +173,4 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 
 			return base_path
 
-		raise NotImplemented('Unrecognized OS or architecure ({0}, {1}, {2})'.format(platform.architecure(), platform.machine(), platform.system()))
+		raise NotImplementedError('Unrecognized OS or architecture ({0}, {1}, {2})'.format(platform.architecture(), platform.machine(), platform.system()))
