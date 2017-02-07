@@ -158,6 +158,8 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 
 		if os_name == 'Linux':
 			return '/usr/lib/libvixAllProducts.so'
+		elif os_name == 'Darwin':
+			return '/Applications/VMware Fusion.app/Contents/Public/libvixAllProducts.dylib'
 		elif os_name == 'Windows':
 			arch = platform.architecture()[0].lower()
 			machine = platform.machine().lower()
