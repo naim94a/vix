@@ -158,19 +158,27 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 
         if os_name == 'Linux':
             return '/usr/lib/libvixAllProducts.so'
+
         elif os_name == 'Darwin':
             return '/Applications/VMware Fusion.app/Contents/Public/libvixAllProducts.dylib'
+
         elif os_name == 'Windows':
-            arch = platform.architecture()[0].lower()
-            machine = platform.machine().lower()
-
-            # Py: 32; Machine: 32: C:\Program Files\VMware\VMware VIX\VixAllProductsDyn.dll
-            # Py: 32; Machine: 64: C:\Program Files (x86)\VMware\VMware VIX\VixAllProductsDyn.dll
+            # Py: 32; Machine: 32: %ProgramFiles%\VMware\VMware VIX\VixAllProductsDyn.dll
+            # Py: 32; Machine: 64: %ProgramFiles(x86)%\VMware\VMware VIX\VixAllProductsDyn.dll
             # Py: 64; Machine: 32: N/A
-            # Py: 64; Machine: 64: C:\Program Files (x86)\VMware\VMware VIX\Vix64AllProductsDyn.dll
+            # Py: 64; Machine: 64: %ProgramFiles(x86)%\VMware\VMware VIX\Vix64AllProductsDyn.dll
 
-            base_path = r'C:\Program Files (x86)' if machine == 'amd64' else r'C:\Program Files'
-            base_path = os.path.join(base_path, 'VMware', 'VMware VIX')
+            try:
+                import winreg
+            except ImportError:
+                import _winreg as winreg
+
+            if platform.machine().lower() == 'amd64':
+                base_path = winreg.QueryValueEx(winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r'SOFTWARE\WOW6432Node\VMware, Inc.\VMware VIX'), 'InstallPath')[0]
+            else:
+                base_path = winreg.QueryValueEx(winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r'SOFTWARE\VMware, Inc.\VMware VIX'), 'InstallPath')[0]
+
+            arch = platform.architecture()[0].lower()
             base_path = os.path.join(base_path, 'Vix64AllProductsDyn.dll' if arch == '64bit' else 'VixAllProductsDyn.dll')
 
             return base_path
