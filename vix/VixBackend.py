@@ -5,14 +5,14 @@ import sys
 
 
 class VixBackend(object):
-	"""This class creates the ffi and vix objects that will be used by other classes of this module.
+    """This class creates the ffi and vix objects that will be used by other classes of this module.
 
-	.. note:: Internal use.
-	"""
-	def __init__(self):
-		self._ffi = cffi.FFI()
+    .. note:: Internal use.
+    """
+    def __init__(self):
+        self._ffi = cffi.FFI()
 
-		self._ffi.cdef('''
+        self._ffi.cdef('''
 // Basic Types
 typedef char          Bool;
 typedef uint64_t    uint64;
@@ -141,38 +141,46 @@ VixError VixJob_GetNthProperties(VixHandle jobHandle, int index, int propertyID,
 VixError VixSnapshot_GetNumChildren(VixHandle parentSnapshotHandle, int *numChildSnapshots);
 VixError VixSnapshot_GetChild(VixHandle parentSnapshotHandle, int index, VixHandle *childSnapshotHandle);
 VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapshotHandle);
-		''')
-		self._vix = self._ffi.dlopen(VixBackend._get_vix_path())
+        ''')
+        self._vix = self._ffi.dlopen(VixBackend._get_vix_path())
 
-	@staticmethod
-	def _get_vix_path():
-		"""Finds the expected install path for the so/dll.
+    @staticmethod
+    def _get_vix_path():
+        """Finds the expected install path for the so/dll.
 
-		:returns: Expected path.
-		:rtype: str
+        :returns: Expected path.
+        :rtype: str
 
-		:raises NotImplemented: If the OS/architecture are not recognized.
-		"""
+        :raises NotImplemented: If the OS/architecture are not recognized.
+        """
 
-		os_name = platform.system()
+        os_name = platform.system()
 
-		if os_name == 'Linux':
-			return '/usr/lib/libvixAllProducts.so'
-		elif os_name == 'Darwin':
-			return '/Applications/VMware Fusion.app/Contents/Public/libvixAllProducts.dylib'
-		elif os_name == 'Windows':
-			arch = platform.architecture()[0].lower()
-			machine = platform.machine().lower()
+        if os_name == 'Linux':
+            return '/usr/lib/libvixAllProducts.so'
 
-			# Py: 32; Machine: 32: C:\Program Files\VMware\VMware VIX\VixAllProductsDyn.dll
-			# Py: 32; Machine: 64: C:\Program Files (x86)\VMware\VMware VIX\VixAllProductsDyn.dll
-			# Py: 64; Machine: 32: N/A
-			# Py: 64; Machine: 64: C:\Program Files (x86)\VMware\VMware VIX\Vix64AllProductsDyn.dll
+        elif os_name == 'Darwin':
+            return '/Applications/VMware Fusion.app/Contents/Public/libvixAllProducts.dylib'
 
-			base_path = r'C:\Program Files (x86)' if machine == 'amd64' else r'C:\Program Files'
-			base_path = os.path.join(base_path, 'VMware', 'VMware VIX')
-			base_path = os.path.join(base_path, 'Vix64AllProductsDyn.dll' if arch == '64bit' else 'VixAllProductsDyn.dll')
+        elif os_name == 'Windows':
+            # Py: 32; Machine: 32: %ProgramFiles%\VMware\VMware VIX\VixAllProductsDyn.dll
+            # Py: 32; Machine: 64: %ProgramFiles(x86)%\VMware\VMware VIX\VixAllProductsDyn.dll
+            # Py: 64; Machine: 32: N/A
+            # Py: 64; Machine: 64: %ProgramFiles(x86)%\VMware\VMware VIX\Vix64AllProductsDyn.dll
 
-			return base_path
+            try:
+                import winreg
+            except ImportError:
+                import _winreg as winreg
 
-		raise NotImplementedError('Unrecognized OS or architecture ({0}, {1}, {2})'.format(platform.architecture(), platform.machine(), platform.system()))
+            if platform.machine().lower() == 'amd64':
+                base_path = winreg.QueryValueEx(winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r'SOFTWARE\WOW6432Node\VMware, Inc.\VMware VIX'), 'InstallPath')[0]
+            else:
+                base_path = winreg.QueryValueEx(winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r'SOFTWARE\VMware, Inc.\VMware VIX'), 'InstallPath')[0]
+
+            arch = platform.architecture()[0].lower()
+            base_path = os.path.join(base_path, 'Vix64AllProductsDyn.dll' if arch == '64bit' else 'VixAllProductsDyn.dll')
+
+            return base_path
+
+        raise NotImplementedError('Unrecognized OS or architecture ({0}, {1}, {2})'.format(platform.architecture(), platform.machine(), platform.system()))

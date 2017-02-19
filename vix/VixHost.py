@@ -1,6 +1,10 @@
 from __future__ import absolute_import
 
-from collections import namedtuple
+import collections
+import platform
+import os
+import os.path
+from xml.etree import ElementTree
 from .compat import _bytes, _str
 from .VixJob import VixJob
 from .VixVM import VixVM
@@ -44,7 +48,7 @@ def _find_items_callback(job_handle, event_type, event_info, client_data):
     _find_results[idx].append(vmx)
     vix.Vix_FreeBuffer(str_ptr[0])
 
-VixHostInfo = namedtuple('VixHostInfo', 'host_type api_version software_version')
+VixHostInfo = collections.namedtuple('VixHostInfo', 'host_type api_version software_version')
 
 
 class VixHost(object):
@@ -94,28 +98,57 @@ class VixHost(object):
 
         assert self._handle == None, 'Instance is already connected.'
 
+        if service_provider in (self.VIX_SERVICEPROVIDER_VMWARE_VI_SERVER, self.VIX_SERVICEPROVIDER_VMWARE_WORKSTATION_SHARED):
+            if isinstance(host, collections.Sequence) and len(host) == 2 and host[1] != 0:
+                host = ('%s:%s' % host, 0)
+
+            elif host is None and service_provider == self.VIX_SERVICEPROVIDER_VMWARE_WORKSTATION_SHARED:
+                if platform.system() == 'Windows':
+                    vmhostd_proxy_xml = os.path.join(os.getenv('ProgramData'), 'VMware', 'hostd', 'proxy.xml')
+                elif platform.system() == 'Linux':
+                    vmhostd_proxy_xml = '/etc/vmware/hostd/proxy.xml'
+                else:
+                    raise NotImplemented('Unrecognized OS or architecure ({0}, {1}, {2})'.format(platform.architecure(), platform.machine(), platform.system()))
+
+                host = ('localhost:%d' % (int(ElementTree.parse(vmhostd_proxy_xml).getroot().find('httpsPort').text), ), 0)
+
+            assert credentials is not None and isinstance(credentials, collections.Sequence) and len(credentials) == 2 \
+                   and credentials[0] is not None and credentials[1] is not None, \
+                   'Null credentials blocks vix api.'
+
         if not host:
             host = (None, 0, )
         if not credentials:
             credentials = (None, None, )
 
-        assert len(host) == 2 and type(host) == tuple, 'Host must be a tuple of size 2'
-        assert len(credentials) == 2 and type(credentials) == tuple, 'Credentials must be a tuple of size 2'
+        assert isinstance(host, collections.Sequence) and len(host) == 2, 'Host must be a tuple of size 2'
+        assert isinstance(credentials, collections.Sequence) and len(credentials) == 2, 'Credentials must be a tuple of size 2'
 
-        job = VixJob(vix.VixHost_Connect(
+        job = vix.VixHost_Connect(
             self._VIX_API_VERSION,
             service_provider,
-            ffi.cast('const char*', _bytes(host[0], API_ENCODING) if host[0] else 0),
+            ffi.from_buffer(_bytes(host[0], API_ENCODING)) if host[0] else ffi.cast('const char*', 0),
             host[1],
-            ffi.cast('const char*', _bytes(credentials[0], API_ENCODING) if credentials[0] else 0),
-            ffi.cast('const char*', _bytes(credentials[1], API_ENCODING) if credentials[1] else 0),
+            ffi.from_buffer(_bytes(credentials[0], API_ENCODING)) if credentials[0] is not None else ffi.cast('const char*', 0),
+            ffi.from_buffer(_bytes(credentials[1], API_ENCODING)) if credentials[1] is not None else ffi.cast('const char*', 0),
             0,
             0,
             ffi.cast('VixEventProc*', 0),
             ffi.cast('void*', 0),
-        ))
+        )
+
+        if VixHandle(job).get_type() != VixHandle.VIX_HANDLETYPE_JOB:
+            raise VixError(vix.VixJob_GetError(job))
+
+        job = VixJob(job)
 
         self._handle = job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_HANDLE)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.disconnect()
 
     def disconnect(self):
         """Disconnects from the host."""
