@@ -170,11 +170,7 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
             # Py: 64; Machine: 32: N/A
             # Py: 64; Machine: 64: %ProgramFiles(x86)%\VMware\VMware VIX\Vix64AllProductsDyn.dll
 
-            # from six.moves import winreg
-            try:
-                import winreg
-            except ImportError:
-                import _winreg as winreg
+            from six.moves import winreg
 
             try:
                 if machine == 'amd64':
