@@ -116,7 +116,6 @@ VixError VixVM_GetNamedSnapshot(VixHandle vmHandle, const char *name,VixHandle *
 VixHandle VixVM_RemoveSnapshot(VixHandle vmHandle, VixHandle snapshotHandle, VixRemoveSnapshotOptions options, VixEventProc *callbackProc, void *clientData);
 VixHandle VixVM_RevertToSnapshot(VixHandle vmHandle, VixHandle snapshotHandle, VixVMPowerOpOptions options, VixHandle propertyListHandle, VixEventProc *callbackProc, void *clientData);
 VixHandle VixVM_CreateSnapshot(VixHandle vmHandle, const char *name, const char *description, VixCreateSnapshotOptions options, VixHandle propertyListHandle, VixEventProc *callbackProc, void *clientData);
-
 VixHandle VixVM_EnableSharedFolders(VixHandle vmHandle, Bool enabled,       int options,        VixEventProc *callbackProc, void *clientData);
 VixHandle VixVM_GetNumSharedFolders(VixHandle vmHandle, VixEventProc *callbackProc, void *clientData);
 
@@ -158,6 +157,7 @@ VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapsh
 
         if os_name == 'Linux':
             return '/usr/lib/libvixAllProducts.so'
+
 
         elif os_name == 'Darwin':
             return '/Applications/VMware Fusion.app/Contents/Public/libvixAllProducts.dylib'
