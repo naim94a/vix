@@ -19,6 +19,7 @@
 #
 import os
 import sys
+import alabaster
 sys.path.insert(0, os.path.abspath('..'))
 from vix import __version__
 
@@ -32,6 +33,7 @@ from vix import __version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'alabaster',
     'sphinx.ext.autodoc',
 ]
 
@@ -53,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'vix'
-copyright = '2016, Naim A.'
+copyright = '2017, Naim A.'
 author = 'Naim A.'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -142,10 +144,14 @@ html_theme_options = {
     'github_repo': 'vix',
     'description': 'The unofficial python binding for VIX',
     'analytics_id': 'UA-11289087-19',
+    'sidebar_collapse': False,
+    'show_related': True,
+    'fixed_sidebar': True,
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
+html_theme_path = [alabaster.get_path()]
 
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
@@ -191,7 +197,15 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #
-# html_sidebars = {}
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',
+        'searchbox.html',
+        'donate.html',
+    ]
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.

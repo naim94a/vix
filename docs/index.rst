@@ -3,7 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-VIX python binding
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+
+    tutorials
+    vix
+
+VIX Python binding
 ==================
 
 This is an unofficial binding of VMware's VIX API.
@@ -11,7 +18,22 @@ This is an unofficial binding of VMware's VIX API.
 The VIX project is hosted on GitHub: https://github.com/naim94a/vix.
 Feel free to submit pull requests and issues.
 
-Example:
+About
+-----
+VIX is a C library created by VMWare, the aim of this project is to wrap it in python.
+This project allow Object-Oriented access to various VMWare products.
+
+
+Installing
+----------
+
+.. code-block:: shell
+
+	pip install vix
+
+
+Example usage
+-------------
 
 .. code-block:: python
 	:caption: snapshot-demo.py
@@ -34,19 +56,3 @@ Example:
 
 	except VixError as ex:
 		print("Operatation failed: {0}".format(ex))
-
-API:
-
-.. toctree::
-   :maxdepth: 4
-
-   vix
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-

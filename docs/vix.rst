@@ -1,5 +1,5 @@
-vix package
-===========
+VIX Reference
+=============
 
 VixHost class
 -------------
