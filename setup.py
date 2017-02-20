@@ -29,5 +29,6 @@ setup(
     ],
     install_requires=[
         'cffi>=1.8.2',
+        'six',
     ]
 )
