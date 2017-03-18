@@ -1,9 +1,8 @@
 from setuptools import setup
-from vix import __version__
 
 setup(
     name='vix',
-    version=__version__,
+    version='1.0.5',
     description='VMware VIX binding for Python (unofficial)',
     author='Naim A.',
     author_email='naim94a@gmail.com',
