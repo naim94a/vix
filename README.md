@@ -28,4 +28,4 @@ vix (this project) is released under the [GPLv3](LICENSE) license.
 This projects uses redistributable software developed by VMware.
 
 ## Bugs, Features, support
-Please reffer to [CONTRIBUTING].
+Please reffer to [CONTRIBUTING](CONTRIBUTING.md).

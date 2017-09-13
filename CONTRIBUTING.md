@@ -6,7 +6,7 @@ There are a few ways to contribute to the vix project, you can help in several w
 The more people use vix, the larger community it will have = more support!
 
 ### Reporting Bugs &amp; Requesting features
-We encourage you to submit bugs and feature requests to the project's issue tracker on GitHub: [https://github.com/naim94a/vix]
+We encourage you to submit bugs and feature requests to the project's issue tracker on GitHub: https://github.com/naim94a/vix.
 
 ### Pull Requests
 Pull requests are welcome, as long as they don't make dramatic changes to the project.
