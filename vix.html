@@ -1,20 +1,17 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>VIX Reference &#8212; vix 1.0.5 documentation</title>
-    
+    <title>VIX Reference &#8212; vix 1.0.6 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.5',
+        VERSION:     '1.0.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -34,7 +31,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   <div class="document">
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -155,16 +152,16 @@
 <dl class="attribute">
 <dt id="vix.VixHost.host_info">
 <code class="descname">host_info</code><a class="headerlink" href="#vix.VixHost.host_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>property returns the Host&#8217;s version.</p>
+<dd><p>property returns the Host’s version.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Host&#8217;s type, api and software version.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Host’s type, api and software version.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">VixHostInfo</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to get version information.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to get version information.</td>
 </tr>
 </tbody>
 </table>
@@ -184,9 +181,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmx_path</strong> (<em>str</em>) &#8211; Path of VM configuration to register.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmx_path</strong> (<em>str</em>) – Path of VM configuration to register.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to register VM.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to register VM.</td>
 </tr>
 </tbody>
 </table>
@@ -204,9 +201,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmx_path</strong> (<em>str</em>) &#8211; Path of VM configuration to unregister.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmx_path</strong> (<em>str</em>) – Path of VM configuration to unregister.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to unregister VM.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to unregister VM.</td>
 </tr>
 </tbody>
 </table>
@@ -224,11 +221,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmx_path</strong> (<em>str</em>) &#8211; Path to requested VM&#8217;s configuration.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vmx_path</strong> (<em>str</em>) – Path to requested VM’s configuration.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#vix.VixVM" title="vix.VixVM">vix.VixVM</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to open requested VM.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to open requested VM.</td>
 </tr>
 </tbody>
 </table>
@@ -243,8 +240,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>search_type</strong> (<em>int</em>) &#8211; Any of VIX_FIND_*.</li>
-<li><strong>names_only</strong> (<em>bool</em>) &#8211; True will return a list of vmx paths, False will return VixVM instances.</li>
+<li><strong>search_type</strong> (<em>int</em>) – Any of VIX_FIND_*.</li>
+<li><strong>names_only</strong> (<em>bool</em>) – True will return a list of vmx paths, False will return VixVM instances.</li>
 </ul>
 </td>
 </tr>
@@ -254,7 +251,7 @@
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">list</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to find items.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to find items.</p>
 </td>
 </tr>
 </tbody>
@@ -404,12 +401,12 @@
 <dl class="attribute">
 <dt id="vix.VixVM.vmx_path">
 <code class="descname">vmx_path</code><a class="headerlink" href="#vix.VixVM.vmx_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets VM&#8217;x vmx path.</p>
+<dd><p>Gets VM’x vmx path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Guest&#8217;s VMX path.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Guest’s VMX path.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
@@ -420,7 +417,7 @@
 <dl class="attribute">
 <dt id="vix.VixVM.machine_info">
 <code class="descname">machine_info</code><a class="headerlink" href="#vix.VixVM.machine_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the VM&#8217;s hardware specs</p>
+<dd><p>Get the VM’s hardware specs</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -452,7 +449,7 @@
 <dl class="attribute">
 <dt id="vix.VixVM.guest_os">
 <code class="descname">guest_os</code><a class="headerlink" href="#vix.VixVM.guest_os" title="Permalink to this definition">¶</a></dt>
-<dd><p>The guest&#8217;s Operating System</p>
+<dd><p>The guest’s Operating System</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -557,9 +554,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>from_guest</strong> (<em>bool</em>) &#8211; True to initiate from guest, otherwise False.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>from_guest</strong> (<em>bool</em>) – True to initiate from guest, otherwise False.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to power off VM.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to power off VM.</td>
 </tr>
 </tbody>
 </table>
@@ -573,9 +570,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>launch_gui</strong> (<em>bool</em>) &#8211; True to launch GUI, otherwise False.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>launch_gui</strong> (<em>bool</em>) – True to launch GUI, otherwise False.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to power on VM.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to power on VM.</td>
 </tr>
 </tbody>
 </table>
@@ -589,9 +586,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>from_guest</strong> (<em>bool</em>) &#8211; True to initiate from guest, otherwise False.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>from_guest</strong> (<em>bool</em>) – True to initiate from guest, otherwise False.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to reset VM.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to reset VM.</td>
 </tr>
 </tbody>
 </table>
@@ -605,7 +602,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to suspend VM.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to suspend VM.</td>
 </tr>
 </tbody>
 </table>
@@ -619,7 +616,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to unpause VM.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to unpause VM.</td>
 </tr>
 </tbody>
 </table>
@@ -638,9 +635,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>dest_vms</strong> (<em>str</em>) &#8211; The clone will be stored here.</li>
-<li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) &#8211; Optional snapshot as the state of the clone.</li>
-<li><strong>linked</strong> (<em>bool</em>) &#8211; True for a linked clone, otherwise False for a full clone.</li>
+<li><strong>dest_vms</strong> (<em>str</em>) – The clone will be stored here.</li>
+<li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) – Optional snapshot as the state of the clone.</li>
+<li><strong>linked</strong> (<em>bool</em>) – True for a linked clone, otherwise False for a full clone.</li>
 </ul>
 </td>
 </tr>
@@ -650,7 +647,7 @@
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#vix.VixVM" title="vix.VixVM">VixVM</a></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to clone.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to clone.</p>
 </td>
 </tr>
 </tbody>
@@ -670,9 +667,9 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<em>str</em>) &#8211; Name of snapshot.</li>
-<li><strong>description</strong> (<em>str</em>) &#8211; Snapshot description.</li>
-<li><strong>include_memory</strong> (<em>bool</em>) &#8211; True to include RAM, otherwise False.</li>
+<li><strong>name</strong> (<em>str</em>) – Name of snapshot.</li>
+<li><strong>description</strong> (<em>str</em>) – Snapshot description.</li>
+<li><strong>include_memory</strong> (<em>bool</em>) – True to include RAM, otherwise False.</li>
 </ul>
 </td>
 </tr>
@@ -682,7 +679,7 @@
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot">VixSnapshot</a></p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to create snapshot.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to create snapshot.</p>
 </td>
 </tr>
 </tbody>
@@ -705,7 +702,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot">VixSnapshot</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get the current snapshot.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get the current snapshot.</td>
 </tr>
 </tbody>
 </table>
@@ -723,13 +720,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) &#8211; Name of the snapshot to get.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the snapshot to get.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Instance of requests snapshot.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot">VixSnapshot</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to retreive desired snapshot.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to retreive desired snapshot.</td>
 </tr>
 </tbody>
 </table>
@@ -747,11 +744,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Count of VM&#8217;s root snapshots.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Count of VM’s root snapshots.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to retrive root snapshot count.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to retrive root snapshot count.</td>
 </tr>
 </tbody>
 </table>
@@ -769,13 +766,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) &#8211; zero based snapshot index.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) – zero based snapshot index.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Root snapshot at specified index.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot">VixSnapshot</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to get specified too snapshot.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to get specified too snapshot.</td>
 </tr>
 </tbody>
 </table>
@@ -794,12 +791,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) &#8211; The snapshot to revert to.</li>
-<li><strong>options</strong> (<em>int</em>) &#8211; Any of VIX_VMPOWEROP_*, VIX_VMPOWEROP_SUPPRESS_SNAPSHOT_POWERON is mutually exclusive.</li>
+<li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) – The snapshot to revert to.</li>
+<li><strong>options</strong> (<em>int</em>) – Any of VIX_VMPOWEROP_*, VIX_VMPOWEROP_SUPPRESS_SNAPSHOT_POWERON is mutually exclusive.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to revert VM to snapshot.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to revert VM to snapshot.</p>
 </td>
 </tr>
 </tbody>
@@ -819,12 +816,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) &#8211; The snapshot to remove.</li>
-<li><strong>remove_children</strong> (<em>bool</em>) &#8211; True to remove child snapshots too, otherwise False.</li>
+<li><strong>snapshot</strong> (<a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot"><em>VixSnapshot</em></a>) – The snapshot to remove.</li>
+<li><strong>remove_children</strong> (<em>bool</em>) – True to remove child snapshots too, otherwise False.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to remove specified snapshot.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to remove specified snapshot.</p>
 </td>
 </tr>
 </tbody>
@@ -844,12 +841,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>guest_path</strong> (<em>str</em>) &#8211; Path to copy from on guest.</li>
-<li><strong>host_path</strong> (<em>str</em>) &#8211; Path to copy to on host.</li>
+<li><strong>guest_path</strong> (<em>str</em>) – Path to copy from on guest.</li>
+<li><strong>host_path</strong> (<em>str</em>) – Path to copy to on host.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If copy failed.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If copy failed.</p>
 </td>
 </tr>
 </tbody>
@@ -865,12 +862,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>host_path</strong> (<em>str</em>) &#8211; Path to copy from on host.</li>
-<li><strong>guest_path</strong> (<em>str</em>) &#8211; Path to copy to on VM.</li>
+<li><strong>host_path</strong> (<em>str</em>) – Path to copy from on host.</li>
+<li><strong>guest_path</strong> (<em>str</em>) – Path to copy to on VM.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to copy.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to copy.</p>
 </td>
 </tr>
 </tbody>
@@ -885,9 +882,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path to create in guest.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path to create in guest.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to create directory.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to create directory.</td>
 </tr>
 </tbody>
 </table>
@@ -909,7 +906,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to create temporary file.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to create temporary file.</td>
 </tr>
 </tbody>
 </table>
@@ -928,12 +925,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>old_name</strong> (<em>str</em>) &#8211; Name of file to rename.</li>
-<li><strong>new_name</strong> (<em>str</em>) &#8211; The new name to give the file.</li>
+<li><strong>old_name</strong> (<em>str</em>) – Name of file to rename.</li>
+<li><strong>new_name</strong> (<em>str</em>) – The new name to give the file.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to rename.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to rename.</p>
 </td>
 </tr>
 </tbody>
@@ -952,9 +949,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path of directory to delete.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path of directory to delete.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to delete directory.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to delete directory.</td>
 </tr>
 </tbody>
 </table>
@@ -972,9 +969,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path of file to delete.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path of file to delete.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to delete directory.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to delete directory.</td>
 </tr>
 </tbody>
 </table>
@@ -992,13 +989,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path to check if exists.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path to check if exists.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if directory exists, othwerwise False.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to check.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to check.</td>
 </tr>
 </tbody>
 </table>
@@ -1016,13 +1013,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; File to check.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – File to check.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if file exists, otherwise False.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to check file existance.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to check file existance.</td>
 </tr>
 </tbody>
 </table>
@@ -1040,13 +1037,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; File path to get information about.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – File path to get information about.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">DirectoryListEntry instance.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">DirectoryListEntry</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get file info.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get file info.</td>
 </tr>
 </tbody>
 </table>
@@ -1064,11 +1061,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; Path to get directory list of.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) – Path to get directory list of.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of tuples, each containing: File Name, File Size, is dir, is symlink, mod time.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get file info.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get file info.</td>
 </tr>
 </tbody>
 </table>
@@ -1086,9 +1083,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pid</strong> (<em>int</em>) &#8211; PID of process in guest to kill.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pid</strong> (<em>int</em>) – PID of process in guest to kill.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to kill process.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to kill process.</td>
 </tr>
 </tbody>
 </table>
@@ -1101,7 +1098,7 @@
 <dl class="method">
 <dt id="vix.VixVM.proc_list">
 <code class="descname">proc_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the guest&#8217;s process list.</p>
+<dd><p>Gets the guest’s process list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1110,7 +1107,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get file info.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get file info.</td>
 </tr>
 </tbody>
 </table>
@@ -1129,13 +1126,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>username</strong> (<em>str</em>) &#8211; Guest Login username.</li>
-<li><strong>password</strong> (<em>str</em>) &#8211; Guest login password.</li>
-<li><strong>require_interactive</strong> (<em>bool</em>) &#8211; If login requires an interactive session.</li>
+<li><strong>username</strong> (<em>str</em>) – Guest Login username.</li>
+<li><strong>password</strong> (<em>str</em>) – Guest login password.</li>
+<li><strong>require_interactive</strong> (<em>bool</em>) – If login requires an interactive session.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to authenticate.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to authenticate.</p>
 </td>
 </tr>
 </tbody>
@@ -1150,7 +1147,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to logout.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to logout.</td>
 </tr>
 </tbody>
 </table>
@@ -1169,13 +1166,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>program_name</strong> (<em>str</em>) &#8211; Name of program to execute in guest.</li>
-<li><strong>command_line</strong> (<em>str</em>) &#8211; Command line to execute program with.</li>
-<li><strong>should_block</strong> (<em>bool</em>) &#8211; If set to True, function will block until process exits in guest.</li>
+<li><strong>program_name</strong> (<em>str</em>) – Name of program to execute in guest.</li>
+<li><strong>command_line</strong> (<em>str</em>) – Command line to execute program with.</li>
+<li><strong>should_block</strong> (<em>bool</em>) – If set to True, function will block until process exits in guest.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to execute process.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to execute process.</p>
 </td>
 </tr>
 </tbody>
@@ -1195,13 +1192,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>script_text</strong> (<em>str</em>) &#8211; The script to execute.</li>
-<li><strong>interpreter_path</strong> (<em>str</em>) &#8211; Path of the interpreter for the script.</li>
-<li><strong>should_block</strong> (<em>bool</em>) &#8211; If set to False, function will return immediately. True will block untill script returns.</li>
+<li><strong>script_text</strong> (<em>str</em>) – The script to execute.</li>
+<li><strong>interpreter_path</strong> (<em>str</em>) – Path of the interpreter for the script.</li>
+<li><strong>should_block</strong> (<em>bool</em>) – If set to False, function will return immediately. True will block untill script returns.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to execute script.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to execute script.</p>
 </td>
 </tr>
 </tbody>
@@ -1221,13 +1218,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>share_name</strong> (<em>str</em>) &#8211; Name of share in guest VM.</li>
-<li><strong>host_path</strong> (<em>str</em>) &#8211; Path to share in host.</li>
-<li><strong>write_access</strong> (<em>bool</em>) &#8211; True to allow guest to write to share.</li>
+<li><strong>share_name</strong> (<em>str</em>) – Name of share in guest VM.</li>
+<li><strong>host_path</strong> (<em>str</em>) – Path to share in host.</li>
+<li><strong>write_access</strong> (<em>bool</em>) – True to allow guest to write to share.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to add share.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to add share.</p>
 </td>
 </tr>
 </tbody>
@@ -1246,9 +1243,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>bool</em>) &#8211; True to enable, False to disable.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>bool</em>) – True to enable, False to disable.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to enable/disable shares.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to enable/disable shares.</td>
 </tr>
 </tbody>
 </table>
@@ -1276,13 +1273,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) &#8211; Index of share.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) – Index of share.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple with share state information.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">SharedFolder</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to get state.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to get state.</td>
 </tr>
 </tbody>
 </table>
@@ -1300,7 +1297,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>share_name</strong> (<em>str</em>) &#8211; Name of share to remove.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>share_name</strong> (<em>str</em>) – Name of share to remove.</td>
 </tr>
 </tbody>
 </table>
@@ -1319,13 +1316,13 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>share_name</strong> (<em>str</em>) &#8211; Name of share to modify.</li>
-<li><strong>host_path</strong> (<em>str</em>) &#8211; Path on host to set to share.</li>
-<li><strong>allow_write</strong> (<em>bool</em>) &#8211; Sets if the guest will be able to write to share.</li>
+<li><strong>share_name</strong> (<em>str</em>) – Name of share to modify.</li>
+<li><strong>host_path</strong> (<em>str</em>) – Path on host to set to share.</li>
+<li><strong>allow_write</strong> (<em>bool</em>) – Sets if the guest will be able to write to share.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to set share state.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to set share state.</p>
 </td>
 </tr>
 </tbody>
@@ -1345,8 +1342,8 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<em>str</em>) &#8211; Name of variable to read.</li>
-<li><strong>variable_type</strong> (<em>int</em>) &#8211; Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.</li>
+<li><strong>name</strong> (<em>str</em>) – Name of variable to read.</li>
+<li><strong>variable_type</strong> (<em>int</em>) – Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.</li>
 </ul>
 </td>
 </tr>
@@ -1356,7 +1353,7 @@
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get specified variable.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get specified variable.</p>
 </td>
 </tr>
 </tbody>
@@ -1370,19 +1367,19 @@
 <dl class="method">
 <dt id="vix.VixVM.var_write">
 <code class="descname">var_write</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes a string to the VM&#8217;s environment.</p>
+<dd><p>Writes a string to the VM’s environment.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<em>str</em>) &#8211; Name of env string to set.</li>
-<li><strong>value</strong> (<em>str</em>) &#8211; Value of env string to set.</li>
-<li><strong>variable_type</strong> (<em>int</em>) &#8211; Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.</li>
+<li><strong>name</strong> (<em>str</em>) – Name of env string to set.</li>
+<li><strong>value</strong> (<em>str</em>) – Value of env string to set.</li>
+<li><strong>variable_type</strong> (<em>int</em>) – Must be one of VIX_VM_GUEST_VARIABLE, VIX_VM_CONFIG_RUNTIME_ONLY or VIX_GUEST_ENVIRONMENT_VARIABLE.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to set environment.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to set environment.</p>
 </td>
 </tr>
 </tbody>
@@ -1401,7 +1398,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to upgrade virtual hardware.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to upgrade virtual hardware.</td>
 </tr>
 </tbody>
 </table>
@@ -1419,9 +1416,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delete_files</strong> (<em>bool</em>) &#8211; True to delete associated files from disk, otherwise False.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delete_files</strong> (<em>bool</em>) – True to delete associated files from disk, otherwise False.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to delete VM.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to delete VM.</td>
 </tr>
 </tbody>
 </table>
@@ -1435,13 +1432,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>str</em>) &#8211; A filename to save image to. If this file exists it will be overwritten. None will return the image a string/BLOB.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>str</em>) – A filename to save image to. If this file exists it will be overwritten. None will return the image a string/BLOB.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A PNG image in binary form if filename is None, otherwise None</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to capture screenshot.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to capture screenshot.</td>
 </tr>
 </tbody>
 </table>
@@ -1459,9 +1456,9 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout</strong> (<em>int</em>) &#8211; Timeout in seconds. Zero or negative will block forever, Raises an exception if timeout expired.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout</strong> (<em>int</em>) – Timeout in seconds. Zero or negative will block forever, Raises an exception if timeout expired.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If timeout passed, Or of VIX fails.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If timeout passed, Or of VIX fails.</td>
 </tr>
 </tbody>
 </table>
@@ -1476,12 +1473,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>auto_upgrade</strong> (<em>bool</em>) &#8211; True for auto upgrade, False will mount installer.</li>
-<li><strong>blocking</strong> (<em>bool</em>) &#8211; False will return immediatly, True will wait till operation ends.</li>
+<li><strong>auto_upgrade</strong> (<em>bool</em>) – True for auto upgrade, False will mount installer.</li>
+<li><strong>blocking</strong> (<em>bool</em>) – False will return immediatly, True will wait till operation ends.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to start install.</p>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to start install.</p>
 </td>
 </tr>
 </tbody>
@@ -1497,11 +1494,11 @@
 <dt id="vix.VixSnapshot">
 <em class="property">class </em><code class="descclassname">vix.</code><code class="descname">VixSnapshot</code><span class="sig-paren">(</span><em>handle</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixSnapshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
-<p>Represents a VM&#8217;s snapshot</p>
+<p>Represents a VM’s snapshot</p>
 <dl class="attribute">
 <dt id="vix.VixSnapshot.name">
 <code class="descname">name</code><a class="headerlink" href="#vix.VixSnapshot.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the snapshot&#8217;s name.</p>
+<dd><p>Gets the snapshot’s name.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1515,7 +1512,7 @@
 <dl class="attribute">
 <dt id="vix.VixSnapshot.description">
 <code class="descname">description</code><a class="headerlink" href="#vix.VixSnapshot.description" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the snapshot&#8217;s description.</p>
+<dd><p>Get the snapshot’s description.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1529,7 +1526,7 @@
 <dl class="attribute">
 <dt id="vix.VixSnapshot.power_state">
 <code class="descname">power_state</code><a class="headerlink" href="#vix.VixSnapshot.power_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the snapshot&#8217;s power state.</p>
+<dd><p>Gets the snapshot’s power state.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1550,7 +1547,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get child count.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get child count.</td>
 </tr>
 </tbody>
 </table>
@@ -1564,13 +1561,13 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>child_index</strong> (<em>int</em>) &#8211; Index of child snapshot.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>child_index</strong> (<em>int</em>) – Index of child snapshot.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Snapshot at specified index.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot">VixSnapshot</a></td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to retrieve snapshot.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to retrieve snapshot.</td>
 </tr>
 </tbody>
 </table>
@@ -1588,7 +1585,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#vix.VixSnapshot" title="vix.VixSnapshot">VixSnapshot</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to get snapshot.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to get snapshot.</td>
 </tr>
 </tbody>
 </table>
@@ -2931,7 +2928,7 @@
 <dl class="method">
 <dt id="vix.VixError.get_error_text">
 <code class="descname">get_error_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixError.get_error_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an error&#8217;s text</p>
+<dd><p>Get an error’s text</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2952,7 +2949,7 @@
 <h1>vix Internal classes<a class="headerlink" href="#vix-internal-classes" title="Permalink to this headline">¶</a></h1>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">These classes shouldn&#8217;t be normally dealt with.
+<p class="last">These classes shouldn’t be normally dealt with.
 Using these classes directly may cause python to crash.</p>
 </div>
 <div class="section" id="vixhandle-class">
@@ -3185,7 +3182,7 @@ Using these classes directly may cause python to crash.</p>
 <dl class="method">
 <dt id="vix.VixHandle.VixHandle.get_type">
 <code class="descname">get_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixHandle.VixHandle.get_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the handle&#8217;s type.</p>
+<dd><p>Gets the handle’s type.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3201,7 +3198,7 @@ Using these classes directly may cause python to crash.</p>
 <dl class="method">
 <dt id="vix.VixHandle.VixHandle.add_ref">
 <code class="descname">add_ref</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixHandle.VixHandle.add_ref" title="Permalink to this definition">¶</a></dt>
-<dd><p>Increases the handle&#8217;s refcount.</p>
+<dd><p>Increases the handle’s refcount.</p>
 </dd></dl>
 
 <dl class="method">
@@ -3387,11 +3384,11 @@ Using these classes directly may cause python to crash.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> &#8211; A list of properties to retreive (VIX_PROPERTY_JOB_RESULT_*).</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> – A list of properties to retreive (VIX_PROPERTY_JOB_RESULT_*).</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A tuple of results if more than one object was requested.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If job failed.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If job failed.</td>
 </tr>
 </tbody>
 </table>
@@ -3409,7 +3406,7 @@ Using these classes directly may cause python to crash.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; If failed to get job state.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – If failed to get job state.</td>
 </tr>
 </tbody>
 </table>
@@ -3439,13 +3436,13 @@ Using these classes directly may cause python to crash.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> &#8211; properties to fetch.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> – properties to fetch.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples of requests properties.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> &#8211; On failure to fetch results.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference internal" href="#vix.VixError" title="vix.VixError"><strong>vix.VixError</strong></a> – On failure to fetch results.</td>
 </tr>
 </tbody>
 </table>
@@ -3477,7 +3474,7 @@ Using these classes directly may cause python to crash.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplemented</strong> &#8211; If the OS/architecture are not recognized.</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>NotImplemented</strong> – If the OS/architecture are not recognized.</td>
 </tr>
 </tbody>
 </table>
@@ -3498,8 +3495,8 @@ Using these classes directly may cause python to crash.</p>
       &copy;2017, Naim A..
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
     </div>
 
