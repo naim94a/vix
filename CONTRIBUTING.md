@@ -2,6 +2,8 @@ Thank you for considering a contribution to our project!
 
 There are a few ways to contribute to the vix project, you can help in several ways.
 
+This project's primary location is on GitHub - https://github.com/naim94a/vix.
+
 ### Using VIX
 The more people use vix, the larger community it will have = more support!
 
@@ -14,5 +16,7 @@ Submitted PRs should meet [Python's PEP8 standard](https://www.python.org/dev/pe
 
 If you would like to contribute a big change, please consult with the project's owner first.
 
+Pull Requests should be submitted on GitHub: https://github.com/naim94a/vix/pulls.
+
 ### CRs
-If you have seen parts of the code you don't agree with, you are welcome to comment on our code :)
+If you have seen parts of the code you don't agree with, you are welcome to comment on our code via GitHub.
