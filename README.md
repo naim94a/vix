@@ -28,5 +28,4 @@ vix (this project) is released under the [GPLv3](LICENSE) license.
 This projects uses redistributable software developed by VMware.
 
 ## Bugs, Features, support
-Please submit bug, features and anything else related to the project's issue tracker on GitHub: https://github.com/naim94a/vix/issues.
-Pull requests are welcome as well.
+Please reffer to [CONTRIBUTING](CONTRIBUTING.md).
