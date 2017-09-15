@@ -29,3 +29,6 @@ This projects uses redistributable software developed by VMware.
 
 ## Bugs, Features, support
 Please reffer to [CONTRIBUTING](CONTRIBUTING.md).
+
+## Donations
+Please send donations to us via BitCoin:1GWpPGLai6hbEi7cMhsA4cNkp9e86W9E7q
