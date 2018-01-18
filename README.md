@@ -1,7 +1,7 @@
 [![PyPI version](https://badge.fury.io/py/vix.svg)](https://badge.fury.io/py/vix)
 
 # Vix wrapper
-VMware's [VIX](https://www.vmware.com/support/developer/vix-api/) library can be really useful if you wan't to automate VM operations. This project was written to provide an Object-Oriented interface with the VIX API.
+VMware's [VIX](https://www.vmware.com/support/developer/vix-api/) library can be really useful if you want to automate VM operations. This project was written to provide an Object-Oriented interface with the VIX API.
 
 Tested with VMware Workstation, this wrapper should support ESXs, VMware servers and other VMware products.
 
