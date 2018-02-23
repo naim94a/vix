@@ -1,9 +1,20 @@
+import os
+import re
 from setuptools import setup
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(BASE_DIR, 'README.rst'), 'rt') as fd:
+    long_description = fd.read()
+
+with open(os.path.join(BASE_DIR, 'vix', '__init__.py'), 'rt') as fd:
+    version = re.search(r'__version__\W*=\W*(\'|")(.+?)(\'|")', fd.read()).group(2)
 
 setup(
     name='vix',
-    version='1.0.6',
+    version=version,
     description='VMware VIX binding for Python (unofficial)',
+    long_description=long_description,
     author='Naim A.',
     author_email='naim94a@gmail.com',
     url='https://github.com/naim94a/vix',
@@ -13,6 +24,7 @@ setup(
     },
     license='GPLv3',
     classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Information Technology',
         'Intended Audience :: System Administrators',
@@ -29,5 +41,11 @@ setup(
     install_requires=[
         'cffi>=1.8.2',
         'six',
-    ]
+    ],
+    keywords='vmware python api vix',
+    project_urls={
+        'Documentation': 'https://naim94a.github.io/vix',
+        'Source': 'https://github.com/naim94a/vix',
+        'Bugs & Features': 'https://github.com/naim94a/vix/issues'
+    }
 )

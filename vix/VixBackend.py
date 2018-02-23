@@ -141,7 +141,9 @@ VixError VixSnapshot_GetNumChildren(VixHandle parentSnapshotHandle, int *numChil
 VixError VixSnapshot_GetChild(VixHandle parentSnapshotHandle, int index, VixHandle *childSnapshotHandle);
 VixError VixSnapshot_GetParent(VixHandle snapshotHandle, VixHandle *parentSnapshotHandle);
         ''')
-        self._vix = self._ffi.dlopen(VixBackend._get_vix_path())
+
+        # Don't fail build for documentation.
+        self._vix = self._ffi.dlopen(VixBackend._get_vix_path()) if os.getenv('READTHEDOCS') is None else None
 
     @staticmethod
     def _get_vix_path():

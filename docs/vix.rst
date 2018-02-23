@@ -1,57 +1,59 @@
-VIX Reference
+=============
+API Reference
 =============
 
-VixHost class
--------------
+VixHost
+=======
 .. autoclass:: vix.VixHost
     :members:
     :undoc-members:
     :show-inheritance:
 
-VixVM class
------------
+VixVM
+=====
 .. autoclass:: vix.VixVM
     :members:
     :undoc-members:
     :show-inheritance:
 
-VixSnapshot class
------------------
+VixSnapshot
+===========
 .. autoclass:: vix.VixSnapshot
     :members:
     :undoc-members:
     :show-inheritance:
 
-VixError class
-------------------
+VixError
+========
 .. autoexception:: vix.VixError
     :members:
     :undoc-members:
     :show-inheritance:
 
+--------------------
 vix Internal classes
-====================
+--------------------
 
 .. warning:: These classes shouldn't be normally dealt with.
     Using these classes directly may cause python to crash.
 
 
-VixHandle class
----------------
+VixHandle
+=========
 .. autoclass:: vix.VixHandle.VixHandle
     :members:
     :undoc-members:
     :show-inheritance:
 
-VixJob class
-------------
+VixJob
+======
 .. autoclass:: vix.VixJob.VixJob
     :members:
     :undoc-members:
     :show-inheritance:
 
-VixBackend class
-----------------
+VixBackend
+==========
 .. autoclass:: vix.VixBackend.VixBackend
     :members: _get_vix_path
     :undoc-members:
