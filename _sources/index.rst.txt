@@ -1,58 +1,38 @@
-.. vix documentation master file, created by
-   sphinx-quickstart on Sat Sep 10 21:29:58 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 .. toctree::
     :maxdepth: 2
     :hidden:
 
+    installation
     tutorials
     vix
 
 VIX Python binding
 ==================
 
-This is an unofficial binding of VMware's VIX API.
+An unofficial object oriented python binding for `VMware's VIX API`_.
 
-The VIX project is hosted on GitHub: https://github.com/naim94a/vix.
-Feel free to submit pull requests and issues.
+Features
+--------
 
-About
------
-VIX is a C library created by VMWare, the aim of this project is to wrap it in python.
-This project allow Object-Oriented access to various VMWare products.
+- Control a VMs power state, and get the current state.
+- Manage Snapshots: Create, modify, delete.
+- Create screenshots of guest VMs.
+- Clone VMs - either full or linked.
+- Execute on guests
 
+  - Run commands and scripts
+  - List and delete files or processes
 
-Installing
-----------
+- Manage sharing folders with guests.
 
-.. code-block:: shell
+This wrapper should cover the full VIX API of VMware. If it doesn't, please
+`create an issue`_.
 
-	pip install vix
+License
+-------
 
+VIX is released under the GPLv3_ license.
 
-Example usage
--------------
-
-.. code-block:: python
-	:caption: snapshot-demo.py
-
-	from vix import VixHost, VixError
-
-	host = VixHost()
-	host.connect()
-
-	try:
-		vm = host.open_vm(r'~/Windows 7.vmx')
-
-		snapshot = vm.create_snapshot(
-			'Todays Snapshot', 
-			'Just testing vix',
-			include_memory=True
-		)
-
-		print("Made snapshot!")
-
-	except VixError as ex:
-		print("Operatation failed: {0}".format(ex))
+.. _VMware's VIX API: https://www.vmware.com/support/developer/vix-api/
+.. _GPLv3: https://github.com/naim94a/vix/blob/master/LICENSE.txt
+.. _create an issue: https://github.com/naim94a/vix/issues/new

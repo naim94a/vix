@@ -1,148 +1,201 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tutorials &#8212; vix 1.0.6 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0.6',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="VIX Reference" href="vix.html" />
-    <link rel="prev" title="VIX Python binding" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tutorial &mdash; vix  documentation</title>
+  
+
   
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+  
 
-  </head>
-  <body>
-  <div class="document">
+  
+
+  
+  
     
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">vix</a></h1>
 
+  
 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
 
-<p class="blurb">The unofficial python binding for VIX</p>
+  
 
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="vix  documentation" href="index.html"/>
+        <link rel="next" title="API Reference" href="vix.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
 
+  
+  <script src="_static/js/modernizr.min.js"></script>
 
+</head>
 
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=naim94a&repo=vix&type=watch&count=false&size=large&v=2"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
+<body class="wy-body-for-nav" role="document">
 
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
+          
+            <a href="index.html" class="icon icon-home"> vix
+          
 
+          
+          </a>
 
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+          
+            
+            
+              <div class="version">
+                1.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#capturing-screens">Capturing screens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloning-machines">Cloning Machines</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="vix.html">VIX Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixhost-class">VixHost class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixvm-class">VixVM class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixsnapshot-class">VixSnapshot class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixerror-class">VixError class</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="vix.html#vix-internal-classes">vix Internal classes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixhandle-class">VixHandle class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixjob-class">VixJob class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vix.html#vixbackend-class">VixBackend class</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="vix.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vix.html#internal-classes">Internal classes</a></li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">VIX Python binding</a></li>
-      <li>Next: <a href="vix.html" title="next chapter">VIX Reference</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+            
+          
         </div>
       </div>
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">vix</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
             
-  <div class="section" id="tutorials">
-<h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="capturing-screens">
 <h2>Capturing screens<a class="headerlink" href="#capturing-screens" title="Permalink to this headline">¶</a></h2>
 <p>Every wanted to take a screenshot of whats going on in a running VM?
 Well, you are in luck! VIX supports taking screenshots, this will require you to know a guest’s username/password.</p>
 <p>The VIX python binding can return a screenshot in PNG format. You can choose between having the file written to a file, or getting the PNG buffer.</p>
 <p>This example will demonstrate how to take screenshots from a VM every 10 seconds.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">screenshots.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">vix</span> <span class="kn">import</span> <span class="n">VixHost</span>
 
 <span class="n">host</span> <span class="o">=</span> <span class="n">VixHost</span><span class="p">()</span>
-<span class="n">vm</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">open_vm</span><span class="p">(</span><span class="s1">&#39;~/my vm.vmx&#39;</span><span class="p">)</span>
+<span class="n">vm</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">open_vm</span><span class="p">(</span><span class="s1">&#39;/path/to/my/vm.vmx&#39;</span><span class="p">)</span>
 
 <span class="c1"># Must login to do some things...</span>
 <span class="n">vm</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;toor&#39;</span><span class="p">)</span>
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">vm</span><span class="o">.</span><span class="n">capture_screen_image</span><span class="p">(</span><span class="s1">&#39;~/IMG_{name}_{timestamp:.0f}.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">vm</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
-        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">vm</span><span class="o">.</span><span class="n">capture_screen_image</span><span class="p">(</span><span class="s1">&#39;/path/to/my/screenshot_{name}_{timestamp:.0f}.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">vm</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
 </pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="cloning-machines">
 <h2>Cloning Machines<a class="headerlink" href="#cloning-machines" title="Permalink to this headline">¶</a></h2>
 <p>Cloning machines are usually a more useful action then capturing screenshots. It is a pretty simple task to…</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">snapshot.py</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vix</span> <span class="kn">import</span> <span class="n">VixHost</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vix</span> <span class="kn">import</span> <span class="n">VixHost</span>
 
 <span class="n">host</span> <span class="o">=</span> <span class="n">VixHost</span><span class="p">()</span>
-<span class="n">vm</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">open_vm</span><span class="p">(</span><span class="s1">&#39;~/template.vmx&#39;</span><span class="p">)</span>
+<span class="n">vm</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">open_vm</span><span class="p">(</span><span class="s1">&#39;/path/to/my/template/vm.vmx&#39;</span><span class="p">)</span>
 
 <span class="c1"># Assuming that template.vmx is currently on a powered off snapshot.</span>
 <span class="n">snapshot</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">snapshot_get_current</span><span class="p">()</span>
 
 <span class="c1"># This clone will be based of &#39;template.vmx&#39; at the specified snapshot.</span>
 <span class="c1"># Linked snapshots take less space...</span>
-<span class="n">cloned</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s1">&#39;~/cloned.vmx&#39;</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">=</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">cloned</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="s1">&#39;/path/to/my/cloned/vm.vmx&#39;</span><span class="p">,</span> <span class="n">snapshot</span><span class="o">=</span><span class="n">snapshot</span><span class="p">,</span> <span class="n">linked</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># Let fire up our cloned machine!</span>
 <span class="n">cloned</span><span class="o">.</span><span class="n">power_on</span><span class="p">()</span>
@@ -150,45 +203,77 @@ Well, you are in luck! VIX supports taking screenshots, this will require you to
 </div>
 </div>
 </div>
-</div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
-        </div>
-      </div>
-    <div class="clearer"></div>
-  </div>
-    <div class="footer">
-      &copy;2017, Naim A..
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+        <a href="vix.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
+  
 
-    
-    <a href="https://github.com/naim94a/vix" class="github">
-        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
-    </a>
-    
+  <hr/>
 
-    
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Naim A..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
     <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-11289087-19']);
-      _gaq.push(['_setDomainName', 'none']);
-      _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
     </script>
-    
-  </body>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>

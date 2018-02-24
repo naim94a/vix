@@ -1,113 +1,179 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>VIX Reference &#8212; vix 1.0.6 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0.6',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Tutorials" href="tutorials.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; vix  documentation</title>
+  
+
   
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
+  
 
-  </head>
-  <body>
-  <div class="document">
+  
+
+  
+  
     
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">vix</a></h1>
 
+  
 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
 
-<p class="blurb">The unofficial python binding for VIX</p>
+  
 
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="vix  documentation" href="index.html"/>
+        <link rel="prev" title="Tutorial" href="tutorials.html"/> 
 
+  
+  <script src="_static/js/modernizr.min.js"></script>
 
+</head>
 
-<p>
-<iframe src="https://ghbtns.com/github-btn.html?user=naim94a&repo=vix&type=watch&count=false&size=large&v=2"
-  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
-</p>
+<body class="wy-body-for-nav" role="document">
 
+   
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
 
+          
+            <a href="index.html" class="icon icon-home"> vix
+          
 
+          
+          </a>
 
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials.html#capturing-screens">Capturing screens</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials.html#cloning-machines">Cloning Machines</a></li>
-</ul>
-</li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">VIX Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#vixhost-class">VixHost class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vixvm-class">VixVM class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vixsnapshot-class">VixSnapshot class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vixerror-class">VixError class</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#vix-internal-classes">vix Internal classes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#vixhandle-class">VixHandle class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vixjob-class">VixJob class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vixbackend-class">VixBackend class</a></li>
-</ul>
-</li>
-</ul>
+          
+            
+            
+              <div class="version">
+                1.0.7
+              </div>
+            
+          
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="tutorials.html" title="previous chapter">Tutorials</a></li>
-  </ul></li>
-</ul>
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#vixhost">VixHost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vixvm">VixVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vixsnapshot">VixSnapshot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vixerror">VixError</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#internal-classes">Internal classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vixhandle">VixHandle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vixjob">VixJob</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vixbackend">VixBackend</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
         </div>
       </div>
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">vix</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
             
-  <div class="section" id="vix-reference">
-<h1>VIX Reference<a class="headerlink" href="#vix-reference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="vixhost-class">
-<h2>VixHost class<a class="headerlink" href="#vixhost-class" title="Permalink to this headline">¶</a></h2>
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="vixhost">
+<h2>VixHost<a class="headerlink" href="#vixhost" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="vix.VixHost">
 <em class="property">class </em><code class="descclassname">vix.</code><code class="descname">VixHost</code><span class="sig-paren">(</span><em>service_provider=1</em>, <em>host=None</em>, <em>credentials=None</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixHost" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents a VMware virtualization host.</p>
 <dl class="attribute">
 <dt id="vix.VixHost.VIX_SERVICEPROVIDER_DEFAULT">
@@ -261,12 +327,12 @@
 </dd></dl>
 
 </div>
-<div class="section" id="vixvm-class">
-<h2>VixVM class<a class="headerlink" href="#vixvm-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vixvm">
+<h2>VixVM<a class="headerlink" href="#vixvm" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="vix.VixVM">
 <em class="property">class </em><code class="descclassname">vix.</code><code class="descname">VixVM</code><span class="sig-paren">(</span><em>handle</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal notranslate"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
 <p>Represents a guest VM.</p>
 <dl class="attribute">
 <dt id="vix.VixVM.VIX_POWERSTATE_POWERING_OFF">
@@ -538,7 +604,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.pause">
-<code class="descname">pause</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.pause" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pause</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pauses the Virtual machine.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -548,7 +614,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.power_off">
-<code class="descname">power_off</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.power_off" title="Permalink to this definition">¶</a></dt>
+<code class="descname">power_off</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.power_off" title="Permalink to this definition">¶</a></dt>
 <dd><p>Powers off a VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -564,7 +630,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.power_on">
-<code class="descname">power_on</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.power_on" title="Permalink to this definition">¶</a></dt>
+<code class="descname">power_on</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.power_on" title="Permalink to this definition">¶</a></dt>
 <dd><p>Powers on a VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -580,7 +646,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.reset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets a virtual machine.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -596,7 +662,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.suspend">
-<code class="descname">suspend</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.suspend" title="Permalink to this definition">¶</a></dt>
+<code class="descname">suspend</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.suspend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Suspends a virtual machine.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -610,7 +676,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.unpause">
-<code class="descname">unpause</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.unpause" title="Permalink to this definition">¶</a></dt>
+<code class="descname">unpause</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.unpause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resumes execution of a paused virtual machine.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -784,7 +850,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.snapshot_revert">
-<code class="descname">snapshot_revert</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.snapshot_revert" title="Permalink to this definition">¶</a></dt>
+<code class="descname">snapshot_revert</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.snapshot_revert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Revet VM state to specified snapshot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -809,7 +875,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.snapshot_remove">
-<code class="descname">snapshot_remove</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.snapshot_remove" title="Permalink to this definition">¶</a></dt>
+<code class="descname">snapshot_remove</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.snapshot_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removed specified snapshot from VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -834,7 +900,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.copy_guest_to_host">
-<code class="descname">copy_guest_to_host</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_guest_to_host" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy_guest_to_host</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_guest_to_host" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies a file or directory from the VM to host.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -855,7 +921,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.copy_host_to_guest">
-<code class="descname">copy_host_to_guest</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_host_to_guest" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy_host_to_guest</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.copy_host_to_guest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies a file or directory from host to VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -876,7 +942,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.create_directory">
-<code class="descname">create_directory</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_directory" title="Permalink to this definition">¶</a></dt>
+<code class="descname">create_directory</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.create_directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a directory in the guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -918,7 +984,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.file_rename">
-<code class="descname">file_rename</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_rename" title="Permalink to this definition">¶</a></dt>
+<code class="descname">file_rename</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renames a file or directory in guest.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -943,7 +1009,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.dir_delete">
-<code class="descname">dir_delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dir_delete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.dir_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a directory in guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -963,7 +1029,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.file_delete">
-<code class="descname">file_delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">file_delete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.file_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a file in guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1077,7 +1143,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.proc_kill">
-<code class="descname">proc_kill</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_kill" title="Permalink to this definition">¶</a></dt>
+<code class="descname">proc_kill</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kills a process in guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1119,7 +1185,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.login">
-<code class="descname">login</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.login" title="Permalink to this definition">¶</a></dt>
+<code class="descname">login</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.login" title="Permalink to this definition">¶</a></dt>
 <dd><p>Login to the guest to allow further executions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1141,7 +1207,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.logout">
-<code class="descname">logout</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.logout" title="Permalink to this definition">¶</a></dt>
+<code class="descname">logout</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.logout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logout from guest. Closes any previous login context.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1159,7 +1225,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.proc_run">
-<code class="descname">proc_run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">proc_run</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.proc_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a process in guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1185,7 +1251,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.run_script">
-<code class="descname">run_script</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.run_script" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run_script</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.run_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a script in guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1211,7 +1277,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.add_shared_folder">
-<code class="descname">add_shared_folder</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.add_shared_folder" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_shared_folder</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.add_shared_folder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shares a folder with the guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1237,7 +1303,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.share_enable">
-<code class="descname">share_enable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_enable" title="Permalink to this definition">¶</a></dt>
+<code class="descname">share_enable</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_enable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enables/Disables shares between Host and guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1291,7 +1357,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.share_remove">
-<code class="descname">share_remove</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_remove" title="Permalink to this definition">¶</a></dt>
+<code class="descname">share_remove</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a share between host and guest VM.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1309,7 +1375,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.share_set_state">
-<code class="descname">share_set_state</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_set_state" title="Permalink to this definition">¶</a></dt>
+<code class="descname">share_set_state</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.share_set_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the state for an existing share.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1366,7 +1432,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.var_write">
-<code class="descname">var_write</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">var_write</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.var_write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes a string to the VM’s environment.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1392,7 +1458,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.upgrade_virtual_hardware">
-<code class="descname">upgrade_virtual_hardware</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.upgrade_virtual_hardware" title="Permalink to this definition">¶</a></dt>
+<code class="descname">upgrade_virtual_hardware</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.upgrade_virtual_hardware" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upgrades virtual hardware of a virtual machine.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1410,7 +1476,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.vm_delete">
-<code class="descname">vm_delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.vm_delete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">vm_delete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.vm_delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes VM from host.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1450,7 +1516,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.wait_for_tools">
-<code class="descname">wait_for_tools</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.wait_for_tools" title="Permalink to this definition">¶</a></dt>
+<code class="descname">wait_for_tools</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.wait_for_tools" title="Permalink to this definition">¶</a></dt>
 <dd><p>Waits for VMware tools to start in guest.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1466,7 +1532,7 @@
 
 <dl class="method">
 <dt id="vix.VixVM.install_tools">
-<code class="descname">install_tools</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.install_tools" title="Permalink to this definition">¶</a></dt>
+<code class="descname">install_tools</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixVM.install_tools" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the VMware tools install operation on guest.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1488,12 +1554,12 @@
 </dd></dl>
 
 </div>
-<div class="section" id="vixsnapshot-class">
-<h2>VixSnapshot class<a class="headerlink" href="#vixsnapshot-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vixsnapshot">
+<h2>VixSnapshot<a class="headerlink" href="#vixsnapshot" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="vix.VixSnapshot">
 <em class="property">class </em><code class="descclassname">vix.</code><code class="descname">VixSnapshot</code><span class="sig-paren">(</span><em>handle</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixSnapshot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal notranslate"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
 <p>Represents a VM’s snapshot</p>
 <dl class="attribute">
 <dt id="vix.VixSnapshot.name">
@@ -1594,12 +1660,12 @@
 </dd></dl>
 
 </div>
-<div class="section" id="vixerror-class">
-<h2>VixError class<a class="headerlink" href="#vixerror-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vixerror">
+<h2>VixError<a class="headerlink" href="#vixerror" title="Permalink to this headline">¶</a></h2>
 <dl class="exception">
 <dt id="vix.VixError">
 <em class="property">exception </em><code class="descclassname">vix.</code><code class="descname">VixError</code><span class="sig-paren">(</span><em>error_code</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <dl class="attribute">
 <dt id="vix.VixError.VIX_OK">
 <code class="descname">VIX_OK</code><em class="property"> = 0</em><a class="headerlink" href="#vix.VixError.VIX_OK" title="Permalink to this definition">¶</a></dt>
@@ -2944,20 +3010,19 @@
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="vix-internal-classes">
-<h1>vix Internal classes<a class="headerlink" href="#vix-internal-classes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="internal-classes">
+<h2>Internal classes<a class="headerlink" href="#internal-classes" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">These classes shouldn’t be normally dealt with.
 Using these classes directly may cause python to crash.</p>
 </div>
-<div class="section" id="vixhandle-class">
-<h2>VixHandle class<a class="headerlink" href="#vixhandle-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vixhandle">
+<h3>VixHandle<a class="headerlink" href="#vixhandle" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="vix.VixHandle.VixHandle">
 <em class="property">class </em><code class="descclassname">vix.VixHandle.</code><code class="descname">VixHandle</code><span class="sig-paren">(</span><em>handle</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixHandle.VixHandle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents a handle of the VIX library.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -3220,12 +3285,12 @@ Using these classes directly may cause python to crash.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="vixjob-class">
-<h2>VixJob class<a class="headerlink" href="#vixjob-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vixjob">
+<h3>VixJob<a class="headerlink" href="#vixjob" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="vix.VixJob.VixJob">
 <em class="property">class </em><code class="descclassname">vix.VixJob.</code><code class="descname">VixJob</code><span class="sig-paren">(</span><em>handle</em><span class="sig-paren">)</span><a class="headerlink" href="#vix.VixJob.VixJob" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#vix.VixHandle.VixHandle" title="vix.VixHandle.VixHandle"><code class="xref py py-class docutils literal notranslate"><span class="pre">vix.VixHandle.VixHandle</span></code></a></p>
 <p>Represnts a VIX Job handle.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -3451,12 +3516,12 @@ Using these classes directly may cause python to crash.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="vixbackend-class">
-<h2>VixBackend class<a class="headerlink" href="#vixbackend-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vixbackend">
+<h3>VixBackend<a class="headerlink" href="#vixbackend" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="vix.VixBackend.VixBackend">
 <em class="property">class </em><code class="descclassname">vix.VixBackend.</code><code class="descname">VixBackend</code><a class="headerlink" href="#vix.VixBackend.VixBackend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class creates the ffi and vix objects that will be used by other classes of this module.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -3484,44 +3549,76 @@ Using these classes directly may cause python to crash.</p>
 
 </div>
 </div>
+</div>
 
 
+           </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
-        </div>
-      </div>
-    <div class="clearer"></div>
-  </div>
-    <div class="footer">
-      &copy;2017, Naim A..
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+        <a href="tutorials.html" class="btn btn-neutral" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
+  
 
-    
-    <a href="https://github.com/naim94a/vix" class="github">
-        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
-    </a>
-    
+  <hr/>
 
-    
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Naim A..
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
     <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-11289087-19']);
-      _gaq.push(['_setDomainName', 'none']);
-      _gaq.push(['_setAllowLinker', true]);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
     </script>
-    
-  </body>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
 </html>
