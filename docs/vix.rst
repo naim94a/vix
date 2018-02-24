@@ -30,30 +30,29 @@ VixError
     :undoc-members:
     :show-inheritance:
 
---------------------
-vix Internal classes
---------------------
+Internal classes
+================
 
 .. warning:: These classes shouldn't be normally dealt with.
     Using these classes directly may cause python to crash.
 
 
 VixHandle
-=========
+^^^^^^^^^
 .. autoclass:: vix.VixHandle.VixHandle
     :members:
     :undoc-members:
     :show-inheritance:
 
 VixJob
-======
+^^^^^^
 .. autoclass:: vix.VixJob.VixJob
     :members:
     :undoc-members:
     :show-inheritance:
 
 VixBackend
-==========
+^^^^^^^^^^
 .. autoclass:: vix.VixBackend.VixBackend
     :members: _get_vix_path
     :undoc-members:

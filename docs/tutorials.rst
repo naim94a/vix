@@ -12,17 +12,17 @@ This example will demonstrate how to take screenshots from a VM every 10 seconds
 
 .. code-block:: python
 
-	import time
-	from vix import VixHost
+    import time
+    from vix import VixHost
 
-	host = VixHost()
-	vm = host.open_vm('/path/to/my/vm.vmx')
+    host = VixHost()
+    vm = host.open_vm('/path/to/my/vm.vmx')
 
-	# Must login to do some things...
-	vm.login('root', 'toor')
-	while True:
-		vm.capture_screen_image('/path/to/my/screenshot_{name}_{timestamp:.0f}.png'.format(name=vm.name, timestamp=time.time()))
-		time.sleep(10.0)
+    # Must login to do some things...
+    vm.login('root', 'toor')
+    while True:
+        vm.capture_screen_image('/path/to/my/screenshot_{name}_{timestamp:.0f}.png'.format(name=vm.name, timestamp=time.time()))
+        time.sleep(10.0)
 
 
 Cloning Machines
@@ -45,4 +45,4 @@ Cloning machines are usually a more useful action then capturing screenshots. It
     cloned = vm.clone('/path/to/my/cloned/vm.vmx', snapshot=snapshot, linked=True)
 
     # Let fire up our cloned machine!
-	cloned.power_on()
+    cloned.power_on()

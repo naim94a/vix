@@ -31,6 +31,7 @@ html_theme = 'sphinx_rtd_theme'
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_theme_options = {
     'display_version': True,
+    'analytics_id': 'UA-11289087-19',
 }
 
 html_show_sourcelink = False
