@@ -1,6 +1,9 @@
 VIX
 ===
 
+.. image:: https://img.shields.io/pypi/dm/vix.svg?style=plastic   :alt: PyPI - Downloads
+   :target: https://pypi.org/project/vix/
+
 VIX is a object oriented python wrapper for `VMware's VIX API`_.
 
 Installing
