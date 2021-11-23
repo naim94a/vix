@@ -1,6 +1,12 @@
 from __future__ import absolute_import
 
 import collections
+try:
+    # warns as of 3.3 and errors in 3.10
+    collections_abc = collections.abc
+except AttributeError:  # python <3.3
+    collections_abc = collections
+
 import platform
 import os
 import os.path
@@ -97,7 +103,7 @@ class VixHost(object):
         assert self._handle == None, 'Instance is already connected.'
 
         if service_provider in (self.VIX_SERVICEPROVIDER_VMWARE_VI_SERVER, self.VIX_SERVICEPROVIDER_VMWARE_WORKSTATION_SHARED):
-            if isinstance(host, collections.Sequence) and len(host) == 2 and host[1] != 0:
+            if isinstance(host, collections_abc.Sequence) and len(host) == 2 and host[1] != 0:
                 host = ('%s:%s' % host, 0)
 
             elif host is None and service_provider == self.VIX_SERVICEPROVIDER_VMWARE_WORKSTATION_SHARED:
@@ -110,7 +116,7 @@ class VixHost(object):
 
                 host = ('localhost:%d' % (int(ElementTree.parse(vmhostd_proxy_xml).getroot().find('httpsPort').text), ), 0)
 
-            assert credentials is not None and isinstance(credentials, collections.Sequence) and len(credentials) == 2 \
+            assert credentials is not None and isinstance(credentials, collections_abc.Sequence) and len(credentials) == 2 \
                    and credentials[0] is not None and credentials[1] is not None, \
                    'Null credentials blocks vix api.'
 
@@ -119,8 +125,8 @@ class VixHost(object):
         if not credentials:
             credentials = (None, None, )
 
-        assert isinstance(host, collections.Sequence) and len(host) == 2, 'Host must be a tuple of size 2'
-        assert isinstance(credentials, collections.Sequence) and len(credentials) == 2, 'Credentials must be a tuple of size 2'
+        assert isinstance(host, collections_abc.Sequence) and len(host) == 2, 'Host must be a tuple of size 2'
+        assert isinstance(credentials, collections_abc.Sequence) and len(credentials) == 2, 'Credentials must be a tuple of size 2'
 
         job = vix.VixHost_Connect(
             self._VIX_API_VERSION,
