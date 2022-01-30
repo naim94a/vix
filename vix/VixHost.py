@@ -23,8 +23,6 @@ def _find_items_callback(job_handle, event_type, event_info, client_data):
     .. note:: Internal use.
     """
 
-    VIX_EVENTTYPE_JOB_COMPLETED = 2
-    VIX_EVENTTYPE_JOB_PROGRESS = 3
     VIX_EVENTTYPE_FIND_ITEM = 8
 
     if event_type != VIX_EVENTTYPE_FIND_ITEM:

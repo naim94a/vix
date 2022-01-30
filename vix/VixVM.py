@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from multiprocessing import Event
 
 from .compat import _bytes, _str
 from .VixError import VixError
@@ -24,6 +25,45 @@ def _blocking_job(f):
 DirectoryListEntry = namedtuple('DirectoryListEntry', 'name size is_dir is_sym last_mod')
 ProcessListEntry = namedtuple('ProcessListEntry', 'name pid owner cmd is_debug start_time')
 SharedFolder = namedtuple('SharedFolder', 'name host_path write_access')
+Process = namedtuple('Process', 'pid exit_code elapsed_time')
+
+from threading import Event, Lock
+_proc_jobs_lock = Lock()
+_proc_jobs = dict()
+_idx = 1
+
+class _ProcJob():
+    pid = None
+    exit_code = None
+    elapsed_time = None
+
+    def __init__(self) -> None:
+        self._done_evt = Event()
+
+        global _proc_jobs_lock
+        _proc_jobs_lock.acquire(blocking=True)
+        global _idx
+        self._id = _idx
+        _idx += 1
+
+        global _proc_jobs
+        _proc_jobs[self._id] = self
+        _proc_jobs_lock.release()
+
+    def id(self):
+        return self._id
+
+    @staticmethod
+    def by_id(id):
+        global _proc_jobs
+        _proc_jobs_lock.acquire(blocking=True)
+        job = _proc_jobs.get(id)
+        _proc_jobs_lock.release()
+        return job
+
+    def wait(self):
+        self._done_evt.wait()
+
 
 class VixVM(VixHandle):
     """Represents a guest VM."""
@@ -817,30 +857,40 @@ class VixVM(VixHandle):
             ffi.cast('void*', 0),
         )
 
-    @_blocking_job
-    def proc_run(self, program_name, command_line=None, should_block=True):
+    def proc_run(self, program_name, command_line=None, should_block=True) -> Process:
         """Executes a process in guest VM.
 
         :param str program_name: Name of program to execute in guest.
         :param str command_line: Command line to execute program with.
-        :param bool should_block: If set to True, function will block until process exits in guest.
+        :param bool should_block: If set to True, function will block until process exits in guest. If set to False - the returned `_ProcJob` will not have the exit_code or elapsed_time set.
+
+        :returns: _ProcJob.
 
         :raises vix.VixError: On failure to execute process.
 
         .. note:: This method is not supported by all VMware products.
         """
 
-        return vix.VixVM_RunProgramInGuest(
+        pj = _ProcJob()
+
+        job = VixJob(vix.VixVM_RunProgramInGuest(
             self._handle,
             ffi.new('char[]', _bytes(program_name, API_ENCODING)),
             ffi.new('char[]', _bytes(command_line, API_ENCODING)) if command_line else ffi.cast('char*', 0),
             ffi.cast('VixRunProgramOptions', 0 if should_block else self._VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
             ffi.cast('VixHandle', 0),
-            ffi.cast('VixEventProc*', 0),
-            ffi.cast('void*', 0),
-        )
+            ffi.cast('VixEventProc*', _callback_handler),
+            ffi.cast('void*', pj.id()),
+        ))
+        pid = job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_ID)
 
-    @_blocking_job
+        if should_block:
+            pj.pid = pid
+            pj.wait()
+            return Process(pid, pj.exit_code, pj.elapsed_time)
+        else:
+            return Process(pid, None, None)
+
     def run_script(self, script_text, interpreter_path=None, should_block=True):
         """Executes a script in guest VM.
 
@@ -853,15 +903,24 @@ class VixVM(VixHandle):
         .. note:: This method is not supported by all VMware products.
         """
 
-        return vix.VixVM_RunScriptInGuest(
+        pj = _ProcJob()
+        job = VixJob(vix.VixVM_RunScriptInGuest(
             self._handle,
             ffi.new('char[]', _bytes(interpreter_path, API_ENCODING)) if interpreter_path else ffi.cast('char*', 0),
             ffi.new('char[]', _bytes(script_text, API_ENCODING)),
             ffi.cast('VixRunProgramOptions', 0 if should_block else self._VIX_RUNPROGRAM_RETURN_IMMEDIATELY),
             ffi.cast('VixHandle', 0),
-            ffi.cast('VixEventProc*', 0),
-            ffi.cast('void*', 0),
-        )
+            ffi.cast('VixEventProc*', _callback_handler),
+            ffi.cast('void*', pj.id()),
+        ))
+        pid = job.wait(VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_ID)
+
+        if should_block:
+            pj.pid = pid
+            pj.wait()
+            return Process(pid, pj.exit_code, pj.elapsed_time)
+        else:
+            return Process(pid, None, None)
 
     # Share mgmt.
     @_blocking_job
@@ -1161,3 +1220,36 @@ class VixVM(VixHandle):
 
     def __del__(self):
         self.release()
+
+@_backend._ffi.callback('VixEventProc')
+def _callback_handler(a, event_type, props, d):
+    from .VixHandle import VixHandle
+
+    VIX_EVENTTYPE_JOB_COMPLETED = 2
+    VIX_EVENTTYPE_JOB_PROGRESS = 3
+
+    handle = VixHandle(a)
+    job_id = int(ffi.cast('size_t', d))
+    job = _ProcJob.by_id(job_id)
+    if not job:
+        raise ValueError('Got callback event for non-existent job')
+
+    if event_type == VIX_EVENTTYPE_JOB_PROGRESS:
+        pass
+    elif event_type == VIX_EVENTTYPE_JOB_COMPLETED:
+        props = handle.get_properties(
+            VixJob.VIX_PROPERTY_JOB_RESULT_PROCESS_ID,
+            VixJob.VIX_PROPERTY_JOB_RESULT_GUEST_PROGRAM_EXIT_CODE, 
+            VixJob.VIX_PROPERTY_JOB_RESULT_GUEST_PROGRAM_ELAPSED_TIME
+        )
+        if job.pid:
+            assert job.pid == props[0], 'job pid has changed'
+        job.pid = props[0]
+        job.exit_code = props[1]
+        job.elapsed_time = props[2]
+        _proc_jobs_lock.acquire(True)
+        _proc_jobs.pop(job_id)
+        _proc_jobs_lock.release()
+        job._done_evt.set()
+    else:
+        raise ValueError(f"Unexpected VIX_EVENTTYPE_JOB ({event_type})")
