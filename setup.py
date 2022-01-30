@@ -39,7 +39,7 @@ setup(
         'Topic :: System :: Systems Administration',
     ],
     install_requires=[
-        'cffi>=1.8.2',
+        'cffi>=1.15',
         'six',
     ],
     keywords='vmware python api vix',
